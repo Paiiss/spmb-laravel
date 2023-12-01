@@ -1,0 +1,310 @@
+<script setup>
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import Combobox from "@/Components/Combobox.vue";
+import DateInput from "@/Components/DateInput.vue";
+import { Link, useForm, usePage } from "@inertiajs/vue3";
+
+defineProps({
+    mustVerifyEmail: {
+        type: Boolean,
+    },
+    status: {
+        type: String,
+    },
+});
+
+const user = usePage().props.auth.user;
+
+const form = useForm({
+    name: user.name,
+    email: user.email,
+    gender: "",
+    religion: "",
+    birth_date: "",
+    birth_place_city: "",
+    birth_place_province: "",
+    birth_place_country: "",
+    national_id: "",
+});
+
+const form_disabilitas = useForm({
+    is_color_blind: null,
+    is_disability: null,
+    disability_note: "",
+});
+
+const form_address = useForm({
+    address: "",
+    city: "",
+    province: "",
+    country: "",
+    subdistrict: "",
+    postal_code: "",
+    rt: "",
+    rw: "",
+});
+
+const form_contact = useForm({
+    phone_number: "",
+    phone_number_alt: "",
+});
+
+const form_education = useForm({
+    last_education: "",
+    education_number: "",
+    education_name: "",
+    education_city: "",
+    education_province: "",
+    education_subdistrict: "",
+    education_country: "",
+    education_postal_code: "",
+    education_graduation_year: "",
+    education_major: "",
+    education_grade: "",
+});
+
+const form_parent = useForm({
+    father_name: "",
+    father_birth_date: "",
+    father_place: "",
+    father_last_education: "",
+    father_job: "",
+    father_phone: "",
+    father_email: "",
+    mother_name: "",
+    mother_birth_date: "",
+    mother_place: "",
+    mother_last_education: "",
+    mother_job: "",
+    mother_email: "",
+    mother_phone: "",
+    guardian_name: "",
+    guardian_birth_date: "",
+    guardian_place: "",
+    guardian_last_education: "",
+    guardian_job: "",
+    guardian_email: "",
+    guardian_phone: "",
+});
+</script>
+
+<template>
+    <section>
+        <header>
+            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                Personal Information
+            </h2>
+
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                Update data diri personal anda.
+            </p>
+        </header>
+
+        <form
+            @submit.prevent="form.patch(route('profile.update'))"
+            class="mt-6 space-y-6"
+        >
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="col-span-2">
+                    <InputLabel for="name" value="Name" />
+
+                    <TextInput
+                        id="name"
+                        type="text"
+                        class="mt-1 block w-full hover:cursor-not-allowed"
+                        v-model="form.name"
+                        required
+                        autofocus
+                        disabled
+                        autocomplete="name"
+                    />
+
+                    <InputError class="mt-2" :message="form.errors.name" />
+                </div>
+
+                <div class="col-span-2">
+                    <InputLabel for="email" value="Email" />
+
+                    <TextInput
+                        id="email"
+                        type="email"
+                        class="mt-1 block w-full hover:cursor-not-allowed"
+                        v-model="form.email"
+                        required
+                        disabled
+                        autocomplete="email"
+                    />
+
+                    <InputError class="mt-2" :message="form.errors.email" />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel for="gender" value="Gender" />
+
+                    <Combobox
+                        id="gender"
+                        class="mt-1 block w-full"
+                        v-model="form.gender"
+                        autocomplete="sex"
+                        :option-value="[
+                            { value: 'Male', text: 'Laki-laki' },
+                            { value: 'Female', text: 'Wanita' },
+                        ]"
+                    />
+                    <InputError class="mt-2" :message="form.errors.gender" />
+                </div>
+                <div class="col-span-1">
+                    <InputLabel for="religion" value="Religion" />
+
+                    <Combobox
+                        id="religion"
+                        class="mt-1 block w-full"
+                        v-model="form.religion"
+                        autocomplete="religion"
+                        :option-value="[
+                            { value: 'Islam', text: 'Islam' },
+                            { value: 'Kristen', text: 'Kristen' },
+                            { value: 'Hindu', text: 'Hindu' },
+                            { value: 'Buddha', text: 'Buddha' },
+                            { value: 'Khonghucu', text: 'Khonghucu' },
+                        ]"
+                    />
+                    <InputError class="mt-2" :message="form.errors.religion" />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel for="birth_date" value="Birth Date" />
+
+                    <DateInput
+                        id="birth_date"
+                        class="mt-1 block w-full"
+                        v-model="form.birth_date"
+                        autocomplete="bday"
+                    />
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.birth_date"
+                    />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel
+                        for="birth_place_city"
+                        value="Birth place city"
+                    />
+
+                    <TextInput
+                        id="birth_place_city"
+                        class="mt-1 block w-full"
+                        v-model="form.birth_place_city"
+                        required
+                        autocomplete="address-level2"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.birth_place_city"
+                    />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel
+                        for="birth_place_province"
+                        value="Birth place province"
+                    />
+
+                    <TextInput
+                        id="birth_place_province"
+                        class="mt-1 block w-full"
+                        v-model="form.birth_place_province"
+                        required
+                        autocomplete="address-level1"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.birth_place_province"
+                    />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel
+                        for="birth_place_country"
+                        value="Birth place country"
+                    />
+
+                    <TextInput
+                        id="birth_place_country"
+                        class="mt-1 block w-full"
+                        v-model="form.birth_place_country"
+                        required
+                        autocomplete="country"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.birth_place_country"
+                    />
+                </div>
+
+                <div class="col-span-2">
+                    <InputLabel for="national_id" value="National ID / KTP" />
+
+                    <TextInput
+                        id="national_id"
+                        class="mt-1 block w-full"
+                        v-model="form.national_id"
+                        required
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.national_id"
+                    />
+                </div>
+            </div>
+
+            <div v-if="mustVerifyEmail && user.email_verified_at === null">
+                <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
+                    Your email address is unverified.
+                    <Link
+                        :href="route('verification.send')"
+                        method="post"
+                        as="button"
+                        class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                    >
+                        Click here to re-send the verification email.
+                    </Link>
+                </p>
+
+                <div
+                    v-show="status === 'verification-link-sent'"
+                    class="mt-2 font-medium text-sm text-green-600 dark:text-green-400"
+                >
+                    A new verification link has been sent to your email address.
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-4">
+                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+
+                <Transition
+                    enter-active-class="transition ease-in-out"
+                    enter-from-class="opacity-0"
+                    leave-active-class="transition ease-in-out"
+                    leave-to-class="opacity-0"
+                >
+                    <p
+                        v-if="form.recentlySuccessful"
+                        class="text-sm text-gray-600 dark:text-gray-400"
+                    >
+                        Saved.
+                    </p>
+                </Transition>
+            </div>
+        </form>
+    </section>
+</template>

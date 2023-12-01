@@ -1,0 +1,274 @@
+<script setup>
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import Combobox from "@/Components/Combobox.vue";
+import { Link, useForm, usePage } from "@inertiajs/vue3";
+
+defineProps({
+    mustVerifyEmail: {
+        type: Boolean,
+    },
+    status: {
+        type: String,
+    },
+});
+
+// const user = usePage().props.auth.user;
+
+const form = useForm({
+    last_education: "",
+    education_number: "",
+    education_name: "",
+    education_city: "",
+    education_province: "",
+    education_subdistrict: "",
+    education_country: "",
+    education_postal_code: "",
+    education_graduation_year: "",
+    education_major: "",
+    education_grade: "",
+});
+</script>
+
+<template>
+    <section>
+        <header>
+            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                Education
+            </h2>
+
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                Update your education information.
+            </p>
+        </header>
+
+        <form @submit.prevent="form.patch(route(''))" class="mt-6 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="col-span-1">
+                    <InputLabel for="last_education" value="Last education" />
+
+                    <TextInput
+                        id="last_education"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.last_education"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.last_education"
+                    />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel for="education_number" value="Number edu" />
+
+                    <TextInput
+                        id="education_number"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.education_number"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.education_number"
+                    />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel for="education_name" value="Education name" />
+
+                    <TextInput
+                        id="education_name"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.education_name"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.education_name"
+                    />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel for="education_city" value="City" />
+
+                    <TextInput
+                        id="education_city"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.education_city"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.education_city"
+                    />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel for="education_province" value="Province" />
+
+                    <TextInput
+                        id="education_province"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.education_province"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.education_province"
+                    />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel
+                        for="education_subdistrict"
+                        value="Subdistrict"
+                    />
+
+                    <TextInput
+                        id="education_subdistrict"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.education_subdistrict"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.education_subdistrict"
+                    />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel for="education_country" value="Country" />
+
+                    <TextInput
+                        id="education_country"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.education_country"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.education_country"
+                    />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel
+                        for="education_postal_code"
+                        value="Postal code"
+                    />
+
+                    <TextInput
+                        id="education_postal_code"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.education_postal_code"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.education_postal_code"
+                    />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel
+                        for="education_graduation_year"
+                        value="Graduation year"
+                    />
+
+                    <TextInput
+                        id="education_graduation_year"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.education_graduation_year"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.education_graduation_year"
+                    />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel for="education_major" value="Major" />
+
+                    <TextInput
+                        id="education_major"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.education_major"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.education_major"
+                    />
+                </div>
+
+                <div class="col-span-1">
+                    <InputLabel for="education_grade" value="Grade" />
+
+                    <TextInput
+                        id="education_grade"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.education_grade"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.education_grade"
+                    />
+                </div>
+
+                <!-- <div class="col-span-2">
+                    <InputLabel for="is_disability" value="Disability" />
+
+                    <Combobox
+                        id="is_disability"
+                        class="mt-1 block w-full"
+                        v-model="form.is_disability"
+                        :option-value="[
+                            { value: true, text: 'Yes' },
+                            { value: false, text: 'No' },
+                            { value: null, text: 'Select' },
+                        ]"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.is_disability"
+                    />
+                </div> -->
+            </div>
+
+            <div class="flex justify-end gap-4">
+                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+
+                <Transition
+                    enter-active-class="transition ease-in-out"
+                    enter-from-class="opacity-0"
+                    leave-active-class="transition ease-in-out"
+                    leave-to-class="opacity-0"
+                >
+                    <p
+                        v-if="form.recentlySuccessful"
+                        class="text-sm text-gray-600 dark:text-gray-400"
+                    >
+                        Saved.
+                    </p>
+                </Transition>
+            </div>
+        </form>
+    </section>
+</template>

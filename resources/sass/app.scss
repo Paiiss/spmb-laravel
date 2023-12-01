@@ -1,0 +1,30 @@
+::-webkit-scrollbar {
+    width: 5px;
+    height: 2px;
+}
+
+::-webkit-scrollbar {
+    background-color: transparent;
+}
+::-webkit-scrollbar-track {
+    display: none;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #7986cb;
+    border-radius: 0.75rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #7986cb;
+}
+
+.v-slide-group__prev {
+    display: none !important;
+}
+
+// for FontAwesome v6+
+$fa-font-path: "~fontawesome/webfonts";
+@import "~fontawesome/scss/fontawesome";
+@import "~fontawesome/scss/brands";
+@import "~fontawesome/scss/solid";
