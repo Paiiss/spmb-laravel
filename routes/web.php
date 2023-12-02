@@ -48,6 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/form', [FormController::class, 'edit'])->name('form.edit');
+    Route::patch('/form', [FormController::class, 'update'])->name('form.update');
 });
 
 require __DIR__ . '/auth.php';
