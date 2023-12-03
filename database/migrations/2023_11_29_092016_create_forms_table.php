@@ -90,7 +90,7 @@ return new class extends Migration
             $table->foreignId('affiliate_id')->nullable()->constrained('affiliates')->cascadeOnDelete()->cascadeOnUpdate();
 
             // Status
-            $table->string('registration_wave')->nullable();
+            $table->string('registration_waves')->nullable();
             $table->boolean('is_lock')->default(false);
             $table->boolean('is_submitted')->default(false);
             $table->boolean('is_accepted')->default(false);
