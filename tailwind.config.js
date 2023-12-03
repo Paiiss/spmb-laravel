@@ -14,7 +14,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+                sans: ["Quicksand", ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 primary: {
@@ -33,13 +33,35 @@ export default {
                     light: "#FF2E63",
                 },
                 background: {
-                    DEFAULT: "#93D2DF",
-                    dark: "#8DB7BF",
-                    light: "#9AEEFF",
+                    DEFAULT: "#21B1A1",
+                    dark: "#4A9C93",
+                    light: "#21B1A1",
                 },
             },
         },
     },
+
+    /* 
+    COLOR PALETTE NEW PRIMARY
+    #14B8A6
+    20, 184, 166
+    #21B1A1
+    33, 177, 161
+    #2FAA9C
+    47, 170, 156
+    #3CA398
+    60, 163, 152
+
+    DARK
+    #4A9C93
+    74, 156, 147
+    #57958E
+    87, 149, 142
+    #658E89
+    101, 142, 137
+    #728784
+    114, 135, 132
+    */
 
     /* COLOR PALETTE PRIMARY
     #9AEEFF
