@@ -17,78 +17,22 @@ defineProps({
 });
 
 const user = usePage().props.auth.user;
+const form_data = usePage().props.form;
 
 const form = useForm({
     name: user.name,
     email: user.email,
-    gender: "",
-    religion: "",
-    birth_date: "",
-    birth_place_city: "",
-    birth_place_province: "",
-    birth_place_country: "",
-    national_id: "",
-});
-
-const form_disabilitas = useForm({
-    is_color_blind: null,
-    is_disability: null,
-    disability_note: "",
-});
-
-const form_address = useForm({
-    address: "",
-    city: "",
-    province: "",
-    country: "",
-    subdistrict: "",
-    postal_code: "",
-    rt: "",
-    rw: "",
-});
-
-const form_contact = useForm({
-    phone_number: "",
-    phone_number_alt: "",
-});
-
-const form_education = useForm({
-    last_education: "",
-    education_number: "",
-    education_name: "",
-    education_city: "",
-    education_province: "",
-    education_subdistrict: "",
-    education_country: "",
-    education_postal_code: "",
-    education_graduation_year: "",
-    education_major: "",
-    education_grade: "",
-});
-
-const form_parent = useForm({
-    father_name: "",
-    father_birth_date: "",
-    father_place: "",
-    father_last_education: "",
-    father_job: "",
-    father_phone: "",
-    father_email: "",
-    mother_name: "",
-    mother_birth_date: "",
-    mother_place: "",
-    mother_last_education: "",
-    mother_job: "",
-    mother_email: "",
-    mother_phone: "",
-    guardian_name: "",
-    guardian_birth_date: "",
-    guardian_place: "",
-    guardian_last_education: "",
-    guardian_job: "",
-    guardian_email: "",
-    guardian_phone: "",
-});
+    gender: form_data.gender,
+    religion: form_data.religion,
+    birth_date: form_data.birth_date,
+    birth_place_city: form_data.birth_place_city,
+    birth_place_province: form_data.birth_place_province,
+    birth_place_country: form_data.birth_place_country,
+    national_id: `${form_data.national_id}`,
+}).transform((data) => ({
+    ...data,
+    national_id: data.national_id ? parseInt(data.national_id) : null,
+}));
 </script>
 
 <template>
@@ -104,7 +48,7 @@ const form_parent = useForm({
         </header>
 
         <form
-            @submit.prevent="form.patch(route('profile.update'))"
+            @submit.prevent="form.patch(route('form.update'))"
             class="mt-6 space-y-6"
         >
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -256,8 +200,9 @@ const form_parent = useForm({
                     <TextInput
                         id="national_id"
                         class="mt-1 block w-full"
-                        v-model="form.national_id"
                         required
+                        type="number"
+                        v-model="form.national_id"
                     />
 
                     <InputError
@@ -289,8 +234,6 @@ const form_parent = useForm({
             </div>
 
             <div class="flex justify-end gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
-
                 <Transition
                     enter-active-class="transition ease-in-out"
                     enter-from-class="opacity-0"
@@ -299,11 +242,12 @@ const form_parent = useForm({
                 >
                     <p
                         v-if="form.recentlySuccessful"
-                        class="text-sm text-gray-600 dark:text-gray-400"
+                        class="text-sm text-gray-600 dark:text-gray-400 items-center flex gap-2"
                     >
                         Saved.
                     </p>
                 </Transition>
+                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
             </div>
         </form>
     </section>
