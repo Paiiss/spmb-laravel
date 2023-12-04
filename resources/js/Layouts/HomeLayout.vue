@@ -1,0 +1,176 @@
+<script setup>
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import { Link } from "@inertiajs/vue3";
+import { ref } from "vue";
+import NavLink from "@/Components/NavLink.vue";
+import NavLinkBtn from "@/Components/NavLinkBtn.vue";
+import Dropdown from "@/Components/Dropdown.vue";
+import DropdownLink from "@/Components/DropdownLink.vue";
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
+
+defineProps({
+    canLogin: {
+        type: Boolean,
+    },
+});
+
+const showingNavigationDropdown = ref(false);
+</script>
+
+<template>
+    <div>
+        <div class="flex flex-col min-h-screen">
+            <nav
+                class="bg-background-light dark:bg-background-dark border-b border-gray-100 dark:border-gray-700 sticky top-0 z-40 shadow-md"
+            >
+                <!-- Primary Navigation Menu -->
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between h-16">
+                        <div class="flex flex-row">
+                            <!-- Logo -->
+                            <div class="flex-shrink-0 flex items-center gap-3">
+                                <Link href="/">
+                                    <ApplicationLogo class="block h-9 w-auto" />
+                                </Link>
+                                <h1
+                                    class="border-l-2 text-lg inline-flex items-center font-bold text-white px-3 leading-relaxed"
+                                >
+                                    PMB 2024/2025
+                                </h1>
+                            </div>
+
+                            <!-- Navigation Links -->
+                            <!-- <div
+                                class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
+                            >
+                                <NavLink
+                                    class="text-white dark:text-white font-bold"
+                                >
+                                    Dashboard
+                                </NavLink>
+                                <NavLink
+                                    class="text-white dark:text-white font-bold"
+                                >
+                                    Repu
+                                </NavLink>
+                                <NavLink
+                                    class="text-white dark:text-white font-bold"
+                                >
+                                    About
+                                </NavLink>
+                            </div> -->
+                        </div>
+
+                        <div class="hidden sm:flex sm:items-center sm:ms-6">
+                            <div class="flex justify-center gap-2">
+                                <Link
+                                    :href="route('login')"
+                                    class="inline-flex items-center px-2 py-1 border-transparent uppercase text-white font-bold bg-teal-400 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
+                                >
+                                    <i
+                                        class="fa-solid fa-user-graduate pr-2"
+                                    ></i>
+                                    masuk
+                                </Link>
+                                <Link
+                                    :href="route('register')"
+                                    class="inline-flex items-center px-2 py-1 border-transparent uppercase text-teal-400 ring-1 ring-teal-400 font-bold bg-teal-50 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
+                                >
+                                    <i
+                                        class="fa-solid fa-right-to-bracket pr-2"
+                                    ></i
+                                    >daftar</Link
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Hamburger Start -->
+                        <div class="-me-2 flex items-center sm:hidden">
+                            <button
+                                @click="
+                                    showingNavigationDropdown =
+                                        !showingNavigationDropdown
+                                "
+                                class="inline-flex items-center justify-center p-2 rounded-md text-white dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out"
+                            >
+                                <svg
+                                    class="h-6 w-6"
+                                    stroke="currentColor"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        :class="{
+                                            hidden: showingNavigationDropdown,
+                                            'inline-flex':
+                                                !showingNavigationDropdown,
+                                        }"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M4 6h16M4 12h16M4 18h16"
+                                    />
+                                    <path
+                                        :class="{
+                                            hidden: !showingNavigationDropdown,
+                                            'inline-flex':
+                                                showingNavigationDropdown,
+                                        }"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Responsive Navigation Menu -->
+                <div
+                    :class="{
+                        block: showingNavigationDropdown,
+                        hidden: !showingNavigationDropdown,
+                    }"
+                    class="sm:hidden"
+                >
+                    <div v-if="!canLogin" class="pt-2 pb-3 space-y-1 px-4">
+                        <ResponsiveNavLink
+                            :href="route('login')"
+                            class="text-white dark:text-white font-bold rounded-lg bg-teal-400 dark:bg-teal-500"
+                            ><i class="fa-solid fa-user-graduate pr-2"></i>
+                            Masuk
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('register')"
+                            class="text-white dark:text-white font-bold rounded-lg bg-teal-400 dark:bg-teal-500"
+                            ><i class="fa-solid fa-right-to-bracket pr-2"></i>
+                            Daftar
+                        </ResponsiveNavLink>
+                    </div>
+                    <div v-else class="pt-2 pb-3 space-y-1 px-4">
+                        <ResponsiveNavLink
+                            :href="route('dashboard')"
+                            class="text-white dark:text-white font-bold rounded-lg"
+                            >Dashboard
+                        </ResponsiveNavLink>
+                    </div>
+                </div>
+            </nav>
+            <main class="w-full mb-auto">
+                <slot />
+            </main>
+
+            <!-- Footer start -->
+            <footer class="pt-16 col-end-1">
+                <div class="container mx-auto"></div>
+                <div
+                    class="text-xs font-bold tracking-wide max-w-7xl mx-auto text-center py-6"
+                >
+                    <p>&copy; 2023 Universitas Hang Tuah Pekanbaru.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+</template>
