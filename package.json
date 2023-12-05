@@ -20,6 +20,8 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.5.0",
+        "jquery": "^3.7.1",
+        "owl.carousel": "^2.3.4",
         "sass": "^1.69.5"
     }
 }
