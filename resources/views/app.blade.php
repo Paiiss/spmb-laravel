@@ -15,6 +15,8 @@
         <link rel="icon" href="{{ asset('build/images/htp.ico') }}" type="image/x-icon">
         <link rel="shortcut icon" href="{{ asset('build/images/htp.ico') }}" type="image/x-icon">
 
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
         <!-- Scripts -->
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue", 'resources/sass/app.scss'])
