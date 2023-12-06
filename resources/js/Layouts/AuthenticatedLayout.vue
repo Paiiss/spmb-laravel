@@ -5,7 +5,7 @@ import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -21,11 +21,14 @@ const showingNavigationDropdown = ref(false);
                     <div class="flex justify-between h-16">
                         <div class="flex">
                             <!-- Logo -->
-                            <div class="shrink-0 flex items-center">
+                            <div
+                                class="shrink-0 flex items-center text-black dark:text-white text-2xl font-bold leading-7"
+                            >
                                 <Link :href="route('dashboard')">
-                                    <ApplicationLogo
-                                        class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200"
-                                    />
+                                    <!-- <ApplicationLogo
+                                        class="block h-12 w-auto fill-current text-gray-800 dark:text-gray-200"
+                                    /> -->
+                                    HTP
                                 </Link>
                             </div>
 
@@ -38,6 +41,12 @@ const showingNavigationDropdown = ref(false);
                                     :active="route().current('dashboard')"
                                 >
                                     Dashboard
+                                </NavLink>
+                                <NavLink
+                                    :href="route('form.edit')"
+                                    :active="route().current('form.edit')"
+                                >
+                                    Form
                                 </NavLink>
                             </div>
                         </div>
@@ -145,6 +154,12 @@ const showingNavigationDropdown = ref(false);
                             :active="route().current('dashboard')"
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('form.edit')"
+                            :active="route().current('form.edit')"
+                        >
+                            Form
                         </ResponsiveNavLink>
                     </div>
 

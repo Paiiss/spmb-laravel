@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 defineProps({
     user: {
@@ -15,7 +15,7 @@ defineProps({
 });
 
 const goToForm = () => {
-    return route("form");
+    return route("form.edit");
 };
 </script>
 
@@ -47,10 +47,10 @@ const goToForm = () => {
                         </p>
                         <p v-else>Silahkan lanjut mengisi form pendaftaran.</p>
                         <div class="flex justify-start mt-4">
-                            <PrimaryButton @click="goToForm"
-                                >{{
+                            <PrimaryButton
+                                ><Link :href="route('form.edit')">{{
                                     isAlreadyForm ? "Lanjut" : "Bikin formulir"
-                                }}
+                                }}</Link>
                             </PrimaryButton>
                         </div>
                     </div>

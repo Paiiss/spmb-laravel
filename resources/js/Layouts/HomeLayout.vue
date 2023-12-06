@@ -21,7 +21,7 @@ const showingNavigationDropdown = ref(false);
     <div>
         <div class="flex flex-col min-h-screen">
             <nav
-                class="bg-background-light dark:bg-background-dark border-b border-gray-100 dark:border-gray-700 sticky top-0 z-40 shadow-md"
+                class="bg-background-light dark:bg-background-dark sticky top-0 z-40 shadow-md"
             >
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,7 +65,7 @@ const showingNavigationDropdown = ref(false);
                             <div class="flex justify-center gap-2">
                                 <Link
                                     :href="route('login')"
-                                    class="inline-flex items-center px-2 py-1 border-transparent uppercase text-white font-bold bg-teal-400 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
+                                    class="inline-flex items-center px-1.5 py-0.5 border-transparent uppercase text-white font-bold bg-teal-400 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
                                 >
                                     <i
                                         class="fa-solid fa-user-graduate pr-2"
@@ -74,7 +74,7 @@ const showingNavigationDropdown = ref(false);
                                 </Link>
                                 <Link
                                     :href="route('register')"
-                                    class="inline-flex items-center px-2 py-1 border-transparent uppercase text-teal-400 ring-1 ring-teal-400 font-bold bg-teal-50 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
+                                    class="inline-flex items-center px-1.5 py-0.5 border-transparent uppercase text-teal-400 font-bold bg-teal-50 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
                                 >
                                     <i
                                         class="fa-solid fa-right-to-bracket pr-2"
@@ -158,17 +158,103 @@ const showingNavigationDropdown = ref(false);
                     </div>
                 </div>
             </nav>
-            <main class="w-full mb-auto">
+            <main class="flex-grow w-full">
                 <slot />
             </main>
 
             <!-- Footer start -->
-            <footer class="pt-16 col-end-1">
-                <div class="container mx-auto"></div>
+            <footer class="pt-16 col-end-1 bg-background-light text-white">
+                <div class="container mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-3 p-4 gap-6">
+                        <div>
+                            <h3
+                                class="text-white font-bold text-lg border-b-2 border-white pb-2 mb-2"
+                            >
+                                Universitas Hang Tuah Pekanbaru
+                            </h3>
+                            <ul class="list-disc list-inside text-gray-300">
+                                <li>Perguruan Tinggi di Pekanbaru</li>
+                                <li>Tenaga Pengajar yang Mumpuni</li>
+                                <li>Fasilitas Lengkap</li>
+                                <li>
+                                    Lokasi Kampus Strategis di Tengah Perkotaan
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-bold text-lg">
+                                Akademik
+                            </h3>
+                            <ul
+                                class="list-disc list-inside text-white capitalize"
+                            >
+                                <li>
+                                    <Link
+                                        class="hover:text-gray-300"
+                                        href="https://siakadm.htp.ac.id/"
+                                        >Sistem informasi Administrasi
+                                        Akademik</Link
+                                    >
+                                </li>
+                                <li>
+                                    <Link
+                                        class="hover:text-gray-300"
+                                        href="https://spmb.htp.ac.id/"
+                                        >Sistem Pendaftaran Mahasiswa Baru</Link
+                                    >
+                                </li>
+                                <li>
+                                    <Link
+                                        class="hover:text-gray-300"
+                                        href="https://tracer.htp.ac.id/"
+                                        >Tracer Study</Link
+                                    >
+                                </li>
+                                <li>
+                                    <Link
+                                        class="hover:text-gray-300"
+                                        href="https://survei.htp.ac.id/"
+                                        >Survey</Link
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-bold text-lg">Kontak</h3>
+                            <ul class="list-none">
+                                <li>
+                                    <i
+                                        class="fa-solid fa-location-dot pr-2"
+                                    ></i>
+                                    Jl. Mustafa Sari No.5, Tengkerang Sel., Kec.
+                                    Bukit Raya, Kota Pekanbaru, Riau 28281
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-envelope pr-2"></i>
+                                    stikes.hangtuah@gmail.com
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-phone pr-2"></i>+ 0761
+                                    33815
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-print pr-2"></i>+ 0761
+                                    33815
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 <div
-                    class="text-xs font-bold tracking-wide max-w-7xl mx-auto text-center py-6"
+                    class="text-xs md:text-sm font-bold tracking-wide max-w-7xl mx-auto text-center py-6"
                 >
-                    <p>&copy; 2023 Universitas Hang Tuah Pekanbaru.</p>
+                    <p>
+                        &copy; 2023
+                        <a href="https://htp.ac.id/" class="hover:text-teal-500"
+                            >University Hang Tuah Pekanbaru.</a
+                        >
+                        <span>Created by pais hehe</span>
+                    </p>
                 </div>
             </footer>
         </div>

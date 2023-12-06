@@ -99,12 +99,6 @@ const getFieldId = (role, field) => {
 const capitalize = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
-
-/* const type = new Map({
-    father: "Father",
-    mother: "Mother",
-    guardian: "Guardian",   
-}); */
 </script>
 
 <template>

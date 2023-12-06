@@ -6,30 +6,28 @@ import TextInput from "@/Components/TextInput.vue";
 import Combobox from "@/Components/Combobox.vue";
 import { Link, useForm, usePage } from "@inertiajs/vue3";
 
-defineProps({
-    mustVerifyEmail: {
-        type: Boolean,
-    },
-    status: {
-        type: String,
-    },
-});
-
-// const user = usePage().props.auth.user;
-
+const from_data = usePage().props.form;
 const form = useForm({
-    last_education: "",
-    education_number: "",
-    education_name: "",
-    education_city: "",
-    education_province: "",
-    education_subdistrict: "",
-    education_country: "",
-    education_postal_code: "",
-    education_graduation_year: "",
-    education_major: "",
-    education_grade: "",
-});
+    last_education: from_data.last_education || "",
+    education_number: from_data.education_number || "",
+    education_name: from_data.education_name || "",
+    education_city: from_data.education_city || "",
+    education_province: from_data.education_province || "",
+    education_subdistrict: from_data.education_subdistrict || "",
+    education_country: from_data.education_country || "",
+    education_postal_code: from_data.education_postal_code || "",
+    education_graduation_year: from_data.education_graduation_year || "",
+    education_major: from_data.education_major || "",
+    education_grade: from_data.education_grade || "",
+}).transform((data) => ({
+    ...data,
+    education_number: data.education_number
+        ? parseInt(data.education_number)
+        : null,
+    education_postal_code: data.education_postal_code
+        ? parseInt(data.education_postal_code)
+        : null,
+}));
 </script>
 
 <template>
@@ -44,7 +42,10 @@ const form = useForm({
             </p>
         </header>
 
-        <form @submit.prevent="form.patch(route(''))" class="mt-6 space-y-6">
+        <form
+            @submit.prevent="form.patch(route('form.edit'))"
+            class="mt-6 space-y-6"
+        >
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div class="col-span-1">
                     <InputLabel for="last_education" value="Last education" />
@@ -67,7 +68,7 @@ const form = useForm({
 
                     <TextInput
                         id="education_number"
-                        type="text"
+                        type="number"
                         class="mt-1 block w-full"
                         v-model="form.education_number"
                     />
@@ -169,7 +170,7 @@ const form = useForm({
 
                     <TextInput
                         id="education_postal_code"
-                        type="text"
+                        type="number"
                         class="mt-1 block w-full"
                         v-model="form.education_postal_code"
                     />
@@ -230,31 +231,9 @@ const form = useForm({
                         :message="form.errors.education_grade"
                     />
                 </div>
-
-                <!-- <div class="col-span-2">
-                    <InputLabel for="is_disability" value="Disability" />
-
-                    <Combobox
-                        id="is_disability"
-                        class="mt-1 block w-full"
-                        v-model="form.is_disability"
-                        :option-value="[
-                            { value: true, text: 'Yes' },
-                            { value: false, text: 'No' },
-                            { value: null, text: 'Select' },
-                        ]"
-                    />
-
-                    <InputError
-                        class="mt-2"
-                        :message="form.errors.is_disability"
-                    />
-                </div> -->
             </div>
 
             <div class="flex justify-end gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
-
                 <Transition
                     enter-active-class="transition ease-in-out"
                     enter-from-class="opacity-0"
@@ -263,11 +242,13 @@ const form = useForm({
                 >
                     <p
                         v-if="form.recentlySuccessful"
-                        class="text-sm text-gray-600 dark:text-gray-400"
+                        class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-4"
                     >
                         Saved.
                     </p>
                 </Transition>
+
+                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
             </div>
         </form>
     </section>

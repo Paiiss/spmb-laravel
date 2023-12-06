@@ -15,13 +15,21 @@ defineProps({
     },
 });
 
-// const user = usePage().props.auth.user;
+const form_data = usePage().props.form;
 
 const form = useForm({
-    is_color_blind: "Select",
-    is_disability: "Select",
-    disability_note: "",
+    is_color_blind: form_data.is_color_blind ? "true" : "false",
+    is_disability: form_data.is_disability ? "true" : "false",
+    disability_note: form_data.disability_note || "",
 });
+
+const updateDisability = () => {
+    form.transform((data) => ({
+        ...data,
+        is_color_blind: data.is_color_blind == "true" ? true : false,
+        is_disability: data.is_disability == "true" ? true : false,
+    })).patch(route("form.update"));
+};
 </script>
 
 <template>
@@ -36,7 +44,7 @@ const form = useForm({
             </p>
         </header>
 
-        <form @submit.prevent="form.patch(route(''))" class="mt-6 space-y-6">
+        <form @submit.prevent="updateDisability" class="mt-6 space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div class="col-span-2">
                     <InputLabel for="is_color_blind" value="Color blind" />
@@ -46,9 +54,9 @@ const form = useForm({
                         class="mt-1 block w-full"
                         v-model="form.is_color_blind"
                         :option-value="[
-                            { value: true, text: 'Yes' },
-                            { value: false, text: 'No' },
-                            { value: null, text: 'Select' },
+                            { value: 'true', text: 'Yes' },
+                            { value: 'false', text: 'No' },
+                            { value: 'null', text: 'Select' },
                         ]"
                     />
 
@@ -66,9 +74,9 @@ const form = useForm({
                         class="mt-1 block w-full"
                         v-model="form.is_disability"
                         :option-value="[
-                            { value: true, text: 'Yes' },
-                            { value: false, text: 'No' },
-                            { value: null, text: 'Select' },
+                            { value: 'true', text: 'Yes' },
+                            { value: 'false', text: 'No' },
+                            { value: 'null', text: 'Select' },
                         ]"
                     />
 
@@ -96,8 +104,6 @@ const form = useForm({
             </div>
 
             <div class="flex justify-end gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
-
                 <Transition
                     enter-active-class="transition ease-in-out"
                     enter-from-class="opacity-0"
@@ -106,11 +112,12 @@ const form = useForm({
                 >
                     <p
                         v-if="form.recentlySuccessful"
-                        class="text-sm text-gray-600 dark:text-gray-400"
+                        class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-4"
                     >
                         Saved.
                     </p>
                 </Transition>
+                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
             </div>
         </form>
     </section>
