@@ -29,6 +29,7 @@ createInertiaApp({
                     autoplay: true,
                     autoplayTimeout: 5000,
                     autoplayHoverPause: true,
+                    stagePadding: 50,
                     responsive: {
                         0: {
                             items: 1,
