@@ -12,8 +12,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
 
         <!-- Icon -->
-        <link rel="icon" href="{{ asset('build/images/htp.ico') }}" type="image/x-icon">
-        <link rel="shortcut icon" href="{{ asset('build/images/htp.ico') }}" type="image/x-icon">
+        <link rel="icon" href="/images/htp.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/images/htp.ico" type="image/x-icon">
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 
