@@ -53,4 +53,9 @@ class FormController extends Controller
         $user->getForm()->update($request->validated());
         return Redirect::route('form.edit');
     }
+
+    public function submission(): Response
+    {
+        return Inertia::render('Form/Submission');
+    }
 }
