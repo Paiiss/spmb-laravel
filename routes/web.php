@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\AdminController;
 use App\Models\User;
 use App\Models\Wave;
 use Illuminate\Foundation\Application;
@@ -47,8 +48,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/form', [FormController::class, 'edit'])->name('form.edit');
+    Route::get('/form/{id}', [FormController::class, 'edit'])->name('form.edit');
     Route::patch('/form', [FormController::class, 'update'])->name('form.update');
+    Route::get('/submission', [FormController::class, 'submission'])->name('form.submission');
+});
+
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+    Route::get('/admin/user', [AdminController::class, 'allUser'])->name('admin.user');
 });
 
 require __DIR__ . '/auth.php';
