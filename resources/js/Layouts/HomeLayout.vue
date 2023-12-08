@@ -64,8 +64,9 @@ const showingNavigationDropdown = ref(false);
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
                             <div class="flex justify-center gap-2">
                                 <Link
+                                    v-if="!$page.props.auth.user"
                                     :href="route('login')"
-                                    class="inline-flex items-center px-1.5 py-0.5 border-transparent uppercase text-white font-bold bg-teal-400 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
+                                    class="inline-flex items-center p-2 text-left border-transparent text-sm uppercase text-white font-bold bg-teal-400 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
                                 >
                                     <i
                                         class="fa-solid fa-user-graduate pr-2"
@@ -73,13 +74,21 @@ const showingNavigationDropdown = ref(false);
                                     masuk
                                 </Link>
                                 <Link
+                                    v-if="!$page.props.auth.user"
                                     :href="route('register')"
-                                    class="inline-flex items-center px-1.5 py-0.5 border-transparent uppercase text-teal-400 font-bold bg-teal-50 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
+                                    class="inline-flex items-center p-2 text-left border-transparent text-sm uppercase text-teal-400 font-bold bg-teal-50 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
                                 >
                                     <i
                                         class="fa-solid fa-right-to-bracket pr-2"
                                     ></i
                                     >daftar</Link
+                                >
+                                <Link
+                                    v-if="$page.props.auth.user"
+                                    :href="route('dashboard')"
+                                    class="items-center p-2 border-transparent uppercase text-white text-sm font-bold bg-gray-800 rounded-lg dark:text-gray-800 tracking-widest hover:bg-gray-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
+                                >
+                                    Dashboard</Link
                                 >
                             </div>
                         </div>
@@ -135,7 +144,17 @@ const showingNavigationDropdown = ref(false);
                     }"
                     class="sm:hidden"
                 >
-                    <div v-if="!canLogin" class="pt-2 pb-3 space-y-1 px-4">
+                    <div
+                        v-if="$page.props.auth.user"
+                        class="pt-2 pb-3 space-y-1 px-4"
+                    >
+                        <ResponsiveNavLink
+                            :href="route('dashboard')"
+                            class="text-white dark:text-white font-bold rounded-lg"
+                            >Dashboard
+                        </ResponsiveNavLink>
+                    </div>
+                    <div v-else class="pt-2 pb-3 space-y-1 px-4">
                         <ResponsiveNavLink
                             :href="route('login')"
                             class="text-white dark:text-white font-bold rounded-lg bg-teal-400 dark:bg-teal-500"
@@ -147,13 +166,6 @@ const showingNavigationDropdown = ref(false);
                             class="text-white dark:text-white font-bold rounded-lg bg-teal-400 dark:bg-teal-500"
                             ><i class="fa-solid fa-right-to-bracket pr-2"></i>
                             Daftar
-                        </ResponsiveNavLink>
-                    </div>
-                    <div v-else class="pt-2 pb-3 space-y-1 px-4">
-                        <ResponsiveNavLink
-                            :href="route('dashboard')"
-                            class="text-white dark:text-white font-bold rounded-lg"
-                            >Dashboard
                         </ResponsiveNavLink>
                     </div>
                 </div>
@@ -172,7 +184,7 @@ const showingNavigationDropdown = ref(false);
                             >
                                 Universitas Hang Tuah Pekanbaru
                             </h3>
-                            <ul class="list-disc list-inside text-gray-300">
+                            <ul class="list-disc list-inside text-white">
                                 <li>Perguruan Tinggi di Pekanbaru</li>
                                 <li>Tenaga Pengajar yang Mumpuni</li>
                                 <li>Fasilitas Lengkap</li>
