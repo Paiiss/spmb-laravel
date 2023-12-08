@@ -15,7 +15,7 @@ defineProps({
 });
 
 const goToForm = () => {
-    return route("form.edit");
+    return route("form.edit", { id: "personal" });
 };
 </script>
 
@@ -31,7 +31,7 @@ const goToForm = () => {
             </h2>
         </template>
 
-        <div class="py-2">
+        <div>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"
@@ -48,9 +48,16 @@ const goToForm = () => {
                         <p v-else>Silahkan lanjut mengisi form pendaftaran.</p>
                         <div class="flex justify-start mt-4">
                             <PrimaryButton
-                                ><Link :href="route('form.edit')">{{
-                                    isAlreadyForm ? "Lanjut" : "Bikin formulir"
-                                }}</Link>
+                                ><Link
+                                    :href="
+                                        route('form.edit', { id: 'personal' })
+                                    "
+                                    >{{
+                                        isAlreadyForm
+                                            ? "Lanjut"
+                                            : "Bikin formulir"
+                                    }}</Link
+                                >
                             </PrimaryButton>
                         </div>
                     </div>
@@ -64,8 +71,6 @@ const goToForm = () => {
                 >
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         {{ $page.props.user }}
-                        {{ isAlreadyForm }}
-                        {{ $page.props.isAdmin }}
                     </div>
                 </div>
             </div>

@@ -14,6 +14,9 @@ defineProps({
     status: {
         type: String,
     },
+    id: {
+        type: String,
+    },
 });
 </script>
 
@@ -29,9 +32,10 @@ defineProps({
             </h2>
         </template>
 
-        <div class="py-12">
+        <div>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div
+                    v-if="id === 'personal'"
                     class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                 >
                     <Personal
@@ -41,6 +45,7 @@ defineProps({
                 </div>
 
                 <div
+                    v-if="id === 'disability'"
                     class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                 >
                     <Disability
@@ -50,6 +55,7 @@ defineProps({
                 </div>
 
                 <div
+                    v-if="id === 'education'"
                     class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                 >
                     <Education
@@ -59,6 +65,7 @@ defineProps({
                 </div>
 
                 <div
+                    v-if="id === 'parent'"
                     class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                 >
                     <Parent
@@ -68,6 +75,7 @@ defineProps({
                 </div>
 
                 <div
+                    v-if="id === 'affiliate'"
                     class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                 >
                     <!-- <Affiliation

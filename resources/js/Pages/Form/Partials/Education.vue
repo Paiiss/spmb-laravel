@@ -43,7 +43,7 @@ const form = useForm({
         </header>
 
         <form
-            @submit.prevent="form.patch(route('form.edit'))"
+            @submit.prevent="form.patch(route('form.update'))"
             class="mt-6 space-y-6"
         >
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
