@@ -14,8 +14,12 @@ use Illuminate\Support\Facades\Redirect;
 
 class FormController extends Controller
 {
-    public function edit(Request $request): Response
+    public function edit(Request $request, string $id): Response
     {
+        if (!(!$id || $id == "personal" || $id == 'disability' || $id == 'education' || $id == 'parent')) {
+            return abort(404);
+        }
+
         $user = $user = User::find(auth()->user()->id);
         if ($user->getForm()->get()->isNotEmpty()) {
             $form = $user->getForm;
@@ -26,6 +30,7 @@ class FormController extends Controller
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
             'form' => $form,
+            'id' => $id
         ]);
     }
 
