@@ -58,4 +58,9 @@ class FormController extends Controller
     {
         return Inertia::render('Form/Submission');
     }
+
+    public function payment(): Response
+    {
+        return Inertia::render('Form/Payment');
+    }
 }
