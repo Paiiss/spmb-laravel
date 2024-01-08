@@ -383,6 +383,15 @@ const isSideBarOpen = ref(false);
                                     Prodi
                                 </ResponsiveSideBar>
                             </li>
+                            <li>
+                                <ResponsiveSideBar
+                                    :href="route('admin.wave')"
+                                    :active="route().current('admin.wave')"
+                                    icon="fa-solid fa-wave-square"
+                                >
+                                    Gelombang
+                                </ResponsiveSideBar>
+                            </li>
                         </ul>
                     </template>
                 </div>
