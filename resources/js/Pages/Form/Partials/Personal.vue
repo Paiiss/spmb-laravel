@@ -199,7 +199,7 @@ const form = useForm({
 
                     <TextInput
                         id="national_id"
-                        class="mt-1 block w-full"
+                        class="mt-1 block w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         required
                         type="number"
                         v-model="form.national_id"
