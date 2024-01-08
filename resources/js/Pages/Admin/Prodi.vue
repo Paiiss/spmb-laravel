@@ -94,9 +94,7 @@ const closeModal = () => {
     <AuthenticatedLayout>
         <div>
             <div class="max-w-7xl mx-auto">
-                <div
-                    class="relative overflow-x-auto shadow-md sm:shadow-lg p-4 sm:p-8 bg-white"
-                >
+                <div class="shadow-md sm:shadow-lg p-4 sm:p-8 bg-white">
                     <div
                         class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4"
                     >
@@ -104,63 +102,75 @@ const closeModal = () => {
                             <h2
                                 class="text-lg font-medium text-gray-900 dark:text-gray-100"
                             >
-                                Management Program studi
+                                Program studi
                             </h2>
                         </header>
                         <PrimaryButton @click="createProdi"
                             >Create</PrimaryButton
                         >
                     </div>
-                    <table
-                        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                    >
-                        <thead
-                            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                    <div class="relative overflow-x-auto">
+                        <table
+                            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
-                            <tr>
-                                <th scope="col" class="px-6 py-3">Name</th>
-                                <th scope="col" class="px-6 py-3">Jenjang</th>
-                                <th scope="col" class="px-6 py-3">Fakultas</th>
-                                <th scope="col" class="px-6 py-3">
-                                    Akreditasi
-                                </th>
-                                <th scope="col" class="px-6 py-3">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr
-                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                                v-for="prodi in prodi"
-                                :key="prodi.id"
+                            <thead
+                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                             >
-                                <th
-                                    scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Name</th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Jenjang
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Fakultas
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Akreditasi
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                                    v-for="prodi in prodi"
+                                    :key="prodi.id"
                                 >
-                                    {{ prodi.nama_prodi }}
-                                </th>
-                                <td class="px-6 py-4">{{ prodi.jenjang }}</td>
-                                <td class="px-6 py-4">{{ prodi.fakultas }}</td>
-                                <td class="px-6 py-4">
-                                    {{ prodi.akreditasi }}
-                                </td>
-                                <td class="px-6 py-4 flex gap-2">
-                                    <button
-                                        @click="editProdi(prodi.id)"
-                                        class="text-indigo-600 hover:text-indigo-900"
+                                    <th
+                                        scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                     >
-                                        <i class="fa-solid fa-pencil"></i>
-                                    </button>
-                                    <button
-                                        @click="deleteProdi(prodi.id)"
-                                        class="text-red-600 hover:text-red-900"
-                                    >
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                        {{ prodi.nama_prodi }}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ prodi.jenjang }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ prodi.fakultas }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ prodi.akreditasi }}
+                                    </td>
+                                    <td class="px-6 py-4 flex gap-2">
+                                        <button
+                                            @click="editProdi(prodi.id)"
+                                            class="text-indigo-600 hover:text-indigo-900"
+                                        >
+                                            <i class="fa-solid fa-pencil"></i>
+                                        </button>
+                                        <button
+                                            @click="deleteProdi(prodi.id)"
+                                            class="text-red-600 hover:text-red-900"
+                                        >
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <Modal
