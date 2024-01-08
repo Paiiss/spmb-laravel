@@ -46,12 +46,11 @@ class FormController extends Controller
     {
 
         $user = User::find(auth()->user()->id);
-        // Bagaimana membuat jika form tidak di temukan maka throw error ?
         if (!$user->getForm()->get()->isNotEmpty()) {
             $user->getForm()->create();
         }
         $user->getForm()->update($request->validated());
-        return Redirect::route('form.edit');
+        return Redirect::back();
     }
 
     public function submission(): Response
