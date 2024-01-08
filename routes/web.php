@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProdiController;
 use App\Models\User;
 use App\Models\Wave;
 use Illuminate\Foundation\Application;
@@ -57,5 +58,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/admin/user', [AdminController::class, 'allUser'])->name('admin.user');
 });
+
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+    Route::get('/admin/program-studi', [ProdiController::class, 'index'])->name('admin.prodi');
+    Route::post('/admin/program-studi', [ProdiController::class, 'store'])->name('admin.prodi.store');
+    Route::patch('/admin/program-studi/{id}', [ProdiController::class, 'update'])->name('admin.prodi.update');
+    Route::delete('/admin/program-studi/{id}', [ProdiController::class, 'destroy'])->name('admin.prodi.destroy');
+});
+
 
 require __DIR__ . '/auth.php';
