@@ -16,4 +16,9 @@ class Prodi extends Model
         'fakultas',
         'akreditasi'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 }
