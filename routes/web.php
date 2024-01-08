@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\WaveController;
 use App\Models\User;
 use App\Models\Wave;
 use Illuminate\Foundation\Application;
@@ -64,6 +65,13 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::post('/admin/program-studi', [ProdiController::class, 'store'])->name('admin.prodi.store');
     Route::patch('/admin/program-studi/{id}', [ProdiController::class, 'update'])->name('admin.prodi.update');
     Route::delete('/admin/program-studi/{id}', [ProdiController::class, 'destroy'])->name('admin.prodi.destroy');
+});
+
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+    Route::get('/admin/wave', [WaveController::class, 'index'])->name('admin.wave');
+    Route::post('/admin/wave', [WaveController::class, 'store'])->name('admin.wave.store');
+    Route::patch('/admin/wave/{id}', [WaveController::class, 'update'])->name('admin.wave.update');
+    Route::delete('/admin/wave/{id}', [WaveController::class, 'destroy'])->name('admin.wave.destroy');
 });
 
 
