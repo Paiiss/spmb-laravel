@@ -102,7 +102,7 @@ const programStudi = [
             </div>
         </section>
 
-        <!-- <section
+        <section
             class="p-6 md:p-16 lg:p-12 xl:p-16 from-teal-500 to-teal-200 bg-gradient-to-"
         >
             <div class="container mx-auto p-6">
@@ -122,7 +122,7 @@ const programStudi = [
                     Pancasila sebagai falsafah bangsa dan ideologi negara.
                 </p>
             </div>
-        </section> -->
+        </section>
         <section class="p-6 md:p-16 lg:p-12 xl:p-16">
             <div
                 class="container mx-auto bg-background-light rounded-lg p-6 text-white"
@@ -134,7 +134,7 @@ const programStudi = [
                         <header
                             class="text-2xl font-bold text-left pb-3 leading-relaxed"
                         >
-                            Punya pertanyaan tentang PMB
+                            Punya pertanyaan seputar PMB
                             <span class="animate-pulse">?</span>
                         </header>
                         <p class="text-left font-semibold">
