@@ -86,7 +86,7 @@ const showingNavigationDropdown = ref(false);
                                 <Link
                                     v-if="$page.props.auth.user"
                                     :href="route('dashboard')"
-                                    class="items-center p-2 border-transparent uppercase text-white text-sm font-bold bg-gray-800 rounded-lg dark:text-gray-800 tracking-widest hover:bg-gray-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
+                                    class="inline-flex items-center p-2 text-left border-transparent text-sm uppercase text-white font-bold bg-teal-400 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
                                 >
                                     Dashboard</Link
                                 >
