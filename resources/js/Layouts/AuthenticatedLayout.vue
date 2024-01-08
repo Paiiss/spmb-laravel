@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
@@ -10,6 +10,7 @@ import { Link, usePage } from "@inertiajs/vue3";
 
 const showingNavigationDropdown = ref(false);
 const showingListForm = ref(route().current("form.edit") || false);
+const showingListAdmin = ref(route() || false);
 const isSideBarOpen = ref(false);
 </script>
 
@@ -256,7 +257,7 @@ const isSideBarOpen = ref(false);
                                 <i class="fa-solid fa-address-card" />
                                 <span
                                     class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap"
-                                    >Profile</span
+                                    >Data diri</span
                                 >
                                 <i
                                     class="fa-solid"
@@ -342,8 +343,8 @@ const isSideBarOpen = ref(false);
                         <li>
                             <ResponsiveSideBar
                                 icon="fa-solid fa-file-invoice"
-                                :href="route('dashboard')"
-                                :active="route().current('dashboard')"
+                                :href="route('form.submission')"
+                                :active="route().current('form.submission')"
                             >
                                 Pendaftaran
                             </ResponsiveSideBar>
@@ -351,15 +352,46 @@ const isSideBarOpen = ref(false);
                         <li>
                             <ResponsiveSideBar
                                 icon="fa-solid fa-money-bill"
-                                :href="route('dashboard')"
-                                :active="route().current('dashboard')"
+                                :href="route('form.payment')"
+                                :active="route().current('form.payment')"
                             >
                                 Pembayaran
                             </ResponsiveSideBar>
                         </li>
                     </ul>
+                    <template
+                        v-if="$page.props.auth.user.roles.includes('admin')"
+                    >
+                        <ul
+                            class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700"
+                        >
+                            <li>
+                                <ResponsiveSideBar
+                                    :href="route('admin.user')"
+                                    :active="route().current('admin.user')"
+                                    icon="fa-solid fa-users"
+                                >
+                                    User
+                                </ResponsiveSideBar>
+                            </li>
+                            <li>
+                                <ResponsiveSideBar
+                                    :href="route('admin.prodi')"
+                                    :active="route().current('admin.prodi')"
+                                    icon="fa-solid fa-university"
+                                >
+                                    Prodi
+                                </ResponsiveSideBar>
+                            </li>
+                        </ul>
+                    </template>
                 </div>
             </aside>
+            <div
+                v-show="isSideBarOpen"
+                class="fixed inset-0 z-30 bg-gray-500 opacity-50"
+                @click="isSideBarOpen = false"
+            />
 
             <!-- Page Heading -->
 
@@ -372,7 +404,7 @@ const isSideBarOpen = ref(false);
                     <slot name="header" />
                 </div>
             </header> -->
-            <main class="p-4 py-20 sm:ml-64" @click="isSideBarOpen = false">
+            <main class="p-4 py-20 sm:ml-64">
                 <slot />
             </main>
         </div>
