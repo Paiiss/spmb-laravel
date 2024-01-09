@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("jenjang")->nullable();
             $table->string("fakultas")->nullable();
             $table->string("akreditasi")->nullable();
+            $table->boolean("status")->default(false);
 
             $table->timestamps();
         });
