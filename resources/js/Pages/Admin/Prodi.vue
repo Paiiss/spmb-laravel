@@ -50,9 +50,7 @@ const editProdi = (item = null) => {
         });
     } else {
         dialogEditProdi.value = true;
-        console.log(item);
         itemProdi.value = item;
-        // console.log(itemProdi.value);
         let findProdi = usePage().props.prodi.find(
             (item) => item.id == itemProdi.value
         );
@@ -65,8 +63,6 @@ const editProdi = (item = null) => {
 };
 
 const deleteProdi = (item = null) => {
-    console.log(item);
-    console.log(dialogDeleteProdi.value);
     if (dialogDeleteProdi.value) {
         form.delete(route("admin.prodi.destroy", { id: item }), {
             preserveScroll: true,
