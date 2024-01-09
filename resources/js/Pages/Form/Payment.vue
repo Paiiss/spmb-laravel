@@ -86,18 +86,18 @@ const close = () => {
 
     <AuthenticatedLayout>
         <div>
-            <div class="max-w-7xl mx-auto">
-                <div class="shadow-md sm:shadow-lg p-4 sm:p-8 bg-white">
-                    <div
-                        class="flex flex-column sm:flex-grow flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4"
+            <div
+                class="max-w-7xl mx-auto bg-white shadow-md sm:shadow-lg p-4 sm:p-8"
+            >
+                <div
+                    class="flex flex-column sm:flex-grow flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4"
+                >
+                    <header
+                        class="text-lg font-medium text-gray-900 dark:text-gray-100"
                     >
-                        <header
-                            class="text-lg font-medium text-gray-900 dark:text-gray-100"
-                        >
-                            Bukti pembayaran
-                        </header>
-                        <PrimaryButton @click="open()">Upload</PrimaryButton>
-                    </div>
+                        Bukti pembayaran
+                    </header>
+                    <PrimaryButton @click="open()">Upload</PrimaryButton>
                 </div>
                 <div class="relative overflow-x-auto">
                     <table

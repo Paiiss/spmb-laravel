@@ -36,7 +36,7 @@ defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div
                     v-if="id === 'personal'"
-                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow-md sm:shadow-lg sm:rounded-lg"
                 >
                     <Personal
                         :must-verify-email="mustVerifyEmail"
@@ -46,7 +46,7 @@ defineProps({
 
                 <div
                     v-if="id === 'disability'"
-                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow-md sm:shadow-lg sm:rounded-lg"
                 >
                     <Disability
                         :must-verify-email="mustVerifyEmail"
@@ -56,7 +56,7 @@ defineProps({
 
                 <div
                     v-if="id === 'education'"
-                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow-md sm:shadow-lg sm:rounded-lg"
                 >
                     <Education
                         :must-verify-email="mustVerifyEmail"
@@ -66,7 +66,7 @@ defineProps({
 
                 <div
                     v-if="id === 'parent'"
-                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow-md sm:shadow-lg sm:rounded-lg"
                 >
                     <Parent
                         :must-verify-email="mustVerifyEmail"
@@ -76,7 +76,7 @@ defineProps({
 
                 <div
                     v-if="id === 'affiliate'"
-                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow-md sm:shadow-lg sm:rounded-lg"
                 >
                     <!-- <Affiliation
                         :must-verify-email="mustVerifyEmail"
