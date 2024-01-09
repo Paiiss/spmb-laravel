@@ -5,6 +5,7 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\WaveController;
+use App\Http\Controllers\PaymentController;
 use App\Models\User;
 use App\Models\Wave;
 use Illuminate\Foundation\Application;
@@ -54,6 +55,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/form', [FormController::class, 'update'])->name('form.update');
     Route::get('/submission', [FormController::class, 'submission'])->name('form.submission');
     Route::get('/payment', [FormController::class, 'payment'])->name('form.payment');
+    Route::post('/payment', [PaymentController::class, 'store'])->name('form.payment.store');
+    Route::delete('/payment/{id}', [PaymentController::class, 'userDestroy'])->name('form.payment.destroy');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
@@ -73,6 +76,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::patch('/admin/wave/{id}', [WaveController::class, 'update'])->name('admin.wave.update');
     Route::delete('/admin/wave/{id}', [WaveController::class, 'destroy'])->name('admin.wave.destroy');
 });
+
 
 
 require __DIR__ . '/auth.php';
