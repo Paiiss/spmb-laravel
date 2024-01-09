@@ -1,16 +1,56 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
+import { onMounted, ref } from "vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import Combobox from "@/Components/Combobox.vue";
+import axios from "axios";
 
 defineProps();
 const form = useForm({
     gelombang: "",
     pilihan_1: "",
     pilihan_2: "",
+});
+
+const choices = ref([]);
+const choicesProdi = ref([]);
+onMounted(() => {
+    axios
+        .get("/api/gelombang")
+        .then((response) => {
+            console.log(
+                response.data.data.map((item) => ({
+                    value: `${item.id}`,
+                    text: item.gelombang,
+                }))
+            );
+            choices.value = response.data.data.map((item) => ({
+                value: `${item.id}`,
+                text: item.gelombang,
+            }));
+            choices.value.unshift({
+                value: "",
+                text: "Pilih Gelombang",
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+    axios.get("/api/program-studi").then((response) => {
+        choicesProdi.value = response.data.data.map((item) => ({
+            value: `${item.id}`,
+            text: item.nama_prodi,
+        }));
+        choicesProdi.value.unshift({
+            value: "",
+            text: "Pilih Prodi",
+        });
+    });
 });
 </script>
 
@@ -39,15 +79,13 @@ const form = useForm({
                                         value="Gelombang"
                                     />
 
-                                    <TextInput
+                                    <Combobox
                                         id="gelombang"
                                         class="mt-1 block w-full"
-                                        type="text"
                                         v-model="form.gelombang"
-                                        autofocus
-                                        autocomplete="gelombang"
+                                        :option-value="choices"
+                                        :placeholder="'Pilih Gelombang'"
                                     />
-
                                     <InputError
                                         class="mt-2"
                                         :message="form.errors.gelombang"
@@ -59,13 +97,12 @@ const form = useForm({
                                         value="Pilihan 1"
                                     />
 
-                                    <TextInput
+                                    <Combobox
                                         id="pilihan_1"
                                         class="mt-1 block w-full"
-                                        type="text"
                                         v-model="form.pilihan_1"
-                                        autofocus
-                                        autocomplete="pilihan_1"
+                                        :option-value="choicesProdi"
+                                        :placeholder="'Pilih Prodi'"
                                     />
 
                                     <InputError
@@ -79,13 +116,12 @@ const form = useForm({
                                         value="Pilihan 2"
                                     />
 
-                                    <TextInput
+                                    <Combobox
                                         id="pilihan_2"
                                         class="mt-1 block w-full"
-                                        type="text"
                                         v-model="form.pilihan_2"
-                                        autofocus
-                                        autocomplete="pilihan_2"
+                                        :option-value="choicesProdi"
+                                        :placeholder="'Pilih Prodi'"
                                     />
 
                                     <InputError
