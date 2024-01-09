@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Resources\ApiResource;
+use App\Models\Prodi;
+use App\Models\Wave;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+ */
+
+Route::get('/program-studi', function () {
+    return new ApiResource(200, 'LIST_PRODI', Prodi::all());
+});
+
+Route::get('/gelombang', function () {
+    return new ApiResource(200, 'LIST_GELOMBANG', Wave::all());
 });
