@@ -34,11 +34,11 @@ const form = useForm({
     <section>
         <header>
             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                Education
+                Pendidikan
             </h2>
 
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                Update your education information.
+                Update data pendidikan anda.
             </p>
         </header>
 
@@ -48,7 +48,10 @@ const form = useForm({
         >
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div class="col-span-1">
-                    <InputLabel for="last_education" value="Last education" />
+                    <InputLabel
+                        for="last_education"
+                        value="Pendidikan Terakhir"
+                    />
 
                     <TextInput
                         id="last_education"
@@ -64,7 +67,10 @@ const form = useForm({
                 </div>
 
                 <div class="col-span-1">
-                    <InputLabel for="education_number" value="Number edu" />
+                    <InputLabel
+                        for="education_number"
+                        value="Nomor Edukasi (NIS/NIM)"
+                    />
 
                     <TextInput
                         id="education_number"
@@ -80,7 +86,10 @@ const form = useForm({
                 </div>
 
                 <div class="col-span-1">
-                    <InputLabel for="education_name" value="Education name" />
+                    <InputLabel
+                        for="education_name"
+                        value="Nama Tempat Pendidikan"
+                    />
 
                     <TextInput
                         id="education_name"
@@ -96,7 +105,7 @@ const form = useForm({
                 </div>
 
                 <div class="col-span-1">
-                    <InputLabel for="education_city" value="City" />
+                    <InputLabel for="education_city" value="Kota" />
 
                     <TextInput
                         id="education_city"
@@ -112,7 +121,7 @@ const form = useForm({
                 </div>
 
                 <div class="col-span-1">
-                    <InputLabel for="education_province" value="Province" />
+                    <InputLabel for="education_province" value="Provinsi" />
 
                     <TextInput
                         id="education_province"
@@ -128,10 +137,7 @@ const form = useForm({
                 </div>
 
                 <div class="col-span-1">
-                    <InputLabel
-                        for="education_subdistrict"
-                        value="Subdistrict"
-                    />
+                    <InputLabel for="education_subdistrict" value="Kecamatan" />
 
                     <TextInput
                         id="education_subdistrict"
@@ -147,7 +153,7 @@ const form = useForm({
                 </div>
 
                 <div class="col-span-1">
-                    <InputLabel for="education_country" value="Country" />
+                    <InputLabel for="education_country" value="Negara" />
 
                     <TextInput
                         id="education_country"
@@ -163,10 +169,7 @@ const form = useForm({
                 </div>
 
                 <div class="col-span-1">
-                    <InputLabel
-                        for="education_postal_code"
-                        value="Postal code"
-                    />
+                    <InputLabel for="education_postal_code" value="Nomor Pos" />
 
                     <TextInput
                         id="education_postal_code"
@@ -184,7 +187,7 @@ const form = useForm({
                 <div class="col-span-1">
                     <InputLabel
                         for="education_graduation_year"
-                        value="Graduation year"
+                        value="Tahun Kelulusan"
                     />
 
                     <TextInput
@@ -201,7 +204,7 @@ const form = useForm({
                 </div>
 
                 <div class="col-span-1">
-                    <InputLabel for="education_major" value="Major" />
+                    <InputLabel for="education_major" value="Tingkatan" />
 
                     <TextInput
                         id="education_major"
@@ -217,7 +220,7 @@ const form = useForm({
                 </div>
 
                 <div class="col-span-1">
-                    <InputLabel for="education_grade" value="Grade" />
+                    <InputLabel for="education_grade" value="Nilai" />
 
                     <TextInput
                         id="education_grade"

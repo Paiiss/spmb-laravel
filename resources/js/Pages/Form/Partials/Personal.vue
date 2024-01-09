@@ -53,7 +53,7 @@ const form = useForm({
         >
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div class="col-span-2">
-                    <InputLabel for="name" value="Name" />
+                    <InputLabel for="name" value="Nama" />
 
                     <TextInput
                         id="name"
@@ -86,7 +86,7 @@ const form = useForm({
                 </div>
 
                 <div class="col-span-1">
-                    <InputLabel for="gender" value="Gender" />
+                    <InputLabel for="gender" value="Jenis Kelamin" />
 
                     <Combobox
                         id="gender"
@@ -101,7 +101,7 @@ const form = useForm({
                     <InputError class="mt-2" :message="form.errors.gender" />
                 </div>
                 <div class="col-span-1">
-                    <InputLabel for="religion" value="Religion" />
+                    <InputLabel for="religion" value="Agama" />
 
                     <Combobox
                         id="religion"
@@ -120,7 +120,7 @@ const form = useForm({
                 </div>
 
                 <div class="col-span-1">
-                    <InputLabel for="birth_date" value="Birth Date" />
+                    <InputLabel for="birth_date" value="Tanggal Lahir" />
 
                     <DateInput
                         id="birth_date"
@@ -135,10 +135,7 @@ const form = useForm({
                 </div>
 
                 <div class="col-span-1">
-                    <InputLabel
-                        for="birth_place_city"
-                        value="Birth place city"
-                    />
+                    <InputLabel for="birth_place_city" value="Kota Kelahiran" />
 
                     <TextInput
                         id="birth_place_city"
@@ -157,7 +154,7 @@ const form = useForm({
                 <div class="col-span-1">
                     <InputLabel
                         for="birth_place_province"
-                        value="Birth place province"
+                        value="Provinsi Kelahiran"
                     />
 
                     <TextInput
@@ -177,7 +174,7 @@ const form = useForm({
                 <div class="col-span-1">
                     <InputLabel
                         for="birth_place_country"
-                        value="Birth place country"
+                        value="Negara Kelahiran"
                     />
 
                     <TextInput
@@ -195,7 +192,7 @@ const form = useForm({
                 </div>
 
                 <div class="col-span-2">
-                    <InputLabel for="national_id" value="National ID / KTP" />
+                    <InputLabel for="national_id" value="Nomor KTP" />
 
                     <TextInput
                         id="national_id"

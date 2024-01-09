@@ -36,27 +36,26 @@ const updateDisability = () => {
     <section>
         <header>
             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                Disability
+                Disabilitas
             </h2>
 
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                Update your disability information.
+                Jika anda memiliki disabilitas, silahkan isi form berikut.
             </p>
         </header>
 
         <form @submit.prevent="updateDisability" class="mt-6 space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div class="col-span-2">
-                    <InputLabel for="is_color_blind" value="Color blind" />
+                    <InputLabel for="is_color_blind" value="Buta Warna" />
 
                     <Combobox
                         id="is_color_blind"
                         class="mt-1 block w-full"
                         v-model="form.is_color_blind"
                         :option-value="[
-                            { value: 'true', text: 'Yes' },
-                            { value: 'false', text: 'No' },
-                            { value: 'null', text: 'Select' },
+                            { value: 'true', text: 'Ya' },
+                            { value: 'false', text: 'TIdak' },
                         ]"
                     />
 
@@ -67,7 +66,7 @@ const updateDisability = () => {
                 </div>
 
                 <div class="col-span-2">
-                    <InputLabel for="is_disability" value="Disability" />
+                    <InputLabel for="is_disability" value="Disabilitas" />
 
                     <Combobox
                         id="is_disability"
@@ -87,7 +86,10 @@ const updateDisability = () => {
                 </div>
 
                 <div class="col-span-4" v-if="form.is_disability == 'true'">
-                    <InputLabel for="disability_note" value="Disability note" />
+                    <InputLabel
+                        for="disability_note"
+                        value="Keterangan Disabilitas "
+                    />
 
                     <TextInput
                         id="disability_note"
