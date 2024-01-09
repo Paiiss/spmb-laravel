@@ -10,8 +10,19 @@ class Wave extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'gelombang',
+        'tahun_akademik',
+        'awal_daftar',
+        'akhir_daftar',
+        'tes_tulis',
+        'tes_kesehatan',
+        'wawancara',
         'active'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
     ];
 
     public static function getActiveData()
