@@ -17,6 +17,7 @@ defineProps({
 if (usePage().props.payment.length == 0) {
     usePage().props.payment.push({
         bank: "-",
+        account_name: "-",
         account_number: "-",
         amount: "-",
         created_at: "-",
@@ -32,6 +33,7 @@ const form = useForm({
     image: null,
     bank: "",
     date: "",
+    account_name: "",
     account_number: "",
     amount: "",
 });
@@ -42,6 +44,7 @@ const open = (i = 0, item = null) => {
     if (i !== 0) dialogItem.value = item;
     if (i == 1) {
         form.bank = payment.bank;
+        form.account_name = payment.account_name;
         form.account_number = payment.account_number;
         form.amount = payment.amount;
         form.date = payment.date;
@@ -106,10 +109,13 @@ const close = () => {
                             <tr>
                                 <th scope="col" class="px-6 py-3">Bank</th>
                                 <th scope="col" class="px-6 py-3">
-                                    Account Number
+                                    Pemilik Rekening
                                 </th>
-                                <th scope="col" class="px-6 py-3">Amount</th>
-                                <th scope="col" class="px-6 py-3">Tanngal</th>
+                                <th scope="col" class="px-6 py-3">
+                                    Nomor Rekening
+                                </th>
+                                <th scope="col" class="px-6 py-3">Jumlah</th>
+                                <th scope="col" class="px-6 py-3">Tanggal</th>
                                 <th scope="col" class="px-6 py-3">Action</th>
                             </tr>
                         </thead>
@@ -125,6 +131,11 @@ const close = () => {
                                 >
                                     {{ item.bank }}
                                 </th>
+
+                                <td class="px-6 py-4">
+                                    {{ item.account_name }}
+                                </td>
+
                                 <td class="px-6 py-4">
                                     {{ item.account_number }}
                                 </td>
@@ -199,6 +210,22 @@ const close = () => {
                                     <InputError
                                         class="mt-2"
                                         :message="form.errors.bank"
+                                    />
+                                </div>
+                                <div class="col-span-2">
+                                    <InputLabel
+                                        for="account_name"
+                                        value="Nama pemilik rekening"
+                                    />
+
+                                    <TextInput
+                                        id="account_name"
+                                        class="mt-1 block w-full"
+                                        v-model="form.account_name"
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.account_name"
                                     />
                                 </div>
                                 <div class="col-span-2">

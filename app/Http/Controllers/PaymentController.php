@@ -32,6 +32,7 @@ class PaymentController extends Controller
         User::find(auth()->user()->id)->payments()->create(
             [
                 'bank' => $request->bank,
+                'account_name' => $request->account_name,
                 'account_number' => $request->account_number,
                 'amount' => $request->amount,
                 'date' => $request->date,
