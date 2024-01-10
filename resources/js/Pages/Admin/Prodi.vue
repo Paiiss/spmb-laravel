@@ -8,6 +8,7 @@ import SecondaryButton from "@/Components/SecondaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
+import Combobox from "@/Components/Combobox.vue";
 
 defineProps({
     prodi: {
@@ -20,7 +21,17 @@ const form = useForm({
     jenjang: "",
     fakultas: "",
     akreditasi: "",
-});
+    tes_ujian: false,
+    tes_wawancara: false,
+    tes_kesehatan: false,
+    biaya_registrasi: 0,
+}).transform((x) => ({
+    ...x,
+    tes_ujian: x.tes_ujian ? 1 : 0,
+    tes_wawancara: x.tes_wawancara ? 1 : 0,
+    tes_kesehatan: x.tes_kesehatan ? 1 : 0,
+    biaya_registrasi: parseInt(x.biaya_registrasi),
+}));
 
 const dialogCreateProdi = ref(false);
 const dialogEditProdi = ref(false);
@@ -59,6 +70,10 @@ const editProdi = (item = null) => {
         form.fakultas = findProdi.fakultas;
         form.jenjang = findProdi.jenjang;
         form.nama_prodi = findProdi.nama_prodi;
+        form.tes_kesehatan = findProdi.tes_kesehatan;
+        form.tes_ujian = findProdi.tes_ujian;
+        form.tes_wawancara = findProdi.tes_wawancara;
+        form.biaya_registrasi = findProdi.biaya_registrasi;
     }
 };
 
@@ -124,6 +139,19 @@ const closeModal = () => {
                                         Akreditasi
                                     </th>
                                     <th scope="col" class="px-6 py-3">
+                                        Tes Ujian
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Tes Wawancara
+                                    </th>
+
+                                    <th scope="col" class="px-6 py-3">
+                                        Tes Kesehatan
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Biaya Registrasi
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
                                         Action
                                     </th>
                                 </tr>
@@ -148,6 +176,29 @@ const closeModal = () => {
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ prodi.akreditasi }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ prodi.tes_ujian ? "Ya" : "Tidak" }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{
+                                            prodi.tes_wawancara ? "Ya" : "Tidak"
+                                        }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{
+                                            prodi.tes_kesehatan ? "Ya" : "Tidak"
+                                        }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{
+                                            new Intl.NumberFormat("id-ID", {
+                                                style: "currency",
+                                                currency: "IDR",
+                                            }).format(
+                                                prodi.biaya_registrasi || 0
+                                            )
+                                        }}
                                     </td>
                                     <td class="px-6 py-4 flex gap-2">
                                         <button
@@ -187,11 +238,7 @@ const closeModal = () => {
                         v-if="!dialogDeleteProdi"
                     >
                         <div>
-                            <InputLabel
-                                for="nama_prodi"
-                                value="Name"
-                                class="sr-only"
-                            />
+                            <InputLabel for="nama_prodi" value="Name" />
                             <TextInput
                                 id="nama_prodi"
                                 ref="nameInput"
@@ -207,11 +254,7 @@ const closeModal = () => {
                         </div>
 
                         <div>
-                            <InputLabel
-                                for="jenjang"
-                                value="Jenjang"
-                                class="sr-only"
-                            />
+                            <InputLabel for="jenjang" value="Jenjang" />
                             <TextInput
                                 id="jenjang"
                                 ref="jenjangInput"
@@ -227,11 +270,7 @@ const closeModal = () => {
                         </div>
 
                         <div>
-                            <InputLabel
-                                for="fakultas"
-                                value="Fakultas"
-                                class="sr-only"
-                            />
+                            <InputLabel for="fakultas" value="Fakultas" />
                             <TextInput
                                 id="fakultas"
                                 ref="fakultasInput"
@@ -247,11 +286,7 @@ const closeModal = () => {
                         </div>
 
                         <div>
-                            <InputLabel
-                                for="akreditasi"
-                                value="Akreditasi"
-                                class="sr-only"
-                            />
+                            <InputLabel for="akreditasi" value="Akreditasi" />
                             <TextInput
                                 id="akreditasi"
                                 ref="akreditasiInput"
@@ -262,6 +297,107 @@ const closeModal = () => {
                             />
                             <InputError
                                 :message="form.errors.akreditasi"
+                                class="mt-2"
+                            />
+                        </div>
+                        <div>
+                            <InputLabel for="tes_ujian" value="Tes Ujian" />
+                            <Combobox
+                                id="tes_ujian"
+                                ref="tes_ujianInput"
+                                v-model="form.tes_ujian"
+                                class="mt-1 block w-full"
+                                placeholder="Tes Ujian"
+                                :option-value="[
+                                    {
+                                        value: true,
+                                        text: 'Ya',
+                                    },
+                                    {
+                                        value: false,
+                                        text: 'Tidak',
+                                    },
+                                ]"
+                            />
+                            <InputError
+                                :message="form.errors.tes_ujian"
+                                class="mt-2"
+                            />
+                        </div>
+
+                        <div>
+                            <InputLabel
+                                for="tes_wawancara"
+                                value="Tes Wawancara"
+                            />
+
+                            <Combobox
+                                id="tes_wawancara"
+                                ref="tes_wawancaraInput"
+                                v-model="form.tes_wawancara"
+                                class="mt-1 block w-full"
+                                placeholder="Tes Wawancara"
+                                :option-value="[
+                                    {
+                                        value: true,
+                                        text: 'Ya',
+                                    },
+                                    {
+                                        value: false,
+                                        text: 'Tidak',
+                                    },
+                                ]"
+                            />
+
+                            <InputError
+                                :message="form.errors.tes_wawancara"
+                                class="mt-2"
+                            />
+                        </div>
+
+                        <div>
+                            <InputLabel
+                                for="tes_kesehatan"
+                                value="Tes Kesehatan"
+                            />
+                            <Combobox
+                                id="tes_kesehatan"
+                                ref="tes_kesehatanInput"
+                                v-model="form.tes_kesehatan"
+                                class="mt-1 block w-full"
+                                placeholder="Tes Kesehatan"
+                                :option-value="[
+                                    {
+                                        value: true,
+                                        text: 'Ya',
+                                    },
+                                    {
+                                        value: false,
+                                        text: 'Tidak',
+                                    },
+                                ]"
+                            />
+                            <InputError
+                                :message="form.errors.tes_kesehatan"
+                                class="mt-2"
+                            />
+                        </div>
+
+                        <div>
+                            <InputLabel
+                                for="biaya_registrasi"
+                                value="Biaya Registrasi"
+                            />
+                            <TextInput
+                                id="biaya_registrasi"
+                                ref="biaya_registrasiInput"
+                                v-model="form.biaya_registrasi"
+                                type="number"
+                                class="mt-1 block w-full"
+                                placeholder="Biaya Registrasi"
+                            />
+                            <InputError
+                                :message="form.errors.biaya_registrasi"
                                 class="mt-2"
                             />
                         </div>

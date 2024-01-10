@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('amount')->nullable();
             $table->date('date')->nullable();
             $table->string('image')->nullable();
-            $table->boolean('status')->default(false);
+            $table->string('type_payment')->default('form');
+            $table->string('status')->default('pending');
             $table->string('note')->nullable();
             $table->timestamps();
         });

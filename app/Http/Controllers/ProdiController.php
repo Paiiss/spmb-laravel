@@ -25,15 +25,24 @@ class ProdiController extends Controller
             'nama_prodi' => 'required|string|max:255',
             'jenjang' => 'required|string|max:255',
             'fakultas' => 'required|string|max:255',
-            'akreditasi' => 'required|string|max:255'
+            'akreditasi' => 'required|string|max:255',
+            'tes_ujian' => 'required|boolean',
+            'tes_wawancara' => 'required|boolean',
+            'tes_kesehatan' => 'required|boolean',
+            'biaya_registrasi' => 'required|integer',
+            'status' => 'boolean'
         ]);
 
         Prodi::create([
-
             'nama_prodi' => $request->nama_prodi,
             'jenjang' => $request->jenjang,
             'fakultas' => $request->fakultas,
-            'akreditasi' => $request->akreditasi
+            'akreditasi' => $request->akreditasi,
+            'tes_ujian' => $request->tes_ujian,
+            'tes_wawancara' => $request->tes_wawancara,
+            'tes_kesehatan' => $request->tes_kesehatan,
+            'biaya_registrasi' => $request->biaya_registrasi,
+            'status' => $request->status ?? false
         ]);
 
         return Redirect::back();
@@ -45,14 +54,24 @@ class ProdiController extends Controller
             'nama_prodi' => 'required|string|max:255',
             'jenjang' => 'required|string|max:255',
             'fakultas' => 'required|string|max:255',
-            'akreditasi' => 'required|string|max:255'
+            'akreditasi' => 'required|string|max:255',
+            'tes_ujian' => 'required|boolean',
+            'tes_wawancara' => 'required|boolean',
+            'tes_kesehatan' => 'required|boolean',
+            'biaya_registrasi' => 'required|integer',
+            'status' => 'boolean'
         ]);
 
         Prodi::where('id', $id)->update([
             'nama_prodi' => $request->nama_prodi,
             'jenjang' => $request->jenjang,
             'fakultas' => $request->fakultas,
-            'akreditasi' => $request->akreditasi
+            'akreditasi' => $request->akreditasi,
+            'tes_ujian' => $request->tes_ujian,
+            'tes_wawancara' => $request->tes_wawancara,
+            'tes_kesehatan' => $request->tes_kesehatan,
+            'biaya_registrasi' => $request->biaya_registrasi,
+            'status' => $request->status ?? false
         ]);
 
         return Redirect::back();
