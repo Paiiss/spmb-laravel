@@ -249,6 +249,15 @@ const isSideBarOpen = ref(false);
                             </ResponsiveSideBar>
                         </li>
                         <li>
+                            <ResponsiveSideBar
+                                icon="fa-solid fa-file-invoice"
+                                :href="route('form.submission')"
+                                :active="route().current('form.submission')"
+                            >
+                                Pendaftaran
+                            </ResponsiveSideBar>
+                        </li>
+                        <li>
                             <button
                                 type="button"
                                 @click="showingListForm = !showingListForm"
@@ -339,15 +348,6 @@ const isSideBarOpen = ref(false);
                                     >
                                 </li>
                             </ul>
-                        </li>
-                        <li>
-                            <ResponsiveSideBar
-                                icon="fa-solid fa-file-invoice"
-                                :href="route('form.submission')"
-                                :active="route().current('form.submission')"
-                            >
-                                Pendaftaran
-                            </ResponsiveSideBar>
                         </li>
                         <li>
                             <ResponsiveSideBar
