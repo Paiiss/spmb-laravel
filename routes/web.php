@@ -77,6 +77,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::delete('/admin/wave/{id}', [WaveController::class, 'destroy'])->name('admin.wave.destroy');
 });
 
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+    Route::get('/admin/payment', [PaymentController::class, 'index'])->name('admin.payment');
+});
+
 
 
 require __DIR__ . '/auth.php';
