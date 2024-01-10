@@ -22,12 +22,6 @@ onMounted(() => {
     axios
         .get("/api/gelombang")
         .then((response) => {
-            console.log(
-                response.data.data.map((item) => ({
-                    value: `${item.id}`,
-                    text: item.gelombang,
-                }))
-            );
             choices.value = response.data.data.map((item) => ({
                 value: `${item.id}`,
                 text: item.gelombang,

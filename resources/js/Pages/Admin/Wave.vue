@@ -37,8 +37,6 @@ const dialogItem = ref(null);
 
 const save = () => {
     if (dialog.value) {
-        console.log(dialogItem.value);
-        console.log(itemIndex.value);
         if (itemIndex.value == 0) {
             form.post(route("admin.wave.store"), {
                 preserveScroll: true,
@@ -71,7 +69,6 @@ const openDialog = (index, item = null) => {
     if (itemIndex.value == 0) {
         form.reset();
     } else if (itemIndex.value == 1) {
-        console.log(item);
         dialogItem.value = item.id;
         form.gelombang = item.gelombang;
         form.tahun_akademik = item.tahun_akademik;
@@ -109,7 +106,7 @@ const close = () => {
                             <h2
                                 class="text-lg font-medium text-gray-900 dark:text-gray-100"
                             >
-                                Gelombang penerimaan
+                                Gelombang
                             </h2>
                         </header>
                         <PrimaryButton @click="openDialog(0)">
