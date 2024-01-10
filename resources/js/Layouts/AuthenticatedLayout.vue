@@ -374,6 +374,17 @@ const isSideBarOpen = ref(false);
                                     User
                                 </ResponsiveSideBar>
                             </li>
+                            <!-- Untuk validasi bukti pembayaran -->
+                            <li>
+                                <ResponsiveSideBar
+                                    :href="route('admin.payment')"
+                                    :active="route().current('admin.payment')"
+                                    icon="fa-solid fa-money-bill"
+                                >
+                                    Pembayaran
+                                </ResponsiveSideBar>
+                            </li>
+
                             <li>
                                 <ResponsiveSideBar
                                     :href="route('admin.prodi')"
