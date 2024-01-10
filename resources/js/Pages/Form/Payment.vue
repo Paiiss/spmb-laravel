@@ -52,8 +52,6 @@ const open = (i = 0, item = null) => {
 };
 
 const save = () => {
-    console.log(dialogType.value);
-    console.log(dialogItem.value);
     if (dialogType.value == 0) {
         form.post(route("form.payment.store"), {
             preserveScroll: true,
@@ -199,7 +197,7 @@ const close = () => {
                                 class="grid grid-cols-3 md:grid-cols-4 gap-4"
                                 v-if="dialogType !== 2"
                             >
-                                <div class="col-span-2">
+                                <div class="col-span-1">
                                     <InputLabel for="bank" value="Bank" />
 
                                     <TextInput
@@ -212,7 +210,7 @@ const close = () => {
                                         :message="form.errors.bank"
                                     />
                                 </div>
-                                <div class="col-span-2">
+                                <div class="col-span-3">
                                     <InputLabel
                                         for="account_name"
                                         value="Nama pemilik rekening"
@@ -262,7 +260,7 @@ const close = () => {
                                         :message="form.errors.date"
                                     />
                                 </div>
-                                <div class="col-span-1 md:col-span-2">
+                                <div class="col-span-2">
                                     <InputLabel
                                         for="amount"
                                         value="Nominal pembayaran"
