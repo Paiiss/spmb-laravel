@@ -45,8 +45,8 @@ const updateDisability = () => {
         </header>
 
         <form @submit.prevent="updateDisability" class="mt-6 space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="col-span-2">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="col-span-1 md:col-span-4">
                     <InputLabel for="is_color_blind" value="Buta Warna" />
 
                     <Combobox
@@ -65,7 +65,7 @@ const updateDisability = () => {
                     />
                 </div>
 
-                <div class="col-span-2">
+                <div class="col-span-1 md:col-span-4">
                     <InputLabel for="is_disability" value="Disabilitas" />
 
                     <Combobox
@@ -73,9 +73,8 @@ const updateDisability = () => {
                         class="mt-1 block w-full"
                         v-model="form.is_disability"
                         :option-value="[
-                            { value: 'true', text: 'Yes' },
-                            { value: 'false', text: 'No' },
-                            { value: 'null', text: 'Select' },
+                            { value: 'true', text: 'Ya' },
+                            { value: 'false', text: 'Tidak' },
                         ]"
                     />
 

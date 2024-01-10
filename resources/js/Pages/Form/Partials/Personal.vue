@@ -51,7 +51,7 @@ const form = useForm({
             @submit.prevent="form.patch(route('form.update'))"
             class="mt-6 space-y-6"
         >
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="col-span-2">
                     <InputLabel for="name" value="Nama" />
 
