@@ -10,6 +10,7 @@ class Wave extends Model
     use HasFactory;
 
     protected $fillable = [
+        'code',
         'gelombang',
         'tahun_akademik',
         'awal_daftar',

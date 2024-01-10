@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('waves', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->nullable();
             $table->string('gelombang')->nullable();
             $table->string('tahun_akademik')->nullable();
             $table->date('awal_daftar')->nullable();

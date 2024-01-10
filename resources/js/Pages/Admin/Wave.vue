@@ -18,6 +18,7 @@ defineProps({
 });
 
 const form = useForm({
+    code: "",
     gelombang: "",
     tahun_akademik: "",
     awal_daftar: "",
@@ -70,6 +71,7 @@ const openDialog = (index, item = null) => {
         form.reset();
     } else if (itemIndex.value == 1) {
         dialogItem.value = item.id;
+        form.code = item.code;
         form.gelombang = item.gelombang;
         form.tahun_akademik = item.tahun_akademik;
         form.awal_daftar = item.awal_daftar;
@@ -121,9 +123,7 @@ const close = () => {
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                             >
                                 <tr>
-                                    <th scope="col" class="px-6 py-3">
-                                        Gelombang
-                                    </th>
+                                    <th scope="col" class="px-6 py-3">Code</th>
 
                                     <th scope="col" class="px-6 py-3">
                                         Tahun Akademik
@@ -168,8 +168,11 @@ const close = () => {
                                         scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                     >
-                                        {{ item.gelombang }}
+                                        {{ item.code }}
                                     </th>
+                                    <td class="px-6 py-4">
+                                        {{ item.gelombang }}
+                                    </td>
                                     <td class="px-6 py-4">
                                         {{ item.tahun_akademik }}
                                     </td>
@@ -236,6 +239,21 @@ const close = () => {
                         class="mt-6 grid grid-cols-1 gap-4"
                         v-if="itemIndex != 2"
                     >
+                        <div>
+                            <InputLabel for="code" value="Code" />
+                            <TextInput
+                                id="code"
+                                ref="codeInput"
+                                v-model="form.code"
+                                type="text"
+                                class="mt-1 block w-full"
+                                placeholder="Code"
+                            />
+                            <InputError
+                                :message="form.errors.code"
+                                class="mt-2"
+                            />
+                        </div>
                         <div>
                             <InputLabel for="gelombang" value="Gelombang" />
                             <TextInput
