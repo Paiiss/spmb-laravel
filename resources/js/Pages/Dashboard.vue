@@ -119,13 +119,18 @@ const goToForm = () => {
                                 <h3
                                     class="text-lg font-semibold text-gray-900 dark:text-white"
                                 >
-                                    Isi data diri
+                                    Ajukan pembelian formulir
                                 </h3>
                                 <p
                                     class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400"
                                 >
-                                    Lengkapi data diri anda pada menu data diri,
-                                    isi sesuai dengan identitas diri anda.
+                                    Pilih gelombang pendaftaran dan pilih jursan
+                                    yang anda inginkan di menu
+                                    <Link
+                                        :href="route('form.submission')"
+                                        class="text-blue-600 hover:underline"
+                                        >pendaftaran</Link
+                                    >.
                                 </p>
                             </li>
                             <li class="mb-10 ms-4">
@@ -139,13 +144,22 @@ const goToForm = () => {
                                 <h3
                                     class="text-lg font-semibold text-gray-900 dark:text-white"
                                 >
-                                    Ajukan pendaftaran gelombang
+                                    Isi setiap formulir
                                 </h3>
                                 <p
                                     class="text-base font-normal text-gray-500 dark:text-gray-400"
                                 >
-                                    Pilih gelombang pendaftaran dan pilih jursan
-                                    yang anda inginkan.
+                                    Isi setiap formulir dengan benar dan sesuai
+                                    dengan identitas diri anda di menu
+                                    <Link
+                                        class="text-blue-600 hover:underline"
+                                        :href="
+                                            route('form.edit', {
+                                                id: 'personal',
+                                            })
+                                        "
+                                        >data diri</Link
+                                    >
                                 </p>
                             </li>
                             <li class="ms-4">
@@ -159,16 +173,21 @@ const goToForm = () => {
                                 <h3
                                     class="text-lg font-semibold text-gray-900 dark:text-white"
                                 >
-                                    Lakukan pembayaran formulir
+                                    Jika sudah lengkap, ikuti semua tes yang ada
                                 </h3>
                                 <p
-                                    class="text-base font-normal text-gray-500 dark:text-gray-400"
+                                    class="text-base font-normal text-gray-500 dark:text-gray-800"
                                 >
-                                    Lakukan pembayaran formulir pendaftaran dan
-                                    upload bukti pembayaran.
+                                    Lorem ipsum dolor sit amet consectetur
+                                    adipisicing elit. Fuga, ipsum!
                                 </p>
                             </li>
                         </ol>
+                        <footer class="flex justify-end mt-4">
+                            <p class="text-gray-300 dark:text-gray-400 text-sm">
+                                cumungut :3
+                            </p>
+                        </footer>
                     </div>
                 </div>
             </div>
