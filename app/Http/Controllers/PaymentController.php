@@ -49,7 +49,7 @@ class PaymentController extends Controller
     {
         // $payment = Payment::find($id);
         $userPayment = User::find(auth()->user()->id)->payments()->where('id', $id)->first();
-        if ($userPayment) {
+        if ($userPayment && $userPayment->status !== 'approved') {
             $userPayment->delete();
         }
         return Redirect::back();
