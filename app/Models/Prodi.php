@@ -20,10 +20,21 @@ class Prodi extends Model
         'tes_wawancara',
         'tes_kesehatan',
         'biaya_registrasi',
+
     ];
 
     protected $hidden = [
         'created_at',
         'updated_at'
     ];
+
+    public function getProdi()
+    {
+        return $this->hasMany(Form::class);
+    }
+
+    public static function getProdiById($id)
+    {
+        return static::where('id', $id)->first() ?: null;
+    }
 }
