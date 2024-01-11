@@ -30,4 +30,12 @@ class Wave extends Model
     {
         return static::where('active', true) ?: null;
     }
+
+    // bagiamana bikin function validasi untuk mengecek wave yang aktif dengan id
+    public static function getActiveDataById($id)
+    {
+        // return static::where('active', true, 'id', $id)->first() ?: null;
+
+        return static::where('active', true)->where('id', $id)->first() ?: null;
+    }
 }
