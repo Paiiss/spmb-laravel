@@ -89,12 +89,15 @@ return new class extends Migration
             // Affiliate
             $table->foreignId('affiliate_id')->nullable()->constrained('affiliates')->cascadeOnDelete()->cascadeOnUpdate();
 
-
             // No Ujian
-            $table->string('no_ujian')->nullable();
+            $table->string('no_exam')->nullable();
 
             // Status
             $table->string('registration_waves')->nullable();
+            $table->foreignId('option_id')->nullable();
+            $table->foreignId('option_2_id')->nullable();
+
+            $table->boolean('is_via_online')->default(false);
             $table->boolean('is_lock')->default(false);
             $table->boolean('is_submitted')->default(false);
             $table->boolean('is_accepted')->default(false);
