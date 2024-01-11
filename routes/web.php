@@ -54,6 +54,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/form/{id}', [FormController::class, 'edit'])->name('form.edit');
     Route::patch('/form', [FormController::class, 'update'])->name('form.update');
     Route::get('/submission', [FormController::class, 'submission'])->name('form.submission');
+    Route::post('/submission', [FormController::class, 'submissionStore'])->name('form.submission.store');
     Route::get('/payment', [FormController::class, 'payment'])->name('form.payment');
     Route::post('/payment', [PaymentController::class, 'store'])->name('form.payment.store');
     Route::delete('/payment/{id}', [PaymentController::class, 'userDestroy'])->name('form.payment.destroy');
