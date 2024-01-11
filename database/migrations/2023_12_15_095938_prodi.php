@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string("jenjang")->nullable();
             $table->string("fakultas")->nullable();
             $table->string("akreditasi")->nullable();
+            $table->boolean('tes_ujian')->default(false);
+            $table->boolean('tes_wawancara')->default(false);
+            $table->boolean('tes_kesehatan')->default(false);
+            $table->integer('biaya_registrasi')->default(0);
             $table->boolean("status")->default(false);
 
             $table->timestamps();
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('prodi');
     }
 };
