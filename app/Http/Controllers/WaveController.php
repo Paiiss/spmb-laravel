@@ -22,6 +22,7 @@ class WaveController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'code' => 'required|string|max:255',
             'gelombang' => 'required|string|max:255',
             'tahun_akademik' => 'required|string|max:255',
             'awal_daftar' => 'required|date',
@@ -33,6 +34,7 @@ class WaveController extends Controller
         ]);
 
         Wave::create([
+            'code' => $request->code,
             'gelombang' => $request->gelombang,
             'tahun_akademik' => $request->tahun_akademik,
             'awal_daftar' => $request->awal_daftar,
@@ -49,6 +51,7 @@ class WaveController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         $request->validate([
+            'code' => 'required|string|max:255',
             'gelombang' => 'required|string|max:255',
             'tahun_akademik' => 'required|string|max:255',
             'awal_daftar' => 'required|date',
@@ -60,6 +63,7 @@ class WaveController extends Controller
         ]);
 
         Wave::where('id', $id)->update([
+            'code' => $request->code,
             'gelombang' => $request->gelombang,
             'tahun_akademik' => $request->tahun_akademik,
             'awal_daftar' => $request->awal_daftar,
