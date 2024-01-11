@@ -96,6 +96,7 @@ const form = useForm({
                         :option-value="[
                             { value: 'Male', text: 'Laki-laki' },
                             { value: 'Female', text: 'Wanita' },
+                            { value: '', text: 'Pilih Jenis Kelamin' },
                         ]"
                     />
                     <InputError class="mt-2" :message="form.errors.gender" />
@@ -114,6 +115,7 @@ const form = useForm({
                             { value: 'Hindu', text: 'Hindu' },
                             { value: 'Buddha', text: 'Buddha' },
                             { value: 'Khonghucu', text: 'Khonghucu' },
+                            { value: '', text: 'Pilih Agama' },
                         ]"
                     />
                     <InputError class="mt-2" :message="form.errors.religion" />
