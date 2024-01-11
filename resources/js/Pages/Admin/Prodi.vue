@@ -70,9 +70,9 @@ const editProdi = (item = null) => {
         form.fakultas = findProdi.fakultas;
         form.jenjang = findProdi.jenjang;
         form.nama_prodi = findProdi.nama_prodi;
-        form.tes_kesehatan = findProdi.tes_kesehatan;
-        form.tes_ujian = findProdi.tes_ujian;
-        form.tes_wawancara = findProdi.tes_wawancara;
+        form.tes_kesehatan = findProdi.tes_kesehatan == 1 ? true : false;
+        form.tes_ujian = findProdi.tes_ujian == 1 ? true : false;
+        form.tes_wawancara = findProdi.tes_wawancara == 1 ? true : false;
         form.biaya_registrasi = findProdi.biaya_registrasi;
     }
 };
