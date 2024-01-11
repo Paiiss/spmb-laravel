@@ -11,6 +11,10 @@ class Form extends Model
 
     protected $table = 'forms';
 
+    // protected $fillable = ['wave_id', 'option_id', 'option_2_id'];
+    protected $guarded = [];
+    protected $fillable = array('*');
+
     public function user()
     {
         return $this->belongsTo(User::class);

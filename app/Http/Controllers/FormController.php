@@ -49,6 +49,7 @@ class FormController extends Controller
         if (!$user->getForm()->get()->isNotEmpty() || !$user->getForm()->first()->is_paid_registration) {
             return Redirect::route('form.submission');
         }
+        $user->getForm()->update($request->validated());
         return Redirect::back();
     }
 
