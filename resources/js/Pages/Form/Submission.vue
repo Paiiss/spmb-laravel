@@ -247,6 +247,146 @@ const statusCopy = ref(false);
                 </div>
                 <div
                     class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                    v-else-if="form_status && is_paid_registration"
+                >
+                    <h2
+                        class="font-bold text-gray-900 dark:text-white capitalize text-left text-2xl"
+                    >
+                        Pendaftaran
+                    </h2>
+                    <p>
+                        Anda sudah mendapatkan akses form pendaftaran, silahkan
+                        melakukan pendaftaran dengan mengisi form pendaftaran.
+                    </p>
+                    <div class="pt-8">
+                        <!-- Bikinkan judul untuk panduan pendaftaran -->
+                        <h3
+                            class="font-semibold text-gray-900 dark:text-white capitalize text-left text-xl"
+                        >
+                            Panduan Pendaftaran
+                        </h3>
+                        <ol
+                            class="relative border-s border-gray-200 dark:border-gray-700"
+                        >
+                            <li class="mb-10 ms-4">
+                                <div
+                                    class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
+                                ></div>
+                                <time
+                                    class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
+                                    >Langkah pertama</time
+                                >
+                                <h3
+                                    class="text-lg font-semibold text-gray-900 dark:text-white"
+                                >
+                                    Isi data diri
+                                </h3>
+                                <p
+                                    class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400"
+                                >
+                                    Lengkapi data diri anda pada menu
+                                    <Link
+                                        :href="
+                                            route('form.edit', {
+                                                id: 'personal',
+                                            })
+                                        "
+                                        class="text-blue-600 hover:underline"
+                                        >data diri</Link
+                                    >, isi sesuai dengan identitas diri anda.
+                                </p>
+                            </li>
+                            <li class="mb-10 ms-4">
+                                <div
+                                    class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
+                                ></div>
+                                <time
+                                    class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
+                                    >Langkah kedua</time
+                                >
+                                <h3
+                                    class="text-lg font-semibold text-gray-900 dark:text-white"
+                                >
+                                    Isi form disabilitas
+                                </h3>
+                                <p
+                                    class="text-base font-normal text-gray-500 dark:text-gray-400"
+                                >
+                                    Lengkapi data kesehatan pada menu
+                                    <Link
+                                        :href="
+                                            route('form.edit', {
+                                                id: 'disability',
+                                            })
+                                        "
+                                        class="text-blue-600 hover:underline"
+                                        >disabilitas</Link
+                                    >, isi sesuai dengan kondisi disabilitas
+                                    anda.
+                                </p>
+                            </li>
+                            <li class="mb-10 ms-4">
+                                <div
+                                    class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
+                                ></div>
+                                <time
+                                    class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
+                                    >Langkah ketiga</time
+                                >
+                                <h3
+                                    class="text-lg font-semibold text-gray-900 dark:text-white"
+                                >
+                                    Isi data pendidikan terakhir
+                                </h3>
+                                <p
+                                    class="text-base font-normal text-gray-500 dark:text-gray-400"
+                                >
+                                    Lengkapi data pendidikan terakhir pada menu
+                                    <Link
+                                        :href="
+                                            route('form.edit', {
+                                                id: 'education',
+                                            })
+                                        "
+                                        class="text-blue-600 hover:underline"
+                                        >pendidikan</Link
+                                    >, isi sesuai dengan data pendidikan
+                                    terakhir anda.
+                                </p>
+                            </li>
+                            <li class="ms-4">
+                                <div
+                                    class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
+                                ></div>
+                                <time
+                                    class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
+                                    >Langkah keempat</time
+                                >
+                                <h3
+                                    class="text-lg font-semibold text-gray-900 dark:text-white"
+                                >
+                                    Isi data orang tua
+                                </h3>
+                                <p
+                                    class="text-base font-normal text-gray-500 dark:text-gray-400"
+                                >
+                                    Lengkapi data orang tua pada menu
+                                    <Link
+                                        :href="
+                                            route('form.edit', {
+                                                id: 'parent',
+                                            })
+                                        "
+                                        class="text-blue-600 hover:underline"
+                                        >orang tua</Link
+                                    >, isi sesuai dengan data orang tua anda.
+                                </p>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div
+                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                     v-else
                 >
                     <h2 class="font-bold text-left text-black text-2xl">
