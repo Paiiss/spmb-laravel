@@ -23,8 +23,6 @@ class PaymentController extends Controller
 
     public function store(PaymentRequest $request): RedirectResponse
     {
-
-
         $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $imageName);
         $imagePath = 'images/' . $imageName;
@@ -37,6 +35,7 @@ class PaymentController extends Controller
                 'amount' => $request->amount,
                 'date' => $request->date,
                 'image' => $imagePath,
+                'type_payment' => $request->type_payment,
             ]
         );
         // Payment::create($request->validated());
