@@ -70,7 +70,7 @@ class FormController extends Controller
         $request->validate([
             'wave' => 'required|numeric',
             'option' => 'required|numeric',
-            'option_2' => 'numeric',
+            'option_2' => 'numeric|nullable',
         ]);
         $user = User::find(auth()->user()->id);
 
@@ -86,14 +86,18 @@ class FormController extends Controller
             return Redirect::back()->withErrors(['option' => 'Pilihan prodi tidak tersedia']);
         }
 
-        if (!Prodi::getProdiById($request->option_2)) {
+        if ($request->option_2 && !Prodi::getProdiById($request->option_2)) {
             return Redirect::back()->withErrors(['option_2' => 'Pilihan prodi tidak tersedia']);
         }
 
-        $user->getForm()->create([
+        if (!$user->getForm()->get()->isNotEmpty()) {
+            $user->getForm()->create();
+        }
+
+        $user->getForm()->update([
             'wave_id' => $request->wave,
             'option_id' => $request->option,
-            'option_2_id' => $request->option_2,
+            'option_2_id' => $request->option_2 ?? null,
         ]);
 
         return Redirect::route('form.submission');
