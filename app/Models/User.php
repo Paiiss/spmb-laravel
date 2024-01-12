@@ -64,4 +64,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Payment::class);
     }
+
+    public function getProdi()
+    {
+
+        return Prodi::where('id', $this->getForm?->option_id)->first() ?? null;
+    }
+
+    public function getProdi2()
+    {
+        return Prodi::where('id', $this->getForm?->option_id)->first() ?? null;
+    }
 }
