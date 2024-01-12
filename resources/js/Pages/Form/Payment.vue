@@ -10,6 +10,7 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import Modal from "@/Components/Modal.vue";
 import FileInput from "@/Components/FileInput.vue";
+import Combobox from "@/Components/Combobox.vue";
 
 defineProps({
     payment: Object,
@@ -22,6 +23,8 @@ if (usePage().props.payment.length == 0) {
         amount: "-",
         created_at: "-",
         date: "-",
+        type_payment: "-",
+        status: "-",
     });
 }
 
@@ -36,6 +39,7 @@ const form = useForm({
     account_name: "",
     account_number: "",
     amount: "",
+    type_payment: "form",
 });
 
 const open = (i = 0, item = null) => {
@@ -87,11 +91,12 @@ const close = () => {
             <div
                 class="max-w-7xl mx-auto bg-white shadow-md sm:shadow-lg p-4 sm:p-8"
             >
+                {{ payment }}
                 <div
                     class="flex flex-column sm:flex-grow flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4"
                 >
                     <header
-                        class="text-lg font-medium text-gray-900 dark:text-gray-100"
+                        class="text-lg font-semibold text-gray-900 dark:text-gray-100"
                     >
                         Bukti pembayaran
                     </header>
@@ -114,6 +119,8 @@ const close = () => {
                                 </th>
                                 <th scope="col" class="px-6 py-3">Jumlah</th>
                                 <th scope="col" class="px-6 py-3">Tanggal</th>
+                                <th scope="col" class="px-6 py-3">Jenis</th>
+                                <th scope="col" class="px-6 py-3">Status</th>
                                 <th scope="col" class="px-6 py-3">Action</th>
                             </tr>
                         </thead>
@@ -149,6 +156,27 @@ const close = () => {
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ item.date }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{
+                                        item.type_payment == "form"
+                                            ? "Formulir"
+                                            : "Pendaftaran"
+                                    }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <i
+                                        class="fas fa-circle"
+                                        :class="{
+                                            'text-green-500':
+                                                item.status == 'approved',
+                                            'text-yellow-500':
+                                                item.status == 'pending',
+                                            'text-red-500':
+                                                item.status == 'rejected',
+                                        }"
+                                    >
+                                    </i>
                                 </td>
                                 <td
                                     class="px-6 py-4 flex gap-2"
@@ -194,10 +222,10 @@ const close = () => {
 
                         <div class="mt-6 space-y-6">
                             <div
-                                class="grid grid-cols-3 md:grid-cols-4 gap-4"
+                                class="grid grid-cols-2 md:grid-cols-4 gap-4"
                                 v-if="dialogType !== 2"
                             >
-                                <div class="col-span-1">
+                                <div class="col-span-1 md:col-span-2">
                                     <InputLabel for="bank" value="Bank" />
 
                                     <TextInput
@@ -210,23 +238,8 @@ const close = () => {
                                         :message="form.errors.bank"
                                     />
                                 </div>
-                                <div class="col-span-3">
-                                    <InputLabel
-                                        for="account_name"
-                                        value="Nama pemilik rekening"
-                                    />
 
-                                    <TextInput
-                                        id="account_name"
-                                        class="mt-1 block w-full"
-                                        v-model="form.account_name"
-                                    />
-                                    <InputError
-                                        class="mt-2"
-                                        :message="form.errors.account_name"
-                                    />
-                                </div>
-                                <div class="col-span-2">
+                                <div class="col-span-1 md:col-span-2">
                                     <InputLabel
                                         for="account_number"
                                         value="Nomor rekening"
@@ -242,7 +255,25 @@ const close = () => {
                                         :message="form.errors.account_number"
                                     />
                                 </div>
-                                <div class="col-span-2 md:col-span-2">
+
+                                <div class="col-span-2 md:col-span-4">
+                                    <InputLabel
+                                        for="account_name"
+                                        value="Nama pemilik rekening"
+                                    />
+
+                                    <TextInput
+                                        id="account_name"
+                                        class="mt-1 block w-full"
+                                        v-model="form.account_name"
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.account_name"
+                                    />
+                                </div>
+
+                                <div class="col-span-1 md:col-span-2">
                                     <InputLabel
                                         for="date"
                                         value="Tanggal pembayaran"
@@ -260,7 +291,7 @@ const close = () => {
                                         :message="form.errors.date"
                                     />
                                 </div>
-                                <div class="col-span-2">
+                                <div class="col-span-1 md:col-span-2">
                                     <InputLabel
                                         for="amount"
                                         value="Nominal pembayaran"
@@ -278,7 +309,7 @@ const close = () => {
                                         :message="form.errors.amount"
                                     />
                                 </div>
-                                <div class="col-span-4">
+                                <div class="col-span-2 md:col-span-4">
                                     <InputLabel
                                         for="image"
                                         value="Bukti pembayaran"
@@ -287,6 +318,7 @@ const close = () => {
                                         id="image"
                                         class="my-2 block w-full text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                         v-model="form.image"
+                                        accept="image/*"
                                     />
 
                                     <InputError
