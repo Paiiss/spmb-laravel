@@ -52,6 +52,7 @@ const open = (i = 0, item = null) => {
         form.account_number = payment.account_number;
         form.amount = payment.amount;
         form.date = payment.date;
+        form.type_payment = payment.type_payment;
     }
 };
 
@@ -307,6 +308,34 @@ const close = () => {
                                     <InputError
                                         class="mt-2"
                                         :message="form.errors.amount"
+                                    />
+                                </div>
+                                <div class="col-span-2">
+                                    <InputLabel
+                                        for="type_payment"
+                                        value="Jenis pembayaran"
+                                    />
+
+                                    <Combobox
+                                        id="type_payment"
+                                        class="mt-1 block w-full"
+                                        v-model="form.type_payment"
+                                        placeholder="Pilih Jenis Pembayaran"
+                                        :option-value="[
+                                            {
+                                                value: 'form',
+                                                text: 'Formulir',
+                                            },
+                                            {
+                                                value: 'registration',
+                                                text: 'Registrasi',
+                                            },
+                                        ]"
+                                    />
+
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.type_payment"
                                     />
                                 </div>
                                 <div class="col-span-2 md:col-span-4">
