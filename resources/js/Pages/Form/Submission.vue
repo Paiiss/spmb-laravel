@@ -197,7 +197,6 @@ const statusCopy = ref(false);
                                         </svg>
                                     </button>
                                 </div>
-                                <!-- </p> -->
                                 <p>A.n YAYASAN HANG TUAH</p>
                             </div>
                         </div>
@@ -470,7 +469,6 @@ const statusCopy = ref(false);
                                         Berhasil mengajukan
                                     </p>
                                 </Transition>
-                                {{ form }}
                                 <PrimaryButton :disabled="form.processing"
                                     >Daftar</PrimaryButton
                                 >

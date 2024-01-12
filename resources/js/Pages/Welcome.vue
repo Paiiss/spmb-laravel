@@ -111,7 +111,7 @@ const programStudi = [
                 >
                     Sekilas tentang kami
                 </header>
-                <p>
+                <p class="text-wrap text-left">
                     UHT Pekanbaru sebagai lembaga pendidikan tinggi
                     menyelenggarakan kegiatan pendidikan, penelitian dan
                     pengabdian kepada masyarakat, yang bertujuan untuk mengisi
