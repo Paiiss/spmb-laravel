@@ -10,6 +10,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import DateInput from "@/Components/DateInput.vue";
 import Combobox from "@/Components/Combobox.vue";
+import TextareaInput from "@/Components/TextareaInput.vue";
 
 defineProps({
     payment: {
@@ -18,22 +19,47 @@ defineProps({
 });
 
 const form = useForm({
-    gelombang: "",
-    tahun_akademik: "",
-    awal_daftar: "",
-    akhir_daftar: "",
-    tes_tulis: "",
-    tes_kesehatan: "",
-    wawancara: "",
-    active: "false",
-}).transform((data) => ({
-    ...data,
-    active: data.active == "true" ? true : false,
-}));
+    status: "", // approved, pending, rejected
+    note: "",
+});
 
 const dialogIndex = ref(null); // 0 = create, 1 = edit, 2 = delete
 const dialog = ref(false);
 const dialogItem = ref(null);
+
+const open = (index, item = null) => {
+    dialogIndex.value = index;
+    dialogItem.value = item;
+    dialog.value = true;
+    if (index == 1) {
+        form.status = item.status;
+        form.note = item.note;
+    }
+};
+
+const close = () => {
+    dialog.value = false;
+    dialogIndex.value = null;
+    dialogItem.value = null;
+};
+
+const save = () => {
+    if (dialogIndex.value == 0) {
+        // create
+        // form.post(route("admin.payment.store"));
+    } else if (dialogIndex.value == 1) {
+        // edit
+        form.patch(route("admin.payment.update", dialogItem.value.id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                close();
+            },
+        });
+    } else if (dialogIndex.value == 2) {
+        // delete
+        // form.delete(route("admin.payment.destroy", dialogItem.value.id));
+    }
+};
 </script>
 
 <template>
@@ -47,16 +73,15 @@ const dialogItem = ref(null);
                     >
                         <header>
                             <h2
-                                class="text-lg font-medium text-gray-900 dark:text-gray-100"
+                                class="text-lg font-bold text-gray-900 dark:text-gray-100"
                             >
-                                Payment
+                                Kelola Pembayaran
                             </h2>
                         </header>
-                        <PrimaryButton @click="openDialog(0)">
+                        <!-- <PrimaryButton @click="openDialog(0)">
                             Create</PrimaryButton
-                        >
+                        > -->
                     </div>
-                    {{ payment }}
                     <div class="relative overflow-x-auto">
                         <table
                             class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
@@ -82,6 +107,9 @@ const dialogItem = ref(null);
                                     <th scope="col" class="px-6 py-3">
                                         Status
                                     </th>
+                                    <th scope="col" class="relative px-6 py-3">
+                                        Action
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,7 +124,7 @@ const dialogItem = ref(null);
                                     >
                                         {{ item.bank }}
                                     </th>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 truncate">
                                         {{ item.account_name }}
                                     </td>
                                     <td class="px-6 py-4">
@@ -110,7 +138,7 @@ const dialogItem = ref(null);
                                             }).format(item.amount) || 0
                                         }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 truncate">
                                         {{ item.date }}
                                     </td>
                                     <td class="px-6 py-4">
@@ -118,14 +146,34 @@ const dialogItem = ref(null);
                                             class="fas fa-circle"
                                             :class="{
                                                 'text-green-500':
-                                                    item.status == 'success',
+                                                    item.status == 'approved',
                                                 'text-yellow-500':
                                                     item.status == 'pending',
                                                 'text-red-500':
-                                                    item.status == 'failed',
+                                                    item.status == 'rejected',
                                             }"
                                         >
                                         </i>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex gap-2">
+                                            <button
+                                                @click="open(1, item)"
+                                                class="text-indigo-600 hover:text-indigo-900"
+                                            >
+                                                <i
+                                                    class="fa-solid fa-pencil"
+                                                ></i>
+                                            </button>
+                                            <button
+                                                @click="open(2, item)"
+                                                class="text-red-600 hover:text-red-900"
+                                            >
+                                                <i
+                                                    class="fa-solid fa-trash"
+                                                ></i>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -139,161 +187,68 @@ const dialogItem = ref(null);
                         class="text-lg font-medium text-gray-900 dark:text-gray-100"
                     >
                         {{
-                            itemIndex == 0
+                            dialogIndex == 0
                                 ? "Create"
-                                : itemIndex == 1
-                                ? "Edit"
-                                : "Delete"
+                                : dialogIndex == 1
+                                ? "Kelola Pembayaran"
+                                : "Hapus Pembayaran"
                         }}
                     </h2>
 
                     <div
                         class="mt-6 grid grid-cols-1 gap-4"
-                        v-if="itemIndex != 2"
+                        v-if="dialogIndex != 2"
                     >
-                        <!-- <div>
-                            <InputLabel for="gelombang" value="Gelombang" />
-                            <TextInput
-                                id="gelombang"
-                                ref="gelombangInput"
-                                v-model="form.gelombang"
-                                type="text"
-                                class="mt-1 block w-full"
-                                placeholder="Gelombang"
-                            />
-                            <InputError
-                                :message="form.errors.gelombang"
-                                class="mt-2"
+                        <div class="col-span-1">
+                            <img
+                                :src="`/` + dialogItem.image"
+                                :alt="`Bukti pembayaran ${dialogItem.user_id}`"
+                                class="w-full"
                             />
                         </div>
 
-                        <div>
-                            <InputLabel
-                                for="tahun_akademik"
-                                value="Tahun Akademik"
-                            />
-                            <TextInput
-                                id="tahun_akademik"
-                                ref="tahun_akademikInput"
-                                v-model="form.tahun_akademik"
-                                type="text"
-                                class="mt-1 block w-full"
-                                placeholder="Tahun Akademik"
-                            />
-                            <InputError
-                                :message="form.errors.tahun_akademik"
-                                class="mt-2"
-                            />
-                        </div>
-
-                        <div>
-                            <InputLabel for="awal_daftar" value="Awal Daftar" />
-                            <DateInput
-                                id="awal_daftar"
-                                ref="awal_daftarInput"
-                                v-model="form.awal_daftar"
-                                class="mt-1 block w-full"
-                                placeholder="Awal Daftar"
-                            />
-                            <InputError
-                                :message="form.errors.awal_daftar"
-                                class="mt-2"
-                            />
-                        </div>
-
-                        <div>
-                            <InputLabel
-                                for="akhir_daftar"
-                                value="Akhir Daftar"
-                            />
-                            <DateInput
-                                id="akhir_daftar"
-                                v-model="form.akhir_daftar"
-                                class="mt -1 block w-full"
-                            />
-                            <InputError
-                                :message="form.errors.akhir_daftar"
-                                class="mt-2"
-                            />
-                        </div>
-
-                        <div>
-                            <InputLabel for="tes_tulis" value="Tes Tulis" />
-                            <DateInput
-                                id="tes_tulis"
-                                v-model="form.tes_tulis"
-                                class="mt-1 block w-full"
-                                placeholder="Tes Tulis"
-                            />
-                            <InputError
-                                :message="form.errors.tes_tulis"
-                                class="mt-2"
-                            />
-                        </div>
-
-                        <div>
-                            <InputLabel
-                                for="tes_kesehatan"
-                                value="Tes Kesehatan"
-                            />
-                            <DateInput
-                                id="tes_kesehatan"
-                                v-model="form.tes_kesehatan"
-                                class="mt-1 block w-full"
-                                placeholder="Tes Kesehatan"
-                            />
-                            <InputError
-                                :message="form.errors.tes_kesehatan"
-                                class="mt-2"
-                            />
-                        </div>
-
-                        <div>
-                            <InputLabel for="wawancara" value="Wawancara" />
-                            <DateInput
-                                id="wawancara"
-                                ref="wawancaraInput"
-                                v-model="form.wawancara"
-                                class="mt-1 block w-full"
-                                placeholder="Wawancara"
-                            />
-                            <InputError
-                                :message="form.errors.wawancara"
-                                class="mt-2"
-                            />
-                        </div>
-
-                        <div>
-                            <InputLabel for="active" value="Active" />
+                        <div class="col-span-1">
+                            <InputLabel for="status">Status</InputLabel>
                             <Combobox
-                                id="active"
-                                v-model="form.active"
+                                v-model="form.status"
+                                id="status"
                                 class="mt-1 block w-full"
                                 :option-value="[
-                                    { value: 'true', text: 'Yes' },
-                                    { value: 'false', text: 'No' },
-                                    { value: 'null', text: 'Select' },
+                                    { value: 'approved', text: 'Approved' },
+                                    { value: 'pending', text: 'Pending' },
+                                    { value: 'rejected', text: 'Rejected' },
                                 ]"
                             />
                             <InputError
-                                :message="form.errors.active"
-                                class="mt-2"
+                                :message="form.errors.status"
+                            ></InputError>
+                        </div>
+
+                        <div class="col-span-1">
+                            <InputLabel for="note">Catatan</InputLabel>
+                            <TextareaInput
+                                v-model="form.note"
+                                id="note"
+                                class="mt-1 block w-full"
                             />
-                        </div> -->
+                            <InputError
+                                :message="form.errors.note"
+                            ></InputError>
+                        </div>
                     </div>
                     <div v-else>
                         <h2
                             class="text-lg font-medium text-gray-900 dark:text-gray-100"
                         >
-                            Are you sure you want to delete this payment?
+                            Anda yakin ingin menghapus pembayaran ini?
                         </h2>
                     </div>
                     <div class="mt-6">
                         <PrimaryButton @click="save()">
                             {{
-                                itemIndex == 0
+                                dialogIndex == 0
                                     ? "Create"
-                                    : itemIndex == 1
+                                    : dialogIndex == 1
                                     ? "Edit"
                                     : "Delete"
                             }}
