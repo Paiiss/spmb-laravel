@@ -25,6 +25,7 @@ if (usePage().props.payment.length == 0) {
         date: "-",
         type_payment: "-",
         status: "-",
+        code: "-",
     });
 }
 
@@ -40,6 +41,7 @@ const form = useForm({
     account_number: "",
     amount: "",
     type_payment: "form",
+    code: "",
 });
 
 const open = (i = 0, item = null) => {
@@ -138,7 +140,7 @@ const close = () => {
                                     {{ item.bank }}
                                 </th>
 
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 truncate">
                                     {{ item.account_name }}
                                 </td>
 
@@ -155,34 +157,40 @@ const close = () => {
                                               }).format(item.amount)
                                     }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 truncate">
                                     {{ item.date }}
                                 </td>
-                                <td class="px-6 py-4">
-                                    {{
-                                        item.type_payment == "form"
-                                            ? "Formulir"
-                                            : "Pendaftaran"
-                                    }}
+                                <td class="px-6 py-4 truncate">
+                                    <span v-if="item.type_payment !== '-'">
+                                        {{
+                                            item.type_payment == "form"
+                                                ? "Formulir"
+                                                : "Pendaftaran"
+                                        }}
+                                    </span>
+                                    <span v-else>-</span>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <i
-                                        class="fas fa-circle"
-                                        :class="{
-                                            'text-green-500':
-                                                item.status == 'approved',
-                                            'text-yellow-500':
-                                                item.status == 'pending',
-                                            'text-red-500':
-                                                item.status == 'rejected',
-                                        }"
+                                    <div
+                                        class="flex items-center justify-center"
                                     >
-                                    </i>
+                                        <i
+                                            v-if="item.status !== '-'"
+                                            class="fas fa-circle"
+                                            :class="{
+                                                'text-green-500':
+                                                    item.status == 'approved',
+                                                'text-yellow-500':
+                                                    item.status == 'pending',
+                                                'text-red-500':
+                                                    item.status == 'rejected',
+                                            }"
+                                        >
+                                        </i>
+                                        <span v-else>-</span>
+                                    </div>
                                 </td>
-                                <td
-                                    class="px-6 py-4 flex gap-2"
-                                    v-if="item.bank !== '-'"
-                                >
+                                <td class="px-6 py-4" v-if="item.bank !== '-'">
                                     <button
                                         @click="open(2, item.id)"
                                         class="text-red-600 hover:text-red-900"
@@ -310,7 +318,23 @@ const close = () => {
                                         :message="form.errors.amount"
                                     />
                                 </div>
-                                <div class="col-span-2">
+                                <div class="col-span-1 md:col-span-2">
+                                    <InputLabel
+                                        for="code"
+                                        value="Kode pembayaran"
+                                    />
+
+                                    <TextInput
+                                        id="code"
+                                        class="mt-1 block w-full"
+                                        v-model="form.code"
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.code"
+                                    />
+                                </div>
+                                <div class="col-span-1 md:col-span-2">
                                     <InputLabel
                                         for="type_payment"
                                         value="Jenis pembayaran"
