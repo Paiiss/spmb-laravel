@@ -24,6 +24,9 @@ defineProps({
     is_paid_registration: {
         default: false,
     },
+    code: {
+        default: null,
+    },
 });
 const form = useForm({
     wave: "",
@@ -106,8 +109,12 @@ const statusCopy = ref(false);
                         Pembayaran formulir pendaftaran
                     </h2>
                     <p>
-                        Anda sudah mengajukan pendaftaran, silahkan melakukan
-                        pembayaran formulir untuk melanjutkan proses pendaftaran
+                        Anda sudah mengajukan pendaftaran untuk tahun ajaran
+                        <span class="font-semibold">{{
+                            wave.tahun_akademik
+                        }}</span
+                        >, silahkan melakukan pembayaran formulir untuk
+                        melanjutkan proses pendaftaran
                     </p>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
@@ -195,8 +202,17 @@ const statusCopy = ref(false);
                                     </button>
                                 </div>
                                 <p>A.n YAYASAN HANG TUAH</p>
+                                <p class="mt-4">
+                                    <span class="font-semibold text-base"
+                                        >Kode Pembayaran:
+                                    </span>
+                                    <span class="font-semibold text-blue-700">{{
+                                        code
+                                    }}</span>
 
-                                <!-- bikin tombol button push ke form payment -->
+                                    <!-- bikin tombol button push ke form payment -->
+                                </p>
+
                                 <div class="flex justify-end gap-4 mt-8">
                                     <Link
                                         :href="route('form.payment')"
