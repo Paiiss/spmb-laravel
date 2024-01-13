@@ -192,10 +192,18 @@ const close = () => {
                                 </td>
                                 <td class="px-6 py-4" v-if="item.bank !== '-'">
                                     <button
+                                        v-if="item.status == 'pending'"
                                         @click="open(2, item.id)"
                                         class="text-red-600 hover:text-red-900"
                                     >
                                         <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                    <button
+                                        v-else
+                                        @click="open(4, item)"
+                                        class="text-blue-600 hover:text-blue-900"
+                                    >
+                                        <i class="fa-solid fa-eye"></i>
                                     </button>
                                 </td>
                                 <td class="px-6 py-4 flex gap-2" v-else>-</td>
@@ -213,7 +221,9 @@ const close = () => {
                                     ? "Upload"
                                     : dialogType == 1
                                     ? "Edit"
-                                    : "Hapus"
+                                    : dialogType == 2
+                                    ? "Hapus"
+                                    : "Detail"
                             }}
                             bukti pembayaran
                         </h2>
@@ -224,7 +234,9 @@ const close = () => {
                                         ? "Silahkan upload bukti pembayaran dibawah ini."
                                         : dialogType == 1
                                         ? "Silahkan edit bukti pembayaran dibawah ini."
-                                        : "Apakah anda yakin ingin menghapus bukti pembayaran ini?"
+                                        : dialogItem == 2
+                                        ? "Apakah anda yakin ingin menghapus bukti pembayaran ini?"
+                                        : "Berikut adalah detail bukti pembayaran."
                                 }}
                             </p>
                         </div>
@@ -232,7 +244,7 @@ const close = () => {
                         <div class="mt-6 space-y-6">
                             <div
                                 class="grid grid-cols-2 md:grid-cols-4 gap-4"
-                                v-if="dialogType !== 2"
+                                v-if="dialogType !== 2 && dialogType !== 4"
                             >
                                 <div class="col-span-1 md:col-span-2">
                                     <InputLabel for="bank" value="Bank" />
@@ -380,17 +392,51 @@ const close = () => {
                                     />
                                 </div>
                             </div>
+
+                            <div class="grid grid-cols-1" v-else>
+                                <div>
+                                    <img :src="dialogItem.image" alt="" />
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">
+                                        <span class="font-semibold"
+                                            >Status:</span
+                                        >
+                                        {{
+                                            dialogItem.status == "approved"
+                                                ? "Diterima"
+                                                : dialogItem.status == "pending"
+                                                ? "Menunggu"
+                                                : "Ditolak"
+                                        }}
+                                    </p>
+                                    <p class="text-gray-500">
+                                        <span class="font-semibold">Kode:</span>
+                                        {{ dialogItem.code }}
+                                    </p>
+                                    <p class="text-gray-500">
+                                        <span class="font-semibold"
+                                            >Catatan:</span
+                                        >
+                                        {{ dialogItem.note }}
+                                    </p>
+                                </div>
+                            </div>
                             <div class="flex justify-end gap-4">
                                 <SecondaryButton @click="close" class="ml-2">
-                                    Cancel
+                                    close
                                 </SecondaryButton>
-                                <PrimaryButton @click="save()">{{
-                                    dialogType == 0
-                                        ? "create"
-                                        : dialogType == 1
-                                        ? "update"
-                                        : "delete"
-                                }}</PrimaryButton>
+                                <PrimaryButton
+                                    v-if="dialogType !== 4"
+                                    @click="save()"
+                                    >{{
+                                        dialogType == 0
+                                            ? "create"
+                                            : dialogType == 1
+                                            ? "update"
+                                            : "delete"
+                                    }}</PrimaryButton
+                                >
                             </div>
                         </div>
                     </div>
