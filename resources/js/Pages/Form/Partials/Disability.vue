@@ -5,6 +5,7 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import Combobox from "@/Components/Combobox.vue";
 import { Link, useForm, usePage } from "@inertiajs/vue3";
+import TextareaInput from "@/Components/TextareaInput.vue";
 
 defineProps({
     mustVerifyEmail: {
@@ -45,8 +46,8 @@ const updateDisability = () => {
         </header>
 
         <form @submit.prevent="updateDisability" class="mt-6 space-y-6">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="col-span-1 md:col-span-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="col-span-1">
                     <InputLabel for="is_color_blind" value="Buta Warna" />
 
                     <Combobox
@@ -65,7 +66,7 @@ const updateDisability = () => {
                     />
                 </div>
 
-                <div class="col-span-1 md:col-span-4">
+                <div class="col-span-1">
                     <InputLabel for="is_disability" value="Disabilitas" />
 
                     <Combobox
@@ -84,13 +85,13 @@ const updateDisability = () => {
                     />
                 </div>
 
-                <div class="col-span-4" v-if="form.is_disability == 'true'">
+                <div class="col-span-2" v-if="form.is_disability == 'true'">
                     <InputLabel
                         for="disability_note"
                         value="Keterangan Disabilitas "
                     />
 
-                    <TextInput
+                    <TextareaInput
                         id="disability_note"
                         class="mt-1 block w-full"
                         type="text"
