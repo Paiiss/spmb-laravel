@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string('account_number')->nullable();
             $table->string('amount')->nullable();
             $table->date('date')->nullable();
+            $table->string('code')->nullable();
             $table->string('image')->nullable();
             $table->string('type_payment')->default('form');
-            $table->string('status')->default('pending');
+            $table->string('status')->default('pending'); // pending approved rejected
             $table->string('note')->nullable();
             $table->timestamps();
         });
