@@ -43,7 +43,7 @@ const save = () => {
                 preserveScroll: true,
                 onSuccess: () => close(),
                 onError: () => gelombangInput.value.focus(),
-                onFinish: () => form.reset(),
+                // onFinish: () => form.reset(),
             });
         } else if (itemIndex.value == 1) {
             form.patch(route("admin.wave.update", { id: dialogItem.value }), {
@@ -124,7 +124,9 @@ const close = () => {
                             >
                                 <tr>
                                     <th scope="col" class="px-6 py-3">Code</th>
-
+                                    <th scope="col" class="px-6 py-3">
+                                        Gelombang
+                                    </th>
                                     <th scope="col" class="px-6 py-3">
                                         Tahun Akademik
                                     </th>
@@ -170,7 +172,7 @@ const close = () => {
                                     >
                                         {{ item.code }}
                                     </th>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 truncate">
                                         {{ item.gelombang }}
                                     </td>
                                     <td class="px-6 py-4">
@@ -182,13 +184,13 @@ const close = () => {
                                     <td class="px-6 py-4">
                                         {{ item.akhir_daftar }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 truncate">
                                         {{ item.tes_tulis }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 truncate">
                                         {{ item.tes_kesehatan }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 truncate">
                                         {{ item.wawancara }}
                                     </td>
                                     <td class="px-6 py-4">
