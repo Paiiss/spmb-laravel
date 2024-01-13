@@ -10,7 +10,7 @@ class Payment extends Model
     use HasFactory;
     protected $table = 'payment';
 
-    protected $fillable = ['bank', 'account_name', 'account_number', 'amount', 'image', 'date', 'status', 'note', 'type_payment'];
+    protected $fillable = ['bank', 'account_name', 'account_number', 'amount', 'image', 'date', 'status', 'note', 'type_payment', 'code'];
 
     public function user()
     {
