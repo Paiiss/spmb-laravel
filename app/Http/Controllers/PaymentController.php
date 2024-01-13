@@ -15,6 +15,7 @@ class PaymentController extends Controller
 {
     public function index(): Response
     {
+        // dd(rand(1000, 9999));
         $payment = Payment::all();
         return Inertia::render('Admin/Payment', [
             'payment' => $payment
@@ -27,7 +28,7 @@ class PaymentController extends Controller
         $request->image->move(public_path('images'), $imageName);
         $imagePath = 'images/' . $imageName;
 
-        User::find(auth()->user()->id)->payments()->create(
+        $create = User::find(auth()->user()->id)->payments()->create(
             [
                 'bank' => $request->bank,
                 'account_name' => $request->account_name,
@@ -36,9 +37,27 @@ class PaymentController extends Controller
                 'date' => $request->date,
                 'image' => $imagePath,
                 'type_payment' => $request->type_payment,
+                'code' => $request->code,
             ]
         );
-        // Payment::create($request->validated());
+
+        return Redirect::back();
+    }
+
+    public function update(Request $request, string $id): RedirectResponse
+    {
+        $payment = Payment::find($id);
+        $payment->status = $request->status;
+        $payment->note = $request->note ?? null;
+        $payment->save();
+
+        $user = User::find($payment->user_id)->getForm()->first();
+        if ($request->status === 'approved' && $payment->type_payment == 'form') {
+            $user->is_paid_registration = true;
+        } else {
+            $user->is_paid_registration = false;
+        }
+        $user->save();
 
         return Redirect::back();
     }

@@ -80,6 +80,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/admin/payment', [PaymentController::class, 'index'])->name('admin.payment');
+    Route::patch('/admin/payment/{id}', [PaymentController::class, 'update'])->name('admin.payment.update');
 });
 
 
