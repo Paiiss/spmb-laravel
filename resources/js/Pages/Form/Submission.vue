@@ -131,9 +131,6 @@ const statusCopy = ref(false);
 
                             <div class="mt-4">
                                 <p class="font-semibold text-lg">Bank BTN</p>
-                                <p>
-                                    <!-- No. Rekening: <span>00323-01-30-000028-7</span> -->
-                                </p>
 
                                 <div class="inline-flex items-center gap-x-3">
                                     <div
@@ -198,6 +195,20 @@ const statusCopy = ref(false);
                                     </button>
                                 </div>
                                 <p>A.n YAYASAN HANG TUAH</p>
+
+                                <!-- bikin tombol button push ke form payment -->
+                                <div class="flex justify-end gap-4 mt-8">
+                                    <Link
+                                        :href="route('form.payment')"
+                                        as="button"
+                                        type="button"
+                                    >
+                                        <PrimaryButton
+                                            >Upload Bukti
+                                            Pembayaran</PrimaryButton
+                                        >
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                         <div class="shadow-md sm:shadow-lg p-4 sm:p-8">
@@ -231,17 +242,6 @@ const statusCopy = ref(false);
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                    <div class="flex justify-end gap-4 mt-4">
-                        <Link
-                            :href="route('form.payment')"
-                            as="button"
-                            type="button"
-                        >
-                            <PrimaryButton
-                                >Upload Bukti Pembayaran</PrimaryButton
-                            >
-                        </Link>
                     </div>
                 </div>
                 <div
