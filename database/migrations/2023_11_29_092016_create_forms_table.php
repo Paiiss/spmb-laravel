@@ -91,11 +91,13 @@ return new class extends Migration
 
             // No Ujian
             $table->string('no_exam')->nullable();
+            $table->string('code_registration')->default(0);
 
             // Status
-            $table->string('registration_waves')->nullable();
-            $table->foreignId('option_id')->nullable();
-            $table->foreignId('option_2_id')->nullable();
+            // $table->string('registration_waves')->nullable();
+            $table->foreignId('wave_id')->nullable()->constrained('waves')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('option_id')->nullable()->constrained('prodi');
+            $table->foreignId('option_2_id')->nullable()->constrained('prodi');
 
             $table->boolean('is_via_online')->default(false);
             $table->boolean('is_lock')->default(false);

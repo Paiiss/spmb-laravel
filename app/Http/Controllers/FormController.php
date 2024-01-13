@@ -98,6 +98,7 @@ class FormController extends Controller
             'wave_id' => $request->wave,
             'option_id' => $request->option,
             'option_2_id' => $request->option_2 ?? null,
+            'code_registration' => rand(1000, 9999),
         ]);
 
         return Redirect::route('form.submission');
