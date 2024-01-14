@@ -11,6 +11,9 @@ class ExamsRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        if ($this->user()->hasRole('admin')) {
+            return true;
+        }
         return false;
     }
 
@@ -23,6 +26,7 @@ class ExamsRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
             'duration' => ['required', 'integer'],
             'is_active' => ['required', 'boolean'],
         ];
