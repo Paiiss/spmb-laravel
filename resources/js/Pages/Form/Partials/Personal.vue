@@ -60,7 +60,6 @@ const form = useForm({
                         type="text"
                         class="mt-1 block w-full hover:cursor-not-allowed"
                         v-model="form.name"
-                        required
                         autofocus
                         disabled
                         autocomplete="name"
@@ -77,7 +76,6 @@ const form = useForm({
                         type="email"
                         class="mt-1 block w-full hover:cursor-not-allowed"
                         v-model="form.email"
-                        required
                         disabled
                         autocomplete="email"
                     />
@@ -143,7 +141,6 @@ const form = useForm({
                         id="birth_place_city"
                         class="mt-1 block w-full"
                         v-model="form.birth_place_city"
-                        required
                         autocomplete="address-level2"
                     />
 
@@ -163,7 +160,6 @@ const form = useForm({
                         id="birth_place_province"
                         class="mt-1 block w-full"
                         v-model="form.birth_place_province"
-                        required
                         autocomplete="address-level1"
                     />
 
@@ -183,7 +179,6 @@ const form = useForm({
                         id="birth_place_country"
                         class="mt-1 block w-full"
                         v-model="form.birth_place_country"
-                        required
                         autocomplete="country"
                     />
 
@@ -199,7 +194,6 @@ const form = useForm({
                     <TextInput
                         id="national_id"
                         class="mt-1 block w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                        required
                         type="number"
                         v-model="form.national_id"
                     />
