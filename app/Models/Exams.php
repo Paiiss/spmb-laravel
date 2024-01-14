@@ -13,6 +13,7 @@ class Exams extends Model
 
     protected $fillable = [
         'name',
+        'description',
         'duration',
         'is_active',
     ];
