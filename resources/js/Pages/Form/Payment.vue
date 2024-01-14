@@ -94,7 +94,6 @@ const close = () => {
             <div
                 class="max-w-7xl mx-auto bg-white shadow-md sm:shadow-lg p-4 sm:p-8"
             >
-                {{ payment }}
                 <div
                     class="flex flex-column sm:flex-grow flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4"
                 >
