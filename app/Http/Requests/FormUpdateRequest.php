@@ -77,9 +77,9 @@ class FormUpdateRequest extends FormRequest
             'guardian_phone' => ['string', 'max:255'],
             'affiliate_id' => ['integer'],
 
-            'wave_id' => ['integer', 'required'],
-            'option' => ['integer', 'required'],
-            'option_2' => ['integer', 'nullable'],
+            // 'wave_id' => ['integer', 'required'],
+            // 'option' => ['integer', 'required'],
+            // 'option_2' => ['integer', 'nullable'],
 
 
         ];
