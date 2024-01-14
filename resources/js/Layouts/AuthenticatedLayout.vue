@@ -403,6 +403,15 @@ const isSideBarOpen = ref(false);
                                     Gelombang
                                 </ResponsiveSideBar>
                             </li>
+                            <li>
+                                <ResponsiveSideBar
+                                    :href="route('admin.exams')"
+                                    :active="route().current('admin.exams')"
+                                    icon="fa-solid fa-book"
+                                >
+                                    Soal
+                                </ResponsiveSideBar>
+                            </li>
                         </ul>
                     </template>
                 </div>
