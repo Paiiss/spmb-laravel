@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\WaveController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ExamsController;
 use App\Models\User;
 use App\Models\Wave;
 use Illuminate\Foundation\Application;
@@ -81,8 +82,15 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/admin/payment', [PaymentController::class, 'index'])->name('admin.payment');
     Route::patch('/admin/payment/{id}', [PaymentController::class, 'update'])->name('admin.payment.update');
+    Route::delete('/admin/payment/{id}', [PaymentController::class, 'destroy'])->name('admin.payment.destroy');
 });
 
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+    Route::get('/admin/exams', [ExamsController::class, 'index'])->name('admin.exams');
+    Route::post('/admin/exams', [ExamsController::class, 'store'])->name('admin.exams.store');
+    Route::patch('/admin/exams/{id}', [ExamsController::class, 'update'])->name('admin.exams.update');
+    Route::delete('/admin/exams/{id}', [ExamsController::class, 'destroy'])->name('admin.exams.destroy');
+});
 
 
 require __DIR__ . '/auth.php';
