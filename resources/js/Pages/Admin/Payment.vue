@@ -57,7 +57,12 @@ const save = () => {
         });
     } else if (dialogIndex.value == 2) {
         // delete
-        // form.delete(route("admin.payment.destroy", dialogItem.value.id));
+        form.delete(route("admin.payment.destroy", dialogItem.value.id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                close();
+            },
+        });
     }
 };
 </script>
@@ -78,9 +83,6 @@ const save = () => {
                                 Kelola Pembayaran
                             </h2>
                         </header>
-                        <!-- <PrimaryButton @click="openDialog(0)">
-                            Create</PrimaryButton
-                        > -->
                     </div>
                     <div class="relative overflow-x-auto">
                         <table
