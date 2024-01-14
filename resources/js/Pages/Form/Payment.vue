@@ -64,7 +64,7 @@ const save = () => {
             preserveScroll: true,
             onSuccess: () => close(),
             onError: (e) => console.log(e),
-            onFinish: () => form.reset(),
+            // onFinish: () => form.reset(),
         });
     } else if (dialogType.value == 1) {
         form.put(route("form.payment.update", dialogItem.value));
@@ -392,7 +392,10 @@ const close = () => {
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-1" v-else>
+                            <div
+                                class="grid grid-cols-1"
+                                v-else-if="dialogType !== 2"
+                            >
                                 <div>
                                     <img :src="dialogItem.image" alt="" />
                                 </div>
