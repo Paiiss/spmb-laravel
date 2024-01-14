@@ -209,10 +209,7 @@ const statusCopy = ref(false);
                                     <span class="font-semibold text-blue-700">{{
                                         code
                                     }}</span>
-
-                                    <!-- bikin tombol button push ke form payment -->
                                 </p>
-
                                 <div class="flex justify-end gap-4 mt-8">
                                     <Link
                                         :href="route('form.payment')"
@@ -270,8 +267,13 @@ const statusCopy = ref(false);
                         Pendaftaran
                     </h2>
                     <p>
-                        Anda sudah mendapatkan akses form pendaftaran, silahkan
-                        melakukan pendaftaran dengan mengisi form pendaftaran.
+                        Anda sudah mendapatkan akses form pendaftaran tahun
+                        ajaran
+                        <span class="font-semibold">{{
+                            wave.tahun_akademik
+                        }}</span
+                        >, silahkan melakukan pendaftaran dengan mengisi form
+                        pendaftaran.
                     </p>
                     <div class="pt-8">
                         <!-- Bikinkan judul untuk panduan pendaftaran -->
