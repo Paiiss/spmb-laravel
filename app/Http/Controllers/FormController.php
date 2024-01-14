@@ -44,7 +44,6 @@ class FormController extends Controller
 
     public function update(FormUpdateRequest $request): RedirectResponse
     {
-
         $user = User::find(auth()->user()->id);
         if (!$user->getForm()->get()->isNotEmpty() || !$user->getForm()->first()->is_paid_registration) {
             return Redirect::route('form.submission');
@@ -57,7 +56,7 @@ class FormController extends Controller
     {
         $user = User::find(auth()->user()->id);;
         return Inertia::render('Form/Submission', [
-            'wave' => $user->getWave()->first() ?? null,
+            'wave' => $user?->getWave()?->first() ?? null,
             'form_status' => $user->getForm()->get()->isNotEmpty(),
             'amount' => $user?->getProdi()->biaya_registrasi ?? 0,
             'is_paid_registration' => $user->getForm()->first()->is_paid_registration ?? false,
@@ -73,6 +72,7 @@ class FormController extends Controller
             'option' => 'required|numeric',
             'option_2' => 'numeric|nullable',
         ]);
+
         $user = User::find(auth()->user()->id);
 
         if ($user->getForm()->get()->isNotEmpty()) {
