@@ -233,7 +233,7 @@ const close = () => {
                                         ? "Silahkan upload bukti pembayaran dibawah ini."
                                         : dialogType == 1
                                         ? "Silahkan edit bukti pembayaran dibawah ini."
-                                        : dialogItem == 2
+                                        : dialogType == 2
                                         ? "Apakah anda yakin ingin menghapus bukti pembayaran ini?"
                                         : "Berikut adalah detail bukti pembayaran."
                                 }}
