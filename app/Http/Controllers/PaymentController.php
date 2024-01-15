@@ -25,8 +25,8 @@ class PaymentController extends Controller
     public function store(PaymentRequest $request): RedirectResponse
     {
         $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
-        $imagePath = 'images/' . $imageName;
+        $request->image->move(public_path('images/payments'), $imageName);
+        $imagePath = 'images/payments/' . $imageName;
 
         $create = User::find(auth()->user()->id)->payments()->create(
             [
