@@ -13,7 +13,7 @@ import Combobox from "@/Components/Combobox.vue";
 import TextareaInput from "@/Components/TextareaInput.vue";
 
 defineProps({
-    exams: Object,
+    exams: Array,
 });
 
 const form = useForm({
@@ -114,25 +114,23 @@ const save = () => {
                                                 menit
                                             </p>
                                         </div>
-                                        <div>
+                                        <div class="flex space-x-2">
                                             <button
-                                                class="mt-3 inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                                                class="mt-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                                             >
-                                                Edit
-                                                <svg
-                                                    class="flex-shrink-0 w-4 h-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="24"
-                                                    height="24"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    stroke-width="2"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
+                                                <Link
+                                                    :href="
+                                                        route(
+                                                            'admin.exams.questions',
+                                                            {
+                                                                exam_id:
+                                                                    item.id,
+                                                            }
+                                                        )
+                                                    "
                                                 >
-                                                    <path d="m9 18 6-6-6-6" />
-                                                </svg>
+                                                    Edit
+                                                </Link>
                                             </button>
                                             <button
                                                 @click="open(2, item)"
