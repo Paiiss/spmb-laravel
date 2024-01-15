@@ -26,9 +26,10 @@ const form = useForm({
 
 const updateDisability = () => {
     form.transform((data) => ({
-        ...data,
         is_color_blind: data.is_color_blind == "true" ? true : false,
         is_disability: data.is_disability == "true" ? true : false,
+        disability_note:
+            data.is_disability == "true" ? data.disability_note : "",
     })).patch(route("form.update"));
 };
 </script>
