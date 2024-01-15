@@ -27,7 +27,7 @@ return new class extends Migration
             // Disabilitas
             $table->boolean('is_color_blind')->nullable();
             $table->boolean('is_disability')->nullable();
-            $table->string('disability_note')->nullable();
+            $table->text('disability_note')->nullable();
 
             // Address
             $table->string('address')->nullable();

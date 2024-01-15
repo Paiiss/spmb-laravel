@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('exam_questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('exam_id')->constrained('exams')->onDelete('cascade');
-            $table->string('question');
+            $table->foreignId('exam_id')->constrained('exams')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->text('question');
             $table->string('option_a')->nullable();
             $table->string('option_b')->nullable();
             $table->string('option_c')->nullable();
             $table->string('option_d')->nullable();
             $table->string('option_e')->nullable();
-            $table->string('answer');
+            $table->enum('answer', ['a', 'b', 'c', 'd', 'e']);
             $table->timestamps();
         });
     }
