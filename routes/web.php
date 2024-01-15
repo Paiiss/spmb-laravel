@@ -7,6 +7,7 @@ use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\WaveController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ExamsController;
+use App\Http\Controllers\ExamQuesionController;
 use App\Models\User;
 use App\Models\Wave;
 use Illuminate\Foundation\Application;
@@ -90,6 +91,13 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::post('/admin/exams', [ExamsController::class, 'store'])->name('admin.exams.store');
     Route::patch('/admin/exams/{id}', [ExamsController::class, 'update'])->name('admin.exams.update');
     Route::delete('/admin/exams/{id}', [ExamsController::class, 'destroy'])->name('admin.exams.destroy');
+});
+
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+    Route::get('/admin/exams/{exam_id}', [ExamQuesionController::class, 'index'])->name('admin.exams.questions');
+    Route::post('/admin/exams/{exam_id}/questions', [ExamQuesionController::class, 'store'])->name('admin.exams.questions.store');
+    Route::patch('/admin/exams/{exam_id}/questions/{question_id}', [ExamQuesionController::class, 'update'])->name('admin.exams.questions.update');
+    Route::delete('/admin/exams/{exam_id}/questions/{question_id}', [ExamQuesionController::class, 'destroy'])->name('admin.exams.questions.destroy');
 });
 
 
