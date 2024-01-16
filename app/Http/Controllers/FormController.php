@@ -34,14 +34,6 @@ class FormController extends Controller
         ]);
     }
 
-    public function getForm(Request $request): Response
-    {
-        return Inertia::render('Form/GetForm', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status'),
-        ]);
-    }
-
     public function update(FormUpdateRequest $request): RedirectResponse
     {
         $user = User::find(auth()->user()->id);
