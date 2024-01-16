@@ -358,7 +358,17 @@ const isSideBarOpen = ref(false);
                                 Pembayaran
                             </ResponsiveSideBar>
                         </li>
+                        <li>
+                            <ResponsiveSideBar
+                                icon="fa-solid fa-file"
+                                :href="route('documents.index')"
+                                :active="route().current('documents.index')"
+                            >
+                                Dokumen
+                            </ResponsiveSideBar>
+                        </li>
                     </ul>
+
                     <template
                         v-if="$page.props.auth.user.roles.includes('admin')"
                     >
