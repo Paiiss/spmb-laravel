@@ -27,7 +27,7 @@ class PaymentRequest extends FormRequest
             'account_number' => ['required', 'numeric', 'min:0'],
             'amount' => ['required', 'numeric', 'min:0',],
             'date' => ['required', 'date'],
-            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'image' => ['required', 'image', 'extensions:jpeg,png,jpg,gif,svg', 'max:2048'],
             'type_payment' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255'],
         ];
