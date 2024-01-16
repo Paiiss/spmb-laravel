@@ -19,4 +19,9 @@ class Form extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function documents()
+    {
+        return $this->hasOne(Documents::class);
+    }
 }
