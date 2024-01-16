@@ -8,6 +8,7 @@ use App\Http\Controllers\WaveController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ExamsController;
 use App\Http\Controllers\ExamQuesionController;
+use App\Http\Controllers\DocumentsController;
 use App\Models\User;
 use App\Models\Wave;
 use Illuminate\Foundation\Application;
@@ -62,42 +63,38 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/payment/{id}', [PaymentController::class, 'userDestroy'])->name('form.payment.destroy');
 });
 
-Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
-    Route::get('/admin/user', [AdminController::class, 'allUser'])->name('admin.user');
+Route::middleware(['auth', 'verified', 'payform'])->prefix('/documents')->name('documents.')->group(function () {
+    Route::get('/', [DocumentsController::class, 'index'])->name('index');
+    Route::patch('/', [DocumentsController::class, 'update'])->name('update');
+    // Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 });
 
-Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
-    Route::get('/admin/program-studi', [ProdiController::class, 'index'])->name('admin.prodi');
-    Route::post('/admin/program-studi', [ProdiController::class, 'store'])->name('admin.prodi.store');
-    Route::patch('/admin/program-studi/{id}', [ProdiController::class, 'update'])->name('admin.prodi.update');
-    Route::delete('/admin/program-studi/{id}', [ProdiController::class, 'destroy'])->name('admin.prodi.destroy');
-});
+Route::middleware(['auth', 'verified', 'role:admin'])->prefix('/admin')->name('admin.')->group(function () {
+    Route::get('/admin/user', [AdminController::class, 'allUser'])->name('user');
 
-Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
-    Route::get('/admin/wave', [WaveController::class, 'index'])->name('admin.wave');
-    Route::post('/admin/wave', [WaveController::class, 'store'])->name('admin.wave.store');
-    Route::patch('/admin/wave/{id}', [WaveController::class, 'update'])->name('admin.wave.update');
-    Route::delete('/admin/wave/{id}', [WaveController::class, 'destroy'])->name('admin.wave.destroy');
-});
+    Route::get('/program-studi', [ProdiController::class, 'index'])->name('prodi');
+    Route::post('/program-studi', [ProdiController::class, 'store'])->name('prodi.store');
+    Route::patch('/program-studi/{id}', [ProdiController::class, 'update'])->name('prodi.update');
+    Route::delete('/program-studi/{id}', [ProdiController::class, 'destroy'])->name('prodi.destroy');
 
-Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
-    Route::get('/admin/payment', [PaymentController::class, 'index'])->name('admin.payment');
-    Route::patch('/admin/payment/{id}', [PaymentController::class, 'update'])->name('admin.payment.update');
-    Route::delete('/admin/payment/{id}', [PaymentController::class, 'destroy'])->name('admin.payment.destroy');
-});
+    Route::get('/wave', [WaveController::class, 'index'])->name('wave');
+    Route::post('/wave', [WaveController::class, 'store'])->name('store');
+    Route::patch('/wave/{id}', [WaveController::class, 'update'])->name('wave.update');
+    Route::delete('/wave/{id}', [WaveController::class, 'destroy'])->name('wave.destroy');
 
-Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
-    Route::get('/admin/exams', [ExamsController::class, 'index'])->name('admin.exams');
-    Route::post('/admin/exams', [ExamsController::class, 'store'])->name('admin.exams.store');
-    Route::patch('/admin/exams/{id}', [ExamsController::class, 'update'])->name('admin.exams.update');
-    Route::delete('/admin/exams/{id}', [ExamsController::class, 'destroy'])->name('admin.exams.destroy');
-});
+    Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
+    Route::patch('/payment/{id}', [PaymentController::class, 'update'])->name('payment.update');
+    Route::delete('/payment/{id}', [PaymentController::class, 'destroy'])->name('payment.destroy');
 
-Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
-    Route::get('/admin/exams/{exam_id}', [ExamQuesionController::class, 'index'])->name('admin.exams.questions');
-    Route::post('/admin/exams/{exam_id}/questions', [ExamQuesionController::class, 'store'])->name('admin.exams.questions.store');
-    Route::patch('/admin/exams/{exam_id}/questions/{question_id}', [ExamQuesionController::class, 'update'])->name('admin.exams.questions.update');
-    Route::delete('/admin/exams/{exam_id}/questions/{question_id}', [ExamQuesionController::class, 'destroy'])->name('admin.exams.questions.destroy');
+    Route::get('/exams', [ExamsController::class, 'index'])->name('exams');
+    Route::post('/exams', [ExamsController::class, 'store'])->name('exams.store');
+    Route::patch('/exams/{id}', [ExamsController::class, 'update'])->name('exams.update');
+    Route::delete('/exams/{id}', [ExamsController::class, 'destroy'])->name('exams.destroy');
+
+    Route::get('/exams/{exam_id}', [ExamQuesionController::class, 'index'])->name('exams.questions');
+    Route::post('/exams/{exam_id}/questions', [ExamQuesionController::class, 'store'])->name('exams.questions.store');
+    Route::patch('/exams/{exam_id}/questions/{question_id}', [ExamQuesionController::class, 'update'])->name('exams.questions.update');
+    Route::delete('/exams/{exam_id}/questions/{question_id}', [ExamQuesionController::class, 'destroy'])->name('exams.questions.destroy');
 });
 
 
