@@ -13,7 +13,6 @@ import Combobox from "@/Components/Combobox.vue";
 import TextareaInput from "@/Components/TextareaInput.vue";
 
 defineProps({
-    documents: Object,
     ktp: String,
     foto: String,
     ijazah: String,

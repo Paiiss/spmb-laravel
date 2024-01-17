@@ -16,7 +16,6 @@ class DocumentsController extends Controller
     {
         $form = User::find(auth()->user()->id)->getForm()->first();
         return Inertia::render('Documents/Index', [
-            'documents' => [],
             'ktp' => $form->getFirstMedia('ktp')?->getUrl() ?? null,
             'foto' => $form->getFirstMedia('foto')?->getUrl() ?? null,
             'ijazah' => $form->getFirstMedia('ijazah')?->getUrl() ?? null,
