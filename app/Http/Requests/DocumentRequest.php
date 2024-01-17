@@ -22,11 +22,10 @@ class DocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // ini adalah gambaran dari validasi yang akan dilakukan
-            'ktp' => ['nullable', 'extensions:jpg,png'],
-            'foto' => ['nullable', 'extensions:jpg,png'],
-            'ijazah' => ['nullable', 'extensions:pdf'],
-            'transkrip_nilai' => ['nullable', 'extensions:pdf'],
+            'ktp' => ['extensions:jpg,png', 'image', 'nullable'],
+            'foto' => ['nullable', 'image', 'extensions:jpg,png'],
+            'ijazah' => ['nullable', 'image', 'extensions:jpg,png'],
+            'transkrip_nilai' => ['nullable', 'image', 'extensions:jpg,png'],
 
         ];
     }
