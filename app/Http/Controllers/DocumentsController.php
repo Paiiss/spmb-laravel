@@ -8,34 +8,40 @@ use Inertia\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\DocumentRequest;
-use App\Models\Documents;
 use App\Models\User;
 
 class DocumentsController extends Controller
 {
     public function index(): Response | RedirectResponse
     {
-        // $user = User::find(auth()->user()->id);
-        $documents = User::find(auth()->user()->id)->getForm()->first()->documents();
-        if (!$documents->get()->isNotEmpty()) {
-            $documents->create();
-        }
+        $form = User::find(auth()->user()->id)->getForm()->first();
         return Inertia::render('Documents/Index', [
-            'documents' => $documents->first()
+            'documents' => [],
+            'ktp' => $form->getFirstMedia('ktp')?->getUrl() ?? null,
+            'foto' => $form->getFirstMedia('foto')?->getUrl() ?? null,
+            'ijazah' => $form->getFirstMedia('ijazah')?->getUrl() ?? null,
+            'transkrip_nilai' => $form->getFirstMedia('transkrip_nilai')?->getUrl() ?? null,
         ]);
     }
 
     public function update(DocumentRequest $request): RedirectResponse
     {
+        $form = User::find(auth()->user()->id)->getForm()->first();
+        if ($request->hasFile('ktp') && $request->file('ktp')->isValid()) {
+            $form->addMedia($request->file('ktp'))->toMediaCollection('ktp');
+        }
 
-        $documents = User::find(auth()->user()->id)->getForm()->first()->documents();
-        // $documents->update($request->validated());
+        if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+            $form->addMedia($request->file('foto'))->toMediaCollection('foto');
+        }
 
-        $documents->update([
-            $request->name => $request->file('file')->storePublicly('documents', 'public')
-        ]);
+        if ($request->hasFile('ijazah') && $request->file('ijazah')->isValid()) {
+            $form->addMedia($request->file('ijazah'))->toMediaCollection('ijazah');
+        }
 
-
+        if ($request->hasFile('transkrip_nilai') && $request->file('transkrip_nilai')->isValid()) {
+            $form->addMedia($request->file('transkrip_nilai'))->toMediaCollection('transkrip_nilai');
+        }
 
         return Redirect::route('documents.index');
     }
