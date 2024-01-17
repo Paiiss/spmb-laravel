@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Form extends Model
+class Form extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $table = 'forms';
 
@@ -20,8 +23,11 @@ class Form extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function documents()
+    public function registerMediaCollections(): void
     {
-        return $this->hasOne(Documents::class);
+        $this->addMediaCollection('ktp')->singleFile();
+        $this->addMediaCollection('foto')->singleFile();
+        $this->addMediaCollection('ijazah')->singleFile();
+        $this->addMediaCollection('transkrip_nilai')->singleFile();
     }
 }
