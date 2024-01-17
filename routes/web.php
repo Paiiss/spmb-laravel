@@ -65,8 +65,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'verified', 'payform'])->prefix('/documents')->name('documents.')->group(function () {
     Route::get('/', [DocumentsController::class, 'index'])->name('index');
-    Route::patch('/', [DocumentsController::class, 'update'])->name('update');
-    // Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    Route::post('/', [DocumentsController::class, 'update'])->name('update');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('/admin')->name('admin.')->group(function () {
