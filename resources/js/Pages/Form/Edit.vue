@@ -2,6 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import Personal from "./Partials/Personal.vue";
+import Address from "./Partials/Address.vue";
 import Disability from "./Partials/Disability.vue";
 import Education from "./Partials/Education.vue";
 import Parent from "./Partials/Parent.vue";
@@ -39,6 +40,15 @@ defineProps({
                     class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow-md sm:shadow-lg sm:rounded-lg"
                 >
                     <Personal
+                        :must-verify-email="mustVerifyEmail"
+                        :status="status"
+                    />
+                </div>
+                <div
+                    v-if="id === 'address'"
+                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow-md sm:shadow-lg sm:rounded-lg"
+                >
+                    <Address
                         :must-verify-email="mustVerifyEmail"
                         :status="status"
                     />
