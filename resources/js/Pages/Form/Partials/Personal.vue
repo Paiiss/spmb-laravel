@@ -20,14 +20,14 @@ const user = usePage().props.auth.user;
 const form_data = usePage().props.form;
 
 const form = useForm({
-    name: user.name,
-    email: user.email,
-    gender: form_data.gender,
-    religion: form_data.religion,
-    birth_date: form_data.birth_date,
-    birth_place_city: form_data.birth_place_city,
-    birth_place_province: form_data.birth_place_province,
-    birth_place_country: form_data.birth_place_country,
+    name: user.name || ``,
+    email: user.email || ``,
+    gender: form_data.gender || ``,
+    religion: form_data.religion || ``,
+    birth_date: form_data.birth_date || ``,
+    birth_place_city: form_data.birth_place_city || ``,
+    birth_place_province: form_data.birth_place_province || ``,
+    birth_place_country: form_data.birth_place_country || ``,
     national_id: `${form_data.national_id}`,
 }).transform((data) => ({
     ...data,
