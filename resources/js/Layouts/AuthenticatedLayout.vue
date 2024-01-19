@@ -7,9 +7,12 @@ import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import ResponsiveSideBar from "@/Components/ResponsiveSideBar.vue";
 import { Link, usePage } from "@inertiajs/vue3";
+import AlertHandler from "@/Components/AlertHandler.vue";
 
 const showingNavigationDropdown = ref(false);
-const showingListForm = ref(route().current("form.edit") || false);
+const showingListForm = ref(
+    route().current("form.edit") || route().current("documents.index") || false
+);
 const showingListAdmin = ref(route() || false);
 const isSideBarOpen = ref(false);
 </script>
@@ -21,7 +24,6 @@ const isSideBarOpen = ref(false);
             <nav
                 class="fixed top-0 z-50 w-full bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700"
             >
-                <!-- Primary Navigation Menu -->
                 <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
                         <div class="flex">
@@ -265,7 +267,7 @@ const isSideBarOpen = ref(false);
                             >
                                 <i class="fa-solid fa-address-card" />
                                 <span
-                                    class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap"
+                                    class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap capitalize"
                                     >Data diri</span
                                 >
                                 <i
@@ -347,6 +349,16 @@ const isSideBarOpen = ref(false);
                                         >Orang tua / wali</ResponsiveSideBar
                                     >
                                 </li>
+                                <li>
+                                    <ResponsiveSideBar
+                                        :href="route('documents.index')"
+                                        :active="
+                                            route().current('documents.index')
+                                        "
+                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                        >Dokumen</ResponsiveSideBar
+                                    >
+                                </li>
                             </ul>
                         </li>
                         <li>
@@ -356,15 +368,6 @@ const isSideBarOpen = ref(false);
                                 :active="route().current('form.payment')"
                             >
                                 Pembayaran
-                            </ResponsiveSideBar>
-                        </li>
-                        <li>
-                            <ResponsiveSideBar
-                                icon="fa-solid fa-file"
-                                :href="route('documents.index')"
-                                :active="route().current('documents.index')"
-                            >
-                                Dokumen
                             </ResponsiveSideBar>
                         </li>
                     </ul>
@@ -384,7 +387,6 @@ const isSideBarOpen = ref(false);
                                     User
                                 </ResponsiveSideBar>
                             </li>
-                            <!-- Untuk validasi bukti pembayaran -->
                             <li>
                                 <ResponsiveSideBar
                                     :href="route('admin.payment')"
@@ -431,21 +433,10 @@ const isSideBarOpen = ref(false);
                 class="fixed inset-0 z-30 bg-gray-500 opacity-50"
                 @click="isSideBarOpen = false"
             />
-
-            <!-- Page Heading -->
-
-            <!-- Page Content -->
-            <!-- <header
-                class="bg-white dark:bg-gray-800 shadow mb-6"
-                v-if="$slots.header"
-            >
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header" />
-                </div>
-            </header> -->
             <main class="p-4 py-20 sm:ml-64">
                 <slot />
             </main>
+            <AlertHandler />
         </div>
     </div>
 </template>
