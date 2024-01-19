@@ -9,6 +9,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ExamsController;
 use App\Http\Controllers\ExamQuesionController;
 use App\Http\Controllers\DocumentsController;
+use App\Http\Controllers\WebSettingController;
 use App\Models\User;
 use App\Models\Wave;
 use Illuminate\Foundation\Application;
@@ -94,6 +95,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('/admin')->name('a
     Route::post('/exams/{exam_id}/questions', [ExamQuesionController::class, 'store'])->name('exams.questions.store');
     Route::patch('/exams/{exam_id}/questions/{question_id}', [ExamQuesionController::class, 'update'])->name('exams.questions.update');
     Route::delete('/exams/{exam_id}/questions/{question_id}', [ExamQuesionController::class, 'destroy'])->name('exams.questions.destroy');
+
+    Route::get('/web-setting', [WebSettingController::class, 'index'])->name('web-setting');
+    Route::patch('/web-setting', [WebSettingController::class, 'backup'])->name('web-setting.backup');
 });
 
 
