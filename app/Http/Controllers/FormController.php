@@ -41,6 +41,10 @@ class FormController extends Controller
             return Redirect::route('form.submission');
         }
         $user->getForm()->update($request->validated());
+        session()->flash('alert', [
+            'type' => 'success',
+            'message' => 'Data berhasil di simpan'
+        ]);
         return Redirect::back();
     }
 
