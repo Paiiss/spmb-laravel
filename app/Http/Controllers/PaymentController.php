@@ -40,7 +40,10 @@ class PaymentController extends Controller
                 'code' => $request->code,
             ]
         );
-
+        session()->flash('alert', [
+            'type' => 'success',
+            'message' => 'Pembayaran berhasil diupload'
+        ]);
         return Redirect::back();
     }
 
