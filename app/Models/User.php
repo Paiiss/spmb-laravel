@@ -80,4 +80,37 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return Wave::where('id', $this->getForm?->wave_id)->first() ?? null;
     }
+
+    public function getProgress()
+    {
+        $form = $this->hasOne(Form::class)->first();
+
+        if (!$form) {
+            return null;
+        }
+
+        $percent = [
+            'personal' => 0,
+            'address' => 0,
+            'education' => 0,
+            'parent' => 0,
+        ];
+
+        $fieldPersonal = [
+            'personal' => ['gender', 'religion', 'birth_date', 'birth_date', 'birth_place_city', 'birth_place_province', 'birth_place_country', 'national_id'],
+            'address' => ['address', 'city', 'province', 'subdistrict', 'country', 'postal_code', 'rt', 'rw', 'phone_number', 'phone_number_alt'],
+            'education' => ['last_education', 'education_number', 'education_name', 'education_city', 'education_province', 'education_subdistrict', 'education_country', 'education_postal_code', 'education_graduation_year', 'education_major', 'education_grade'],
+            'parent' => ['father_name', 'father_birth_date', 'father_place', 'father_last_education', 'father_job', 'father_phone', 'father_email', 'mother_name', 'mother_birth_date', 'mother_place', 'mother_last_education', 'mother_job', 'mother_email', 'mother_phone', 'guardian_name', 'guardian_birth_date', 'guardian_place', 'guardian_last_education', 'guardian_job', 'guardian_phone', 'guardian_email', 'guardian_relation'],
+        ];
+
+        foreach ($fieldPersonal as $key => $field) {
+            foreach ($field as $f) {
+                if ($form[$f] != null) {
+                    $percent[$key] += 1;
+                }
+            }
+            $percent[$key] = ($percent[$key] / count($field)) * 100;
+        }
+        return $percent;
+    }
 }
