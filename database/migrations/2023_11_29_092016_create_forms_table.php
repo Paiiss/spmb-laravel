@@ -102,8 +102,8 @@ return new class extends Migration
             $table->boolean('is_via_online')->default(false);
             $table->boolean('is_lock')->default(false);
             $table->boolean('is_submitted')->default(false);
-            $table->boolean('is_accepted')->default(false);
-            $table->boolean('is_rejected')->default(false);
+            $table->string('status')->enum(['waitting', 'pending', 'approved', 'rejected'])->default('waitting');
+            $table->text('note')->nullable();
             $table->boolean('is_paid_registration')->default(false);
             $table->boolean('is_paid_tuition')->default(false);
 
