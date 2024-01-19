@@ -305,6 +305,22 @@ const isSideBarOpen = ref(false);
                                     <ResponsiveSideBar
                                         :href="
                                             route('form.edit', {
+                                                id: 'address',
+                                            })
+                                        "
+                                        :active="
+                                            route().current('form.edit', {
+                                                id: 'address',
+                                            })
+                                        "
+                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                        >Alamat</ResponsiveSideBar
+                                    >
+                                </li>
+                                <li>
+                                    <ResponsiveSideBar
+                                        :href="
+                                            route('form.edit', {
                                                 id: 'disability',
                                             })
                                         "
@@ -422,6 +438,17 @@ const isSideBarOpen = ref(false);
                                     icon="fa-solid fa-book"
                                 >
                                     Soal
+                                </ResponsiveSideBar>
+                            </li>
+                            <li>
+                                <ResponsiveSideBar
+                                    :href="route('admin.web-setting')"
+                                    :active="
+                                        route().current('admin.web-setting')
+                                    "
+                                    icon="fa-solid fa-cog"
+                                >
+                                    Web Setting
                                 </ResponsiveSideBar>
                             </li>
                         </ul>
