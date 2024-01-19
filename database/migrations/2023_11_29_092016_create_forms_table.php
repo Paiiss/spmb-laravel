@@ -35,9 +35,9 @@ return new class extends Migration
             $table->string('province')->nullable();
             $table->string('subdistrict')->nullable();
             $table->string('country')->nullable();
-            $table->integer('postal_code')->nullable();
-            $table->integer('rt')->nullable();
-            $table->integer('rw')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('rt')->nullable();
+            $table->string('rw')->nullable();
 
             // Contact
             $table->string('phone_number')->nullable();
@@ -85,6 +85,7 @@ return new class extends Migration
             $table->string('guardian_job')->nullable();
             $table->string('guardian_email')->nullable();
             $table->string('guardian_phone')->nullable();
+            $table->string('guardian_relation')->nullable();
 
             // Affiliate
             $table->foreignId('affiliate_id')->nullable()->constrained('affiliates')->cascadeOnDelete()->cascadeOnUpdate();
