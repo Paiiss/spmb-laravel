@@ -104,12 +104,14 @@ const save = () => {
                                         {{ document.replace("_", " ") }}
                                     </h3>
                                 </header>
-
-                                <div class="mt-4 h-40">
+                                <button
+                                    class="mt-4 h-40 w-full hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg overflow-hidden"
+                                    @click="open(1, document)"
+                                >
                                     <img
                                         v-if="$page.props[document]"
                                         :src="$page.props[document]"
-                                        alt="ktp"
+                                        :alt="document"
                                         class="overflow-hidden object-cover w-full h-full rounded-lg"
                                     />
 
@@ -118,16 +120,20 @@ const save = () => {
                                         class="flex items-center justify-center h-full"
                                     >
                                         <p class="text-gray-400">
-                                            Belum ada dokumen yang diunggah
+                                            Belum ada
+                                            {{
+                                                document.replace("_", " ")
+                                            }}
+                                            yang diunggah
                                         </p>
                                     </div>
-                                </div>
+                                </button>
 
-                                <div class="mt-4">
+                                <!-- <div class="mt-4">
                                     <PrimaryButton @click="open(0, document)">
                                         Edit
                                     </PrimaryButton>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
