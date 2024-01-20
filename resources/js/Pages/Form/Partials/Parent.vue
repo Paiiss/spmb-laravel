@@ -50,6 +50,7 @@ const form = useForm({
             job: form_data.guardian_job || "",
             phone: form_data.guardian_phone || "",
             email: form_data.guardian_email || "",
+            relation: form_data.guardian_relation || "",
         },
     ],
 }).transform((data) => {
@@ -174,23 +175,26 @@ const capitalize = (string) => {
                             :message="form.errors[field]"
                         />
                     </div>
+                    <!-- <div class="col-span-2" v-if="member.role == 'guardian'">
+                        <InputLabel
+                            for="getFieldId(member.role, 'relation')"
+                            :value="capitalize(memberFields['relation'])"
+                        />
+                        <TextInput
+                            :id="getFieldId(member.role, 'relation')"
+                            type="text"
+                            class="mt-1 block w-full"
+                            v-model="member['relation']"
+                        />
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors['relation']"
+                        />
+                    </div> -->
                 </div>
             </div>
 
             <div class="flex justify-end gap-4">
-                <Transition
-                    enter-active-class="transition ease-in-out"
-                    enter-from-class="opacity-0"
-                    leave-active-class="transition ease-in-out"
-                    leave-to-class="opacity-0"
-                >
-                    <p
-                        v-if="form.recentlySuccessful"
-                        class="text-sm text-gray-600 dark:text-gray-400"
-                    >
-                        Saved.
-                    </p>
-                </Transition>
                 <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
             </div>
         </form>
