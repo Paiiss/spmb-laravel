@@ -75,6 +75,7 @@ class FormUpdateRequest extends FormRequest
             'guardian_job' => ['string', 'max:255', 'nullable'],
             'guardian_email' => ['string', 'max:255', 'nullable'],
             'guardian_phone' => ['string', 'max:255', 'nullable'],
+            'guardian_relation' => ['string', 'max:255', 'nullable'],
             'affiliate_id' => ['integer', 'nullable'],
 
             // 'wave_id' => ['integer', 'required'],
