@@ -27,6 +27,7 @@ defineProps({
     code: {
         default: null,
     },
+    percent: Object,
 });
 const form = useForm({
     wave: "",
@@ -275,131 +276,189 @@ const statusCopy = ref(false);
                         >, silahkan melakukan pendaftaran dengan mengisi form
                         pendaftaran.
                     </p>
-                    <div class="pt-8">
-                        <!-- Bikinkan judul untuk panduan pendaftaran -->
-                        <h3
-                            class="font-semibold text-gray-900 dark:text-white capitalize text-left text-xl"
+                    <div class="pt-8 flex flex-col gap-5">
+                        <div
+                            class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                         >
-                            Panduan Pendaftaran
-                        </h3>
-                        <ol
-                            class="relative border-s border-gray-200 dark:border-gray-700"
+                            <h3
+                                class="font-semibold text-gray-900 dark:text-white capitalize text-left text-xl"
+                            >
+                                Panduan Pendaftaran
+                            </h3>
+                            <ol
+                                class="relative border-s border-gray-200 dark:border-gray-700"
+                            >
+                                <li class="mb-10 ms-4">
+                                    <div
+                                        class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
+                                    ></div>
+                                    <time
+                                        class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
+                                        >Langkah pertama</time
+                                    >
+                                    <h3
+                                        class="text-lg font-semibold text-gray-900 dark:text-white"
+                                    >
+                                        Isi data diri
+                                    </h3>
+                                    <p
+                                        class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400"
+                                    >
+                                        Lengkapi data diri anda pada menu
+                                        <Link
+                                            :href="
+                                                route('form.edit', {
+                                                    id: 'personal',
+                                                })
+                                            "
+                                            class="text-blue-600 hover:underline"
+                                            >data diri</Link
+                                        >, isi sesuai dengan identitas diri
+                                        anda.
+                                    </p>
+                                </li>
+                                <li class="mb-10 ms-4">
+                                    <div
+                                        class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
+                                    ></div>
+                                    <time
+                                        class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
+                                        >Langkah kedua</time
+                                    >
+                                    <h3
+                                        class="text-lg font-semibold text-gray-900 dark:text-white"
+                                    >
+                                        Isi form disabilitas
+                                    </h3>
+                                    <p
+                                        class="text-base font-normal text-gray-500 dark:text-gray-400"
+                                    >
+                                        Lengkapi data kesehatan pada menu
+                                        <Link
+                                            :href="
+                                                route('form.edit', {
+                                                    id: 'disability',
+                                                })
+                                            "
+                                            class="text-blue-600 hover:underline"
+                                            >disabilitas</Link
+                                        >, isi sesuai dengan kondisi disabilitas
+                                        anda.
+                                    </p>
+                                </li>
+                                <li class="mb-10 ms-4">
+                                    <div
+                                        class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
+                                    ></div>
+                                    <time
+                                        class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
+                                        >Langkah ketiga</time
+                                    >
+                                    <h3
+                                        class="text-lg font-semibold text-gray-900 dark:text-white"
+                                    >
+                                        Isi data pendidikan terakhir
+                                    </h3>
+                                    <p
+                                        class="text-base font-normal text-gray-500 dark:text-gray-400"
+                                    >
+                                        Lengkapi data pendidikan terakhir pada
+                                        menu
+                                        <Link
+                                            :href="
+                                                route('form.edit', {
+                                                    id: 'education',
+                                                })
+                                            "
+                                            class="text-blue-600 hover:underline"
+                                            >pendidikan</Link
+                                        >, isi sesuai dengan data pendidikan
+                                        terakhir anda.
+                                    </p>
+                                </li>
+                                <li class="ms-4">
+                                    <div
+                                        class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
+                                    ></div>
+                                    <time
+                                        class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
+                                        >Langkah keempat</time
+                                    >
+                                    <h3
+                                        class="text-lg font-semibold text-gray-900 dark:text-white"
+                                    >
+                                        Isi data orang tua
+                                    </h3>
+                                    <p
+                                        class="text-base font-normal text-gray-500 dark:text-gray-400"
+                                    >
+                                        Lengkapi data orang tua pada menu
+                                        <Link
+                                            :href="
+                                                route('form.edit', {
+                                                    id: 'parent',
+                                                })
+                                            "
+                                            class="text-blue-600 hover:underline"
+                                            >orang tua</Link
+                                        >, isi sesuai dengan data orang tua
+                                        anda.
+                                    </p>
+                                </li>
+                            </ol>
+                        </div>
+                        <div
+                            class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                         >
-                            <li class="mb-10 ms-4">
-                                <div
-                                    class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
-                                ></div>
-                                <time
-                                    class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
-                                    >Langkah pertama</time
-                                >
-                                <h3
-                                    class="text-lg font-semibold text-gray-900 dark:text-white"
-                                >
-                                    Isi data diri
-                                </h3>
-                                <p
-                                    class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400"
-                                >
-                                    Lengkapi data diri anda pada menu
-                                    <Link
-                                        :href="
-                                            route('form.edit', {
-                                                id: 'personal',
-                                            })
-                                        "
-                                        class="text-blue-600 hover:underline"
-                                        >data diri</Link
-                                    >, isi sesuai dengan identitas diri anda.
-                                </p>
-                            </li>
-                            <li class="mb-10 ms-4">
-                                <div
-                                    class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
-                                ></div>
-                                <time
-                                    class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
-                                    >Langkah kedua</time
-                                >
-                                <h3
-                                    class="text-lg font-semibold text-gray-900 dark:text-white"
-                                >
-                                    Isi form disabilitas
-                                </h3>
-                                <p
-                                    class="text-base font-normal text-gray-500 dark:text-gray-400"
-                                >
-                                    Lengkapi data kesehatan pada menu
-                                    <Link
-                                        :href="
-                                            route('form.edit', {
-                                                id: 'disability',
-                                            })
-                                        "
-                                        class="text-blue-600 hover:underline"
-                                        >disabilitas</Link
-                                    >, isi sesuai dengan kondisi disabilitas
-                                    anda.
-                                </p>
-                            </li>
-                            <li class="mb-10 ms-4">
-                                <div
-                                    class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
-                                ></div>
-                                <time
-                                    class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
-                                    >Langkah ketiga</time
-                                >
-                                <h3
-                                    class="text-lg font-semibold text-gray-900 dark:text-white"
-                                >
-                                    Isi data pendidikan terakhir
-                                </h3>
-                                <p
-                                    class="text-base font-normal text-gray-500 dark:text-gray-400"
-                                >
-                                    Lengkapi data pendidikan terakhir pada menu
-                                    <Link
-                                        :href="
-                                            route('form.edit', {
-                                                id: 'education',
-                                            })
-                                        "
-                                        class="text-blue-600 hover:underline"
-                                        >pendidikan</Link
-                                    >, isi sesuai dengan data pendidikan
-                                    terakhir anda.
-                                </p>
-                            </li>
-                            <li class="ms-4">
-                                <div
-                                    class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
-                                ></div>
-                                <time
-                                    class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
-                                    >Langkah keempat</time
-                                >
-                                <h3
-                                    class="text-lg font-semibold text-gray-900 dark:text-white"
-                                >
-                                    Isi data orang tua
-                                </h3>
-                                <p
-                                    class="text-base font-normal text-gray-500 dark:text-gray-400"
-                                >
-                                    Lengkapi data orang tua pada menu
-                                    <Link
-                                        :href="
-                                            route('form.edit', {
-                                                id: 'parent',
-                                            })
-                                        "
-                                        class="text-blue-600 hover:underline"
-                                        >orang tua</Link
-                                    >, isi sesuai dengan data orang tua anda.
-                                </p>
-                            </li>
-                        </ol>
+                            <h3
+                                class="font-semibold text-gray-900 dark:text-white capitalize text-left text-xl"
+                            >
+                                Progres Pendaftaran
+                            </h3>
+
+                            <p>
+                                Jika anda sudah mengisi semua data yang
+                                dibutuhkan untuk pendaftaran, silahkan
+                                mengajukan verifikasi dengan mengklik tombol
+                                dibawah ini.
+                            </p>
+                            <div class="pt-8">
+                                <div v-for="(value, key) in percent" :key="key">
+                                    <div
+                                        class="mb-2 flex justify-between items-center"
+                                    >
+                                        <h3
+                                            class="text-sm font-semibold text-gray-800 dark:text-white"
+                                        >
+                                            Progress {{ key }}
+                                        </h3>
+                                        <span
+                                            class="text-sm text-gray-800 dark:text-white"
+                                            >{{ value }}%</span
+                                        >
+                                    </div>
+                                    <div
+                                        class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700"
+                                        role="progressbar"
+                                    >
+                                        <div
+                                            class="flex flex-col justify-center rounded-full overflow-hidden bg-teal-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-teal-500"
+                                            :style="`width: ${value}%`"
+                                        ></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end gap-4 mt-8">
+                                <!-- :href="route('form.verification')" -->
+                                <Link as="button" type="button" href="/">
+                                    <PrimaryButton
+                                        class="bg-teal-600 hover:bg-teal-500 dark:bg-teal-500 dark:hover:bg-teal-600"
+                                        >Ajukan Verifikasi</PrimaryButton
+                                    >
+                                </Link>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div
