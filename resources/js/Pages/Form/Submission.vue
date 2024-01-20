@@ -6,6 +6,7 @@ import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 import Combobox from "@/Components/Combobox.vue";
 import Modal from "@/Components/Modal.vue";
 import axios from "axios";
@@ -29,9 +30,12 @@ defineProps({
         default: null,
     },
     percent: Object,
+    is_lock: Boolean,
+    is_submitted: Boolean,
 });
 
 const modal = ref(false);
+
 const form = useForm({
     wave: "",
     option: "",
@@ -82,6 +86,15 @@ const submit = () => {
     });
 };
 
+const verification = () => {
+    form.post(route("form.validation"), {
+        preserveScroll: true,
+        onFinish: () => {
+            modal.value = false;
+        },
+    });
+};
+
 const copyToClipboard = (text) => {
     const elem = document.createElement("textarea");
     elem.value = text;
@@ -112,7 +125,28 @@ const progressName = {
         <div class="flex flex-col gap-3">
             <div
                 class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6"
-                v-if="form_status && !is_paid_registration"
+                v-if="is_lock && is_submitted"
+            >
+                <div
+                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                >
+                    <h2
+                        class="font-bold text-left text-black text-2xl capitalize"
+                    >
+                        Pendaftaran
+                    </h2>
+                    <p>
+                        Anda sudah mengajukan pendaftaran untuk tahun ajaran
+                        <span class="font-semibold">{{
+                            wave.tahun_akademik
+                        }}</span
+                        >, silahkan menunggu proses verifikasi dari admin.
+                    </p>
+                </div>
+            </div>
+            <div
+                class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6"
+                v-else-if="form_status && !is_paid_registration"
             >
                 <div
                     class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
@@ -473,12 +507,11 @@ const progressName = {
 
                         <div class="flex justify-end gap-4 mt-8">
                             <!-- :href="route('form.verification')" -->
-                            <Link as="button" type="button" href="/">
-                                <PrimaryButton
-                                    class="bg-teal-600 hover:bg-teal-500 dark:bg-teal-500 dark:hover:bg-teal-600"
-                                    >Ajukan Verifikasi</PrimaryButton
-                                >
-                            </Link>
+                            <PrimaryButton
+                                class="bg-teal-600 hover:bg-teal-500 dark:bg-teal-500 dark:hover:bg-teal-600"
+                                @click="modal = true"
+                                >Ajukan Verifikasi</PrimaryButton
+                            >
                         </div>
                     </div>
                 </div>
@@ -579,6 +612,27 @@ const progressName = {
                     </div>
                 </div>
             </div>
+            <Modal :show="modal" @close="modal = false">
+                <div class="p-6">
+                    <h3
+                        class="text-lg font-bold text-gray-900 dark:text-gray-100"
+                    >
+                        Ajukan Verifikasi
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Sebelum mengajukan verifikasi, pastikan data yang anda
+                        isi sudah benar dan sesuai dengan data diri anda.
+                    </p>
+                    <div class="flex justify-end gap-4">
+                        <SecondaryButton @click="modal = false" class="ml-2">
+                            tutup
+                        </SecondaryButton>
+                        <PrimaryButton @click="verification">
+                            Ajukan Verifikasi
+                        </PrimaryButton>
+                    </div>
+                </div>
+            </Modal>
         </div>
     </AuthenticatedLayout>
 </template>
