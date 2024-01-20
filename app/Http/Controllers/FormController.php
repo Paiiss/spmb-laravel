@@ -68,7 +68,6 @@ class FormController extends Controller
 
     public function submissionStore(Request $request): RedirectResponse
     {
-        //  input menggunakan id table
         $request->validate([
             'wave' => 'required|numeric',
             'option' => 'required|numeric',
@@ -115,5 +114,62 @@ class FormController extends Controller
                 'payment' => $request->user()->payments()->get(),
             ]
         );
+    }
+
+    public function validation(Request $request): RedirectResponse
+    {
+
+        $user = User::find(auth()->user()->id);
+        $form = $user->getForm();
+
+        if (!$form->get()->isNotEmpty()) {
+            session()->flash('alert', [
+                'type' => 'danger',
+                'message' => 'Anda belum memiliki form'
+            ]);
+            return Redirect::back();
+        }
+
+        if ($form->first()->is_lock) {
+            session()->flash('alert', [
+                'type' => 'danger',
+                'message' => 'Form anda sudah terkunci'
+            ]);
+            return Redirect::back();
+        }
+
+        $progress = $user->getProgress();
+
+        $array = [
+            'personal' => 'Data Pribadi',
+            'address' => 'Data Alamat',
+            'disability' => 'Data Disabilitas',
+            'education' => 'Data Pendidikan',
+            'parent' => 'Data Orang Tua',
+            'document' => 'Dokumen',
+        ];
+
+        foreach ($progress as $key => $value) {
+            if ($value < 100) {
+                session()->flash('alert', [
+                    'type' => 'danger',
+                    'message' => 'Mohon lengkapi ' . $array[$key] . ' terlebih dahulu'
+                ]);
+                return Redirect::back();
+            }
+        }
+
+        $form->update([
+            'is_lock' => true,
+            'is_submitted' => true,
+            'status' => 'pending',
+        ]);
+
+        session()->flash('alert', [
+            'type' => 'success',
+            'message' => 'Menunggu verifikasi admin'
+        ]);
+
+        return Redirect::back();
     }
 }
