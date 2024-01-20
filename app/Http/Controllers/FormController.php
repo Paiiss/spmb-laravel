@@ -44,10 +44,20 @@ class FormController extends Controller
         if (!$user->getForm()->get()->isNotEmpty() || !$user->getForm()->first()->is_paid_registration) {
             return Redirect::route('form.submission');
         }
-        $user->getForm()->update($request->validated());
+        $form = $user->getForm();
+
+        if ($form->first()->is_lock) {
+            session()->flash('alert', [
+                'type' => 'danger',
+                'message' => 'Gagal menyimpan data, form anda sudah terkunci'
+            ]);
+            return Redirect::back();
+        }
+
+        $form->update($request->validated());
         session()->flash('alert', [
             'type' => 'success',
-            'message' => 'Data berhasil di simpan'
+            'message' => 'Berhasil menyimpan data'
         ]);
         return Redirect::back();
     }
@@ -55,14 +65,17 @@ class FormController extends Controller
     public function submission(): Response
     {
         $user = $user = User::find(auth()->user()->id);
+        $form = $user->getForm()->first();
 
         return Inertia::render('Form/Submission', [
             'wave' => $user?->getWave()?->first() ?? null,
             'form_status' => $user->getForm()->get()->isNotEmpty(),
             'amount' => $user?->getProdi()->biaya_registrasi ?? 0,
-            'is_paid_registration' => $user->getForm()->first()->is_paid_registration ?? false,
-            'code' => $user->getForm()->first()->code_registration ?? null,
-            'percent' => $user->getProgress(),
+            'is_paid_registration' => $form->is_paid_registration ?? false,
+            'code' => $form->code_registration ?? null,
+            'percent' => $user->getProgress() ?? null,
+            'is_lock' => $form->is_lock ?? false,
+            'is_submitted' => $form->is_submitted ?? false,
         ]);
     }
 
