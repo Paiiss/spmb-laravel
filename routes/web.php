@@ -57,16 +57,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/submission', [FormController::class, 'submission'])->name('form.submission');
     Route::post('/submission', [FormController::class, 'submissionStore'])->name('form.submission.store');
+
+    Route::get('/payment', [FormController::class, 'payment'])->name('form.payment');
+    Route::post('/payment', [PaymentController::class, 'store'])->name('form.payment.store');
+    Route::delete('/payment/{id}', [PaymentController::class, 'userDestroy'])->name('form.payment.destroy');
 });
 
 Route::middleware(['auth', 'verified', 'payform'])->prefix('/form')->name('form.')->group(function () {
     Route::get('/{id}', [FormController::class, 'edit'])->name('edit');
     Route::patch('/', [FormController::class, 'update'])->name('update');
     Route::post('/validation', [FormController::class, 'validation'])->name('validation');
-
-    Route::get('/payment', [FormController::class, 'payment'])->name('payment');
-    Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');
-    Route::delete('/payment/{id}', [PaymentController::class, 'userDestroy'])->name('payment.destroy');
 });
 
 Route::middleware(['auth', 'verified', 'payform'])->prefix('/documents')->name('documents.')->group(function () {
@@ -83,7 +83,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('/admin')->name('a
     Route::delete('/program-studi/{id}', [ProdiController::class, 'destroy'])->name('prodi.destroy');
 
     Route::get('/wave', [WaveController::class, 'index'])->name('wave');
-    Route::post('/wave', [WaveController::class, 'store'])->name('store');
+    Route::post('/wave', [WaveController::class, 'store'])->name('wave.store');
     Route::patch('/wave/{id}', [WaveController::class, 'update'])->name('wave.update');
     Route::delete('/wave/{id}', [WaveController::class, 'destroy'])->name('wave.destroy');
 
