@@ -19,15 +19,7 @@ const form = useForm({
     education_graduation_year: from_data.education_graduation_year || "",
     education_major: from_data.education_major || "",
     education_grade: from_data.education_grade || "",
-}).transform((data) => ({
-    ...data,
-    education_number: data.education_number
-        ? parseInt(data.education_number)
-        : null,
-    /* education_postal_code: data.education_postal_code
-        ? parseInt(data.education_postal_code)
-        : null, */
-}));
+});
 </script>
 
 <template>
@@ -74,7 +66,7 @@ const form = useForm({
 
                     <TextInput
                         id="education_number"
-                        type="number"
+                        type="text"
                         class="mt-1 block w-full"
                         v-model="form.education_number"
                     />

@@ -47,7 +47,7 @@ return new class extends Migration
             $table->string('last_education')->nullable();
 
             // Education
-            $table->integer('education_number')->nullable();
+            $table->string('education_number')->nullable();
             $table->string('education_name')->nullable();
             $table->string('education_city')->nullable();
             $table->string('education_province')->nullable();

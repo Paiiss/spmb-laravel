@@ -44,7 +44,7 @@ class FormUpdateRequest extends FormRequest
             'phone_number' => ['string', 'max:255', 'nullable'],
             'phone_number_alt' => ['string', 'max:255', 'nullable'],
             'last_education' => ['string', 'max:255', 'nullable'],
-            'education_number' => ['integer', 'nullable'],
+            'education_number' => ['string', 'nullable'],
             'education_name' => ['string', 'max:255', 'nullable'],
             'education_city' => ['string', 'max:255', 'nullable'],
             'education_province' => ['string', 'max:255', 'nullable'],
