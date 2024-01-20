@@ -24,9 +24,9 @@ const form = useForm({
     education_number: data.education_number
         ? parseInt(data.education_number)
         : null,
-    education_postal_code: data.education_postal_code
+    /* education_postal_code: data.education_postal_code
         ? parseInt(data.education_postal_code)
-        : null,
+        : null, */
 }));
 </script>
 
@@ -173,7 +173,7 @@ const form = useForm({
 
                     <TextInput
                         id="education_postal_code"
-                        type="number"
+                        type="text"
                         class="mt-1 block w-full"
                         v-model="form.education_postal_code"
                     />
