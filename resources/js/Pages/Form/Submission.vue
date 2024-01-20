@@ -7,6 +7,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Combobox from "@/Components/Combobox.vue";
+import Modal from "@/Components/Modal.vue";
 import axios from "axios";
 
 defineProps({
@@ -29,6 +30,8 @@ defineProps({
     },
     percent: Object,
 });
+
+const modal = ref(false);
 const form = useForm({
     wave: "",
     option: "",
@@ -92,14 +95,25 @@ const copyToClipboard = (text) => {
     }, 3000);
 };
 const statusCopy = ref(false);
+
+const progressName = {
+    personal: "Data Diri",
+    address: "Alamat Rumah",
+    education: "Pendidikan",
+    parent: "Orang Tua",
+    document: "Dokumen",
+};
 </script>
 
 <template>
     <Head title="Submission" />
 
     <AuthenticatedLayout>
-        <div>
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div class="flex flex-col gap-3">
+            <div
+                class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6"
+                v-if="form_status && !is_paid_registration"
+            >
                 <div
                     class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                     v-if="form_status && !is_paid_registration"
@@ -258,9 +272,13 @@ const statusCopy = ref(false);
                         </div>
                     </div>
                 </div>
+            </div>
+            <div
+                class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6"
+                v-else-if="form_status && is_paid_registration"
+            >
                 <div
                     class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
-                    v-else-if="form_status && is_paid_registration"
                 >
                     <h2
                         class="font-bold text-gray-900 dark:text-white capitalize text-left text-2xl"
@@ -407,63 +425,70 @@ const statusCopy = ref(false);
                                 </li>
                             </ol>
                         </div>
-                        <div
-                            class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
-                        >
-                            <h3
-                                class="font-semibold text-gray-900 dark:text-white capitalize text-left text-xl"
-                            >
-                                Progres Pendaftaran
-                            </h3>
-
-                            <p>
-                                Jika anda sudah mengisi semua data yang
-                                dibutuhkan untuk pendaftaran, silahkan
-                                mengajukan verifikasi dengan mengklik tombol
-                                dibawah ini.
-                            </p>
-                            <div class="pt-8">
-                                <div v-for="(value, key) in percent" :key="key">
-                                    <div
-                                        class="mb-2 flex justify-between items-center"
-                                    >
-                                        <h3
-                                            class="text-sm font-semibold text-gray-800 dark:text-white"
-                                        >
-                                            Progress {{ key }}
-                                        </h3>
-                                        <span
-                                            class="text-sm text-gray-800 dark:text-white"
-                                            >{{ value }}%</span
-                                        >
-                                    </div>
-                                    <div
-                                        class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700"
-                                        role="progressbar"
-                                    >
-                                        <div
-                                            class="flex flex-col justify-center rounded-full overflow-hidden bg-teal-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-teal-500"
-                                            :style="`width: ${value}%`"
-                                        ></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="flex justify-end gap-4 mt-8">
-                                <!-- :href="route('form.verification')" -->
-                                <Link as="button" type="button" href="/">
-                                    <PrimaryButton
-                                        class="bg-teal-600 hover:bg-teal-500 dark:bg-teal-500 dark:hover:bg-teal-600"
-                                        >Ajukan Verifikasi</PrimaryButton
-                                    >
-                                </Link>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div
                     class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
-                    v-else
+                >
+                    <div
+                        class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                    >
+                        <h3
+                            class="font-semibold text-gray-900 dark:text-white capitalize text-left text-xl"
+                        >
+                            Progres Pendaftaran
+                        </h3>
+
+                        <p>
+                            Jika anda sudah mengisi semua data yang dibutuhkan
+                            untuk pendaftaran, silahkan mengajukan verifikasi
+                            dengan mengklik tombol dibawah ini.
+                        </p>
+                        <div class="pt-8 flex flex-col gap-3">
+                            <div v-for="(value, key) in percent" :key="key">
+                                <div
+                                    class="mb-2 flex justify-between items-center"
+                                >
+                                    <h3
+                                        class="text-sm font-semibold text-gray-800 dark:text-white capitalize"
+                                    >
+                                        {{ progressName[key] }}
+                                    </h3>
+                                    <span
+                                        class="text-sm text-gray-800 dark:text-white"
+                                        >{{ value }}%</span
+                                    >
+                                </div>
+                                <div
+                                    class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700"
+                                    role="progressbar"
+                                >
+                                    <div
+                                        class="flex flex-col justify-center rounded-full overflow-hidden bg-teal-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-teal-500"
+                                        :style="`width: ${value}%`"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end gap-4 mt-8">
+                            <!-- :href="route('form.verification')" -->
+                            <Link as="button" type="button" href="/">
+                                <PrimaryButton
+                                    class="bg-teal-600 hover:bg-teal-500 dark:bg-teal-500 dark:hover:bg-teal-600"
+                                    >Ajukan Verifikasi</PrimaryButton
+                                >
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="max-w-7xl min-w-full mx-auto sm:px-6 lg:px-8 space-y-6"
+                v-else
+            >
+                <div
+                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                 >
                     <h2 class="font-bold text-left text-black text-2xl">
                         Pendaftaran
