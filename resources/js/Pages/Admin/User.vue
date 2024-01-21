@@ -1,6 +1,18 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, usePage } from "@inertiajs/vue3";
+import { ref, computed } from "vue";
+
+defineProps({
+    users: Object,
+});
+
+const search = ref("");
+const filteredUsers = computed(() => {
+    return usePage().props.users.filter((user) => {
+        return user.name.toLowerCase().includes(search.value.toLowerCase());
+    });
+});
 </script>
 
 <template>
@@ -106,6 +118,7 @@ import { Head, Link } from "@inertiajs/vue3";
                                 <input
                                     type="text"
                                     id="table-search-users"
+                                    v-model="search"
                                     class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Search for users"
                                 />
@@ -133,9 +146,8 @@ import { Head, Link } from "@inertiajs/vue3";
                                         </div>
                                     </th>
                                     <th scope="col" class="px-6 py-3">Name</th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Position
-                                    </th>
+                                    <th scope="col" class="px-6 py-3">Phone</th>
+                                    <th scope="col" class="px-6 py-3">Role</th>
                                     <th scope="col" class="px-6 py-3">
                                         Status
                                     </th>
@@ -147,6 +159,8 @@ import { Head, Link } from "@inertiajs/vue3";
                             <tbody>
                                 <tr
                                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                                    v-for="user in filteredUsers"
+                                    :key="user.id"
                                 >
                                     <td class="w-4 p-4">
                                         <div class="flex items-center">
@@ -170,23 +184,32 @@ import { Head, Link } from "@inertiajs/vue3";
                                             <div
                                                 class="text-base font-semibold"
                                             >
-                                                Neil Sims
+                                                {{ user.name || "N/A" }}
                                             </div>
                                             <div
                                                 class="font-normal text-gray-500"
                                             >
-                                                neil.sims@flowbite.com
+                                                {{ user.email }}
                                             </div>
                                         </div>
                                     </th>
-                                    <td class="px-6 py-4">React Developer</td>
                                     <td class="px-6 py-4">
-                                        <div class="flex items-center">
+                                        {{ user.phone || "N/A" }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <!-- <div class="flex items-center">
                                             <div
                                                 class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"
                                             ></div>
-                                            Online
-                                        </div>
+                                        </div> -->
+                                        {{ user.roles.join(", ") }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{
+                                            user.email_verified_at
+                                                ? "Active"
+                                                : "Inactive"
+                                        }}
                                     </td>
                                     <td class="px-6 py-4">
                                         <a
