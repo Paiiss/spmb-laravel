@@ -29,7 +29,7 @@ class FormUpdateRequest extends FormRequest
             'birth_place_city' => ['string', 'max:255', 'nullable'],
             'birth_place_province' => ['string', 'max:255', 'nullable'],
             'birth_place_country' => ['string', 'max:255', 'nullable'],
-            'national_id' => ['integer', 'nullable'],
+            'national_id' => ['string', 'nullable'],
             'is_color_blind' => ['boolean'], 'nullable',
             'is_disability' => ['boolean', 'nullable'],
             'disability_note' => ['string', 'max:255', 'nullable'],
