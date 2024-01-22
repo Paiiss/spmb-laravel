@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('birth_place_city')->nullable();
             $table->string('birth_place_province')->nullable();
             $table->string('birth_place_country')->nullable();
-            $table->integer('national_id')->nullable();
+            $table->string('national_id')->nullable();
 
             // Disabilitas
             $table->boolean('is_color_blind')->nullable();
