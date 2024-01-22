@@ -10,6 +10,8 @@ use App\Http\Controllers\ExamsController;
 use App\Http\Controllers\ExamQuesionController;
 use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\WebSettingController;
+use App\Http\Controllers\VerificationController;
+
 use App\Models\User;
 use App\Models\Wave;
 use Illuminate\Foundation\Application;
@@ -75,7 +77,7 @@ Route::middleware(['auth', 'verified', 'payform'])->prefix('/documents')->name('
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('/admin')->name('admin.')->group(function () {
-    Route::get('/admin/user', [AdminController::class, 'allUser'])->name('user');
+    Route::get('/user', [AdminController::class, 'allUser'])->name('user');
 
     Route::get('/program-studi', [ProdiController::class, 'index'])->name('prodi');
     Route::post('/program-studi', [ProdiController::class, 'store'])->name('prodi.store');
@@ -103,6 +105,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('/admin')->name('a
 
     Route::get('/web-setting', [WebSettingController::class, 'index'])->name('web-setting');
     Route::patch('/web-setting', [WebSettingController::class, 'backup'])->name('web-setting.backup');
+
+    Route::get('/verification', [VerificationController::class, 'view'])->name('verification');
+    Route::get('/verification/{id}', [VerificationController::class, 'index'])->name('verification.user');
 });
 
 
