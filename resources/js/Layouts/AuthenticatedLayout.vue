@@ -451,6 +451,17 @@ const isSideBarOpen = ref(false);
                                     Web Setting
                                 </ResponsiveSideBar>
                             </li>
+                            <li>
+                                <ResponsiveSideBar
+                                    :href="route('admin.verification')"
+                                    :active="
+                                        route().current('admin.verification')
+                                    "
+                                    icon="fa-solid fa-check-circle"
+                                >
+                                    Verifikasi
+                                </ResponsiveSideBar>
+                            </li>
                         </ul>
                     </template>
                 </div>
