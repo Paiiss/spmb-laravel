@@ -108,6 +108,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('/admin')->name('a
 
     Route::get('/verification', [VerificationController::class, 'view'])->name('verification');
     Route::get('/verification/{id}', [VerificationController::class, 'index'])->name('verification.user');
+    Route::patch('/verification/{id}', [VerificationController::class, 'update'])->name('verification.user.update');
 });
 
 
