@@ -1,12 +1,13 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link, usePage, router } from "@inertiajs/vue3";
+import { Head, Link, usePage, router, useForm } from "@inertiajs/vue3";
 import { ref, computed } from "vue";
 import Modal from "@/Components/Modal.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import TextareaInput from "@/Components/TextareaInput.vue";
+import Combobox from "@/Components/Combobox.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 
@@ -16,6 +17,16 @@ defineProps({
     prodi: Object,
     wave: Object,
     image: Object,
+});
+
+const form_data = usePage().props.form;
+
+const formUpdate = useForm({
+    status: form_data.status || "",
+    note: form_data.note || "",
+    is_via_online: form_data.is_via_online == 1 ? true : false,
+    is_lock: form_data.is_lock == 1 ? true : false,
+    is_submitted: form_data.is_submitted == 1 ? true : false,
 });
 
 const navigateTo = (url) => {
@@ -35,6 +46,12 @@ const close = () => {
     modalDocument.value = false;
     modalItem.value = null;
     modalType.value = null;
+};
+
+const save = () => {
+    formUpdate.patch(route("admin.verification.user.update", [form_data.id]), {
+        preserveScroll: true,
+    });
 };
 </script>
 
@@ -70,7 +87,7 @@ const close = () => {
                                     <InputLabel for="name">Nama</InputLabel>
                                     <TextInput
                                         type="text"
-                                        :value="user.name"
+                                        v-model="user.name"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -79,7 +96,7 @@ const close = () => {
                                     <InputLabel for="email" value="Email" />
                                     <TextInput
                                         type="text"
-                                        :value="user.email"
+                                        v-model="user.email"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -88,7 +105,7 @@ const close = () => {
                                     <InputLabel for="phone" value="No. HP" />
                                     <TextInput
                                         type="text"
-                                        :value="user.phone"
+                                        v-model="user.phone"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -100,7 +117,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.national_id"
+                                        v-model="form.national_id"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -112,7 +129,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.gender"
+                                        v-model="form.gender"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -121,7 +138,7 @@ const close = () => {
                                     <InputLabel for="religion" value="Agama" />
                                     <TextInput
                                         type="text"
-                                        :value="form.religion"
+                                        v-model="form.religion"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -133,7 +150,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.birth_date"
+                                        v-model="form.birth_date"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -145,7 +162,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.birth_place_city"
+                                        v-model="form.birth_place_city"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -157,7 +174,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.birth_place_province"
+                                        v-model="form.birth_place_province"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -169,7 +186,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.birth_place_country"
+                                        v-model="form.birth_place_country"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -190,13 +207,14 @@ const close = () => {
                                         "
                                         disabled
                                         class="mt-1 block w-full"
+                                        v-model="form.address"
                                     />
                                 </div>
                                 <div class="col-span-2 md:col-span-1">
                                     <InputLabel for="city" value="Kota" />
                                     <TextInput
                                         type="text"
-                                        :value="form.city"
+                                        v-model="form.city"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -208,7 +226,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.province"
+                                        v-model="form.province"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -220,7 +238,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.subdistrict"
+                                        v-model="form.subdistrict"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -229,7 +247,7 @@ const close = () => {
                                     <InputLabel for="country" value="Negara" />
                                     <TextInput
                                         type="text"
-                                        :value="form.country"
+                                        v-model="form.country"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -241,7 +259,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.province"
+                                        v-model="form.province"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -253,7 +271,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.postal_code"
+                                        v-model="form.postal_code"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -262,7 +280,7 @@ const close = () => {
                                     <InputLabel for="rt" value="Rt" />
                                     <TextInput
                                         type="text"
-                                        :value="form.rt"
+                                        v-model="form.rt"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -271,7 +289,7 @@ const close = () => {
                                     <InputLabel for="rw" value="rw" />
                                     <TextInput
                                         type="text"
-                                        :value="form.rw"
+                                        v-model="form.rw"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -283,7 +301,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.phone_number"
+                                        v-model="form.phone_number"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -295,7 +313,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.phone_number_alt"
+                                        v-model="form.phone_number_alt"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -320,6 +338,7 @@ const close = () => {
                                         "
                                         disabled
                                         class="mt-1 block w-full"
+                                        v-model="form.is_color_blind"
                                     />
                                 </div>
                                 <div class="col-span-2 md:col-span-1">
@@ -334,6 +353,7 @@ const close = () => {
                                         "
                                         disabled
                                         class="mt-1 block w-full"
+                                        v-model="form.is_disability"
                                     />
                                 </div>
                                 <div class="col-span-4 md:col-span-4">
@@ -350,6 +370,7 @@ const close = () => {
                                         "
                                         disabled
                                         class="mt-1 block w-full"
+                                        v-model="form.disability_note"
                                     />
                                 </div>
                             </div>
@@ -367,7 +388,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.last_education"
+                                        v-model="form.last_education"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -379,7 +400,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.education_number"
+                                        v-model="form.education_number"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -392,7 +413,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.education_name"
+                                        v-model="form.education_name"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -404,7 +425,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.education_graduation_year"
+                                        v-model="form.education_graduation_year"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -416,7 +437,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.education_city"
+                                        v-model="form.education_city"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -428,7 +449,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.education_province"
+                                        v-model="form.education_province"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -440,7 +461,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.education_subdistrict"
+                                        v-model="form.education_subdistrict"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -452,7 +473,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.education_country"
+                                        v-model="form.education_country"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -464,7 +485,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.education_postal_code"
+                                        v-model="form.education_postal_code"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -477,7 +498,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.education_major"
+                                        v-model="form.education_major"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -489,7 +510,7 @@ const close = () => {
                                     />
                                     <TextInput
                                         type="text"
-                                        :value="form.education_grade"
+                                        v-model="form.education_grade"
                                         disabled
                                         class="mt-1 block w-full"
                                     />
@@ -517,7 +538,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.father_name"
+                                                v-model="form.father_name"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -529,7 +550,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.father_birth_date"
+                                                v-model="form.father_birth_date"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -541,7 +562,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.father_place"
+                                                v-model="form.father_place"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -553,7 +574,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="
+                                                v-model="
                                                     form.father_last_education
                                                 "
                                                 disabled
@@ -567,7 +588,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.father_job"
+                                                v-model="form.father_job"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -579,7 +600,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.father_phone"
+                                                v-model="form.father_phone"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -591,7 +612,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.father_email"
+                                                v-model="form.father_email"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -612,7 +633,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.mother_name"
+                                                v-model="form.mother_name"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -624,7 +645,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.mother_birth_date"
+                                                v-model="form.mother_birth_date"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -636,7 +657,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.mother_place"
+                                                v-model="form.mother_place"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -648,7 +669,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="
+                                                v-model="
                                                     form.mother_last_education
                                                 "
                                                 disabled
@@ -662,7 +683,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.mother_job"
+                                                v-model="form.mother_job"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -674,7 +695,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.mother_phone"
+                                                v-model="form.mother_phone"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -686,7 +707,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.mother_email"
+                                                v-model="form.mother_email"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -707,7 +728,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.guardian_name"
+                                                v-model="form.guardian_name"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -719,7 +740,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="
+                                                v-model="
                                                     form.guardian_birth_date
                                                 "
                                                 disabled
@@ -733,7 +754,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.guardian_place"
+                                                v-model="form.guardian_place"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -745,7 +766,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="
+                                                v-model="
                                                     form.guardian_last_education
                                                 "
                                                 disabled
@@ -759,7 +780,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.guardian_job"
+                                                v-model="form.guardian_job"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -771,7 +792,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.guardian_phone"
+                                                v-model="form.guardian_phone"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -783,7 +804,7 @@ const close = () => {
                                             />
                                             <TextInput
                                                 type="text"
-                                                :value="form.guardian_email"
+                                                v-model="form.guardian_email"
                                                 disabled
                                                 class="mt-1 block w-full"
                                             />
@@ -834,13 +855,161 @@ const close = () => {
                                 </div>
                             </div>
                         </div>
+                        <div>
+                            <header>
+                                <h2 class="font-bold text-lg">
+                                    Status Formulir
+                                </h2>
+                            </header>
+                            <div class="pt-8 grid grid-cols-4 gap-3">
+                                <div class="col-span-2 md:col-span-1">
+                                    <InputLabel for="status" value="Status" />
+                                    <Combobox
+                                        id="status"
+                                        ref="status"
+                                        v-model="formUpdate.status"
+                                        class="mt-1 block w-full"
+                                        placeholder="Pilih status"
+                                        :option-value="[
+                                            {
+                                                value: 'waitting',
+                                                text: 'Waitting',
+                                            },
+                                            {
+                                                value: 'pending',
+                                                text: 'Pending',
+                                            },
+                                            {
+                                                value: 'approved',
+                                                text: 'Approved',
+                                            },
+                                            {
+                                                value: 'rejected',
+                                                text: 'Rejected',
+                                            },
+                                        ]"
+                                    />
+                                    <InputError
+                                        :message="formUpdate.errors.status"
+                                        class="mt-2"
+                                    />
+                                </div>
+                                <div class="col-span-2 md:col-span-1">
+                                    <InputLabel
+                                        for="is_via_online"
+                                        value="Dikunci"
+                                    />
+                                    <Combobox
+                                        id="is_via_online"
+                                        ref="is_via_online"
+                                        v-model="formUpdate.is_via_online"
+                                        class="mt-1 block w-full"
+                                        placeholder="Pilih status"
+                                        :option-value="[
+                                            {
+                                                value: true,
+                                                text: 'Ya',
+                                            },
+                                            {
+                                                value: false,
+                                                text: 'Tidak',
+                                            },
+                                        ]"
+                                    />
+                                    <InputError
+                                        :message="
+                                            formUpdate.errors.is_via_online
+                                        "
+                                        class="mt-2"
+                                    />
+                                </div>
+                                <div class="col-span-2 md:col-span-1">
+                                    <InputLabel
+                                        for="is_lock"
+                                        value="Di kunci"
+                                    />
+                                    <Combobox
+                                        id="is_lock"
+                                        ref="is_lock"
+                                        v-model="formUpdate.is_lock"
+                                        class="mt-1 block w-full"
+                                        placeholder="Pilih status"
+                                        :option-value="[
+                                            {
+                                                value: true,
+                                                text: 'Ya',
+                                            },
+                                            {
+                                                value: false,
+                                                text: 'Tidak',
+                                            },
+                                        ]"
+                                    />
+                                    <InputError
+                                        :message="formUpdate.errors.is_lock"
+                                        class="mt-2"
+                                    />
+                                </div>
+                                <div class="col-span-2 md:col-span-1">
+                                    <InputLabel
+                                        for="is_submitted"
+                                        value="Di kumpul"
+                                    />
+                                    <Combobox
+                                        id="is_submitted"
+                                        ref="is_submitted"
+                                        v-model="formUpdate.is_submitted"
+                                        class="mt-1 block w-full"
+                                        placeholder="Pilih status"
+                                        :option-value="[
+                                            {
+                                                value: true,
+                                                text: 'Ya',
+                                            },
+                                            {
+                                                value: false,
+                                                text: 'Tidak',
+                                            },
+                                        ]"
+                                    />
+                                    <InputError
+                                        :message="
+                                            formUpdate.errors.is_submitted
+                                        "
+                                        class="mt-2"
+                                    />
+                                </div>
+                                <div class="col-span-4 md:col-span-4">
+                                    <InputLabel for="note" value="Catatan" />
+                                    <TextareaInput
+                                        type="text"
+                                        :value="
+                                            formUpdate.note
+                                                ? formUpdate.note
+                                                : '-'
+                                        "
+                                        class="mt-1 block w-full"
+                                        v-model="formUpdate.note"
+                                    />
+                                    <InputError
+                                        :message="formUpdate.errors.note"
+                                        class="mt-2"
+                                    />
+                                </div>
+                            </div>
+                            <div class="flex justify-end pt-3">
+                                <PrimaryButton @click.prevent="save()"
+                                    >Submit</PrimaryButton
+                                >
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <Modal :show="modalDocument" @close="close()">
                 <div class="p-6">
                     <h2
-                        class="text-lg font-medium text-gray-900 dark:text-gray-100"
+                        class="text-lg font-semibold text-gray-900 dark:text-gray-100 capitalize"
                     >
                         View {{ modalType }}
                     </h2>
