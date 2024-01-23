@@ -62,4 +62,30 @@ class VerificationController extends Controller
             ]
         ]);
     }
+
+    public function update(Request $request, String $id): RedirectResponse
+    {
+        $request->validate([
+            'status' => ['required', 'string', 'in:waitting,pending,approved,rejected'],
+            'note' => ['nullable', 'string'],
+            'is_via_online' => ['required', 'boolean'],
+            'is_lock' => ['required', 'boolean'],
+            'is_submitted' => ['required', 'boolean'],
+        ]);
+
+        Form::where('id', $id)->update([
+            'status' => $request->status,
+            'note' => $request->note,
+            'is_via_online' => $request->is_via_online,
+            'is_lock' => $request->is_lock,
+            'is_submitted' => $request->is_submitted
+        ]);
+
+        session()->flash('alert', [
+            'type' => 'success',
+            'message' => 'Formulir berhasil di ubah'
+        ]);
+
+        return redirect()->back();
+    }
 }
