@@ -29,10 +29,7 @@ const form = useForm({
     birth_place_province: form_data.birth_place_province || ``,
     birth_place_country: form_data.birth_place_country || ``,
     national_id: `${form_data.national_id}`,
-}).transform((data) => ({
-    ...data,
-    national_id: data.national_id ? parseInt(data.national_id) : null,
-}));
+});
 </script>
 
 <template>
