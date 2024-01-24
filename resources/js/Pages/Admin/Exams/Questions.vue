@@ -135,7 +135,7 @@ const save = () => {
                     >
                         <!-- Untuk list soal -->
                         <table
-                            class="text-sm text-left text-gray-500 dark:text-gray-400"
+                            class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
                         >
                             <thead
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
@@ -301,7 +301,7 @@ const save = () => {
                                     Pertanyaan
                                 </InputLabel>
                                 <Editor
-                                    api-key="api-key"
+                                    api-key="9o5ez5636r8vtoi9uoc9prwx2yu172mxja76bfcx8vknfiox"
                                     v-model="form.question"
                                     :init="{
                                         height: 500,
