@@ -15,7 +15,7 @@ const form = useForm({
     education_province: from_data.education_province || "",
     education_subdistrict: from_data.education_subdistrict || "",
     education_country: from_data.education_country || "",
-    education_postal_code: from_data.education_postal_code || "",
+    education_postal_code: `${from_data.education_postal_code || ""}`,
     education_graduation_year: from_data.education_graduation_year || "",
     education_major: from_data.education_major || "",
     education_grade: from_data.education_grade || "",
