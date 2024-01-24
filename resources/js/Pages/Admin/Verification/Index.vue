@@ -66,7 +66,7 @@ const navigateTo = (url) => {
                                     :key="form.id"
                                 >
                                     <td class="w-4 p-4">
-                                        {{ form.user.id }}
+                                        {{ form.id }}
                                     </td>
                                     <th
                                         scope="row"
@@ -124,7 +124,7 @@ const navigateTo = (url) => {
                                         <div class="flex justify-center">
                                             <button
                                                 type="button"
-                                                class="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
+                                                class="inline-block rounded bg-blue-600 px-4 py-2 text-xs font-medium text-white hover:bg-blue-700"
                                                 @click.prevent="
                                                     navigateTo(
                                                         route(
