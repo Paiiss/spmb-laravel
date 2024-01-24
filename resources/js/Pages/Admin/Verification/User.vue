@@ -897,7 +897,7 @@ const save = () => {
                                 <div class="col-span-2 md:col-span-1">
                                     <InputLabel
                                         for="is_via_online"
-                                        value="Dikunci"
+                                        value="Pendaftaran online"
                                     />
                                     <Combobox
                                         id="is_via_online"
