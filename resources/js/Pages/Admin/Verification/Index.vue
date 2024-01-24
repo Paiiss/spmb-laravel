@@ -141,21 +141,22 @@ const navigateTo = (url) => {
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="py-1 px-4">
-                            <nav class="flex items-center space-x-1">
-                                <button
-                                    type="button"
-                                    class="min-w-[40px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2.5 text-sm rounded-full disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10"
-                                    aria-current="page"
-                                    v-for="link in forms.links"
-                                    :key="link.label"
-                                    :disabled="link.active"
-                                    @click.prevent="navigateTo(link.url)"
-                                >
-                                    <span v-html="link.label"> </span>
-                                </button>
-                            </nav>
-                        </div>
+                    </div>
+                    <div class="py-1 px-4">
+                        <nav class="flex items-center space-x-1">
+                            <button
+                                type="button"
+                                class="min-w-[40px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2.5 text-sm rounded-full disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10"
+                                aria-current="page"
+                                v-for="link in forms.links"
+                                :key="link.label"
+                                :disabled="link.active"
+                                @click.prevent="navigateTo(link.url)"
+                            >
+                                <span v-html="link.label" class="truncate">
+                                </span>
+                            </button>
+                        </nav>
                     </div>
                 </div>
             </div>
