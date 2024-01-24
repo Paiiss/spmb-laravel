@@ -23,7 +23,7 @@ class ExamQuesionController extends Controller
         // dd($exam->questions());
         return Inertia::render('Admin/Exams/Questions', [
             'exam' => $exam,
-            'questions' => $exam->questions()->get(),
+            'questions' => $exam->questions()->paginate(10),
         ]);
     }
 
