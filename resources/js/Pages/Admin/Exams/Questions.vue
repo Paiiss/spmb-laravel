@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link, usePage, useForm } from "@inertiajs/vue3";
-import { ref, computed } from "vue";
+import { Head, usePage, useForm } from "@inertiajs/vue3";
+import { ref, computed, provide } from "vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Modal from "@/Components/Modal.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
@@ -9,6 +9,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import Combobox from "@/Components/Combobox.vue";
 import TextareaInput from "@/Components/TextareaInput.vue";
+import Editor from "@tinymce/tinymce-vue";
 
 defineProps({
     questions: Object,
@@ -23,7 +24,10 @@ const form = useForm({
     option_c: "",
     option_d: "",
     option_e: "",
-});
+}).transform((data) => ({
+    ...data,
+    question: `${data.question}`,
+}));
 
 const showModal = ref(false);
 // const modalTitle = ref("");
@@ -126,7 +130,7 @@ const save = () => {
                     >
                         <!-- Untuk list soal -->
                         <table
-                            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                            class="text-sm text-left text-gray-500 dark:text-gray-400"
                         >
                             <thead
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
@@ -135,21 +139,11 @@ const save = () => {
                                     <th scope="col " class="px-6 py-3">No</th>
                                     <th scope="col" class="px-6 py-3">Soal</th>
                                     <th scope="col" class="px-6 py-3">Kunci</th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Pilihan A
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Pilihan B
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Pilihan C
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Pilihan D
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Pilihan E
-                                    </th>
+                                    <th scope="col" class="px-6 py-3">A</th>
+                                    <th scope="col" class="px-6 py-3">B</th>
+                                    <th scope="col" class="px-6 py-3">C</th>
+                                    <th scope="col" class="px-6 py-3">D</th>
+                                    <th scope="col" class="px-6 py-3">E</th>
 
                                     <th scope="col" class="px-6 py-3">Aksi</th>
                                 </tr>
@@ -167,8 +161,17 @@ const save = () => {
                                         {{ index + 1 }}
                                     </th>
 
-                                    <td class="px-6 py-4 truncate">
-                                        {{ item.question }}
+                                    <td
+                                        class="px-6 py-4 break-all overflow-hidden"
+                                    >
+                                        {{
+                                            item.question.length > 100
+                                                ? item.question.substring(
+                                                      0,
+                                                      100
+                                                  ) + "..."
+                                                : item.question
+                                        }}
                                     </td>
 
                                     <td class="px-6 py-4 truncate">
@@ -176,19 +179,54 @@ const save = () => {
                                     </td>
 
                                     <td class="px-6 py-4 truncate">
-                                        {{ item.option_a }}
+                                        {{
+                                            item.option_a.length > 100
+                                                ? item.option_a.substring(
+                                                      0,
+                                                      100
+                                                  ) + "..."
+                                                : item.option_a
+                                        }}
                                     </td>
                                     <td class="px-6 py-4 truncate">
-                                        {{ item.option_b }}
+                                        {{
+                                            item.option_b.length > 100
+                                                ? item.option_b.substring(
+                                                      0,
+                                                      100
+                                                  ) + "..."
+                                                : item.option_b
+                                        }}
                                     </td>
                                     <td class="px-6 py-4 truncate">
-                                        {{ item.option_c }}
+                                        {{
+                                            item.option_c.length > 100
+                                                ? item.option_c.substring(
+                                                      0,
+                                                      100
+                                                  ) + "..."
+                                                : item.option_c
+                                        }}
                                     </td>
                                     <td class="px-6 py-4 truncate">
-                                        {{ item.option_d }}
+                                        {{
+                                            item.option_d.length > 100
+                                                ? item.option_d.substring(
+                                                      0,
+                                                      100
+                                                  ) + "..."
+                                                : item.option_d
+                                        }}
                                     </td>
                                     <td class="px-6 py-4 truncate">
-                                        {{ item.option_e }}
+                                        {{
+                                            item.option_e.length > 100
+                                                ? item.option_e.substring(
+                                                      0,
+                                                      100
+                                                  ) + "..."
+                                                : item.option_e
+                                        }}
                                     </td>
 
                                     <td class="px-6 py-4">
@@ -239,10 +277,23 @@ const save = () => {
                                 <InputLabel for="question">
                                     Pertanyaan
                                 </InputLabel>
-                                <TextareaInput
+                                <Editor
+                                    api-key="api-key"
                                     v-model="form.question"
-                                    id="question"
-                                    class="mt-1 block w-full"
+                                    :init="{
+                                        height: 500,
+                                        menubar: false,
+                                        plugins: [
+                                            'advlist autolink lists link image charmap print preview anchor',
+                                            'searchreplace visualblocks code fullscreen',
+                                            'insertdatetime media table paste code help wordcount',
+                                        ],
+                                        toolbar:
+                                            'undo redo | formatselect | ' +
+                                            'bold italic backcolor | alignleft aligncenter ' +
+                                            'alignright alignjustify | bullist numlist outdent indent | ' +
+                                            'removeformat | help',
+                                    }"
                                 />
                                 <InputError :message="form.errors.question" />
                             </div>
