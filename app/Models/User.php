@@ -51,6 +51,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return in_array('admin', $this->roles);
     }
 
+    public function hasAnyRole(array $roles): bool
+    {
+        return count(array_intersect($roles, $this->roles)) > 0;
+    }
+
     public function getForm()
     {
         return $this->hasOne(Form::class);
