@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, usePage, useForm } from "@inertiajs/vue3";
+import { Head, usePage, useForm, router } from "@inertiajs/vue3";
 import { ref, computed, provide } from "vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Modal from "@/Components/Modal.vue";
@@ -15,6 +15,11 @@ defineProps({
     questions: Object,
     exam: Object,
 });
+
+const navigateTo = (url) => {
+    if (url === null) return;
+    return router.visit(url);
+};
 
 const form = useForm({
     question: "",
@@ -151,79 +156,82 @@ const save = () => {
                             <tbody>
                                 <tr
                                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                                    v-for="(item, index) in questions"
+                                    v-for="(item, index) in questions.data"
                                     :key="index"
                                 >
                                     <th
                                         scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                     >
-                                        {{ index + 1 }}
+                                        {{
+                                            index +
+                                            1 +
+                                            (questions.current_page - 1) *
+                                                questions.per_page
+                                        }}
                                     </th>
 
-                                    <td
-                                        class="px-6 py-4 break-all overflow-hidden"
-                                    >
+                                    <td class="px-6 py-4 break-all">
                                         {{
-                                            item.question.length > 100
+                                            item.question?.length > 30
                                                 ? item.question.substring(
                                                       0,
-                                                      100
+                                                      30
                                                   ) + "..."
                                                 : item.question
                                         }}
                                     </td>
 
-                                    <td class="px-6 py-4 truncate">
+                                    <td class="px-6 py-4">
                                         {{ item.answer }}
                                     </td>
 
-                                    <td class="px-6 py-4 truncate">
+                                    <td class="px-6 py-4">
                                         {{
-                                            item.option_a.length > 100
+                                            item.option_a?.length > 20
                                                 ? item.option_a.substring(
                                                       0,
-                                                      100
+                                                      20
                                                   ) + "..."
                                                 : item.option_a
                                         }}
                                     </td>
-                                    <td class="px-6 py-4 truncate">
+                                    <td class="px-6 py-4">
                                         {{
-                                            item.option_b.length > 100
+                                            item.option_b.length > 20
                                                 ? item.option_b.substring(
                                                       0,
-                                                      100
+                                                      20
                                                   ) + "..."
                                                 : item.option_b
                                         }}
                                     </td>
-                                    <td class="px-6 py-4 truncate">
+                                    <td class="px-6 py-4">
                                         {{
-                                            item.option_c.length > 100
+                                            item.option_c?.length > 20
                                                 ? item.option_c.substring(
                                                       0,
-                                                      100
+                                                      20
                                                   ) + "..."
                                                 : item.option_c
                                         }}
                                     </td>
-                                    <td class="px-6 py-4 truncate">
+                                    <td class="px-6 py-4">
                                         {{
-                                            item.option_d.length > 100
+                                            item.option_d?.length > 20
                                                 ? item.option_d.substring(
                                                       0,
-                                                      100
+                                                      20
                                                   ) + "..."
                                                 : item.option_d
                                         }}
                                     </td>
-                                    <td class="px-6 py-4 truncate">
+                                    <td class="px-6 py-4">
                                         {{
-                                            item.option_e.length > 100
+                                            item.option_e?.length > 20
                                                 ? item.option_e.substring(
                                                       0,
-                                                      100
+                                                      20
                                                   ) + "..."
                                                 : item.option_e
                                         }}
@@ -252,6 +260,21 @@ const save = () => {
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="py-1 px-4">
+                            <nav class="flex items-center space-x-1">
+                                <button
+                                    type="button"
+                                    class="min-w-[40px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2.5 text-sm rounded-full disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10"
+                                    aria-current="page"
+                                    v-for="link in questions.links"
+                                    :key="link.label"
+                                    :disabled="link.active"
+                                    @click.prevent="navigateTo(link.url)"
+                                >
+                                    <span v-html="link.label"> </span>
+                                </button>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
