@@ -81,7 +81,7 @@ const programStudi = [
         <section class="p-6 md:p-16 lg:p-12 xl:p-16">
             <div class="container mx-auto">
                 <header
-                    class="text-2xl md:text-3xl text-black text-center font-bold pb-5 mb-10 capitalize border-b-2 border-black"
+                    class="text-2xl md:text-3xl text-black text-center font-bold pb-5 mb-10 capitalize"
                 >
                     pilihan program studi
                 </header>
@@ -107,7 +107,7 @@ const programStudi = [
         >
             <div class="container mx-auto p-6">
                 <header
-                    class="text-2xl text-center pb-5 mb-10 text-black font-bold capitalize border-b-2 border-black"
+                    class="text-2xl text-center pb-5 mb-10 text-black font-bold capitalize"
                 >
                     Sekilas tentang kami
                 </header>
@@ -147,7 +147,7 @@ const programStudi = [
                         class="col-span-2 md:col-span-1 space-x-3 flex justify-center"
                     >
                         <Link
-                            class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600"
+                            class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600 text-xs sm:text-base"
                             href="https://wa.me/6281360000000"
                         >
                             <i class="fa-brands fa-whatsapp pr-2"></i>
@@ -156,7 +156,7 @@ const programStudi = [
 
                         <Link
                             href=""
-                            class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600"
+                            class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600 text-xs sm:text-base"
                         >
                             <i class="fa-solid fa-book-bookmark pr-2" />
                             Panduan</Link
