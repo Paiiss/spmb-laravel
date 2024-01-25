@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('option_d')->nullable();
             $table->string('option_e')->nullable();
             $table->enum('answer', ['a', 'b', 'c', 'd', 'e']);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

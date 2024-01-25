@@ -32,7 +32,7 @@ class ExamQuestionsRequest extends FormRequest
             'option_c' => ['nullable', 'string'],
             'option_d' => ['nullable', 'string'],
             'option_e' => ['nullable', 'string'],
-
+            'is_active' => ['nullable', 'boolean'],
         ];
     }
 
