@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -122,5 +123,10 @@ class User extends Authenticatable implements MustVerifyEmail
             $percent[$key] = ($percent[$key] / count($field)) * 100;
         }
         return $percent;
+    }
+
+    public function health(): HasOne
+    {
+        return $this->hasOne(Health::class);
     }
 }
