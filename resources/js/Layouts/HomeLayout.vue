@@ -66,7 +66,7 @@ const showingNavigationDropdown = ref(false);
                                 <Link
                                     v-if="!$page.props.auth.user"
                                     :href="route('login')"
-                                    class="inline-flex items-center p-2 text-left border-transparent text-sm uppercase text-white font-bold bg-teal-400 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
+                                    class="inline-flex items-center p-2 text-left border-transparent text-xs uppercase text-white font-bold bg-teal-400 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
                                 >
                                     <i
                                         class="fa-solid fa-user-graduate pr-2"
@@ -76,7 +76,7 @@ const showingNavigationDropdown = ref(false);
                                 <Link
                                     v-if="!$page.props.auth.user"
                                     :href="route('register')"
-                                    class="inline-flex items-center p-2 text-left border-transparent text-sm uppercase text-teal-400 font-bold bg-teal-50 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
+                                    class="inline-flex items-center p-2 text-left border-transparent text-xs uppercase text-teal-400 font-bold bg-teal-50 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
                                 >
                                     <i
                                         class="fa-solid fa-right-to-bracket pr-2"
@@ -86,8 +86,11 @@ const showingNavigationDropdown = ref(false);
                                 <Link
                                     v-if="$page.props.auth.user"
                                     :href="route('dashboard')"
-                                    class="inline-flex items-center p-2 text-left border-transparent text-sm uppercase text-white font-bold bg-teal-400 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
+                                    class="inline-flex items-center p-2 text-left border-transparent text-xs uppercase text-white font-bold bg-teal-400 rounded-lg dark:text-gray-800 tracking-widest hover:bg-teal-700 dark:hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out shadow-md"
                                 >
+                                    <i
+                                        class="fa-solid fa-user-graduate pr-2"
+                                    ></i>
                                     Dashboard</Link
                                 >
                             </div>
@@ -177,7 +180,9 @@ const showingNavigationDropdown = ref(false);
             <!-- Footer start -->
             <footer class="pt-16 col-end-1 bg-background-light text-white">
                 <div class="container mx-auto">
-                    <div class="grid grid-cols-1 md:grid-cols-3 p-4 gap-6">
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-3 p-4 gap-6 text-sm"
+                    >
                         <div>
                             <h3
                                 class="text-white font-bold text-lg border-b-2 border-white pb-2 mb-2"
@@ -194,7 +199,7 @@ const showingNavigationDropdown = ref(false);
                             </ul>
                         </div>
                         <div>
-                            <h3 class="text-white font-bold text-lg">
+                            <h3 class="text-white font-bold text-lg pb-2">
                                 Akademik
                             </h3>
                             <ul
@@ -232,7 +237,9 @@ const showingNavigationDropdown = ref(false);
                             </ul>
                         </div>
                         <div>
-                            <h3 class="text-white font-bold text-lg">Kontak</h3>
+                            <h3 class="text-white font-bold text-lg pb-2">
+                                Kontak
+                            </h3>
                             <ul class="list-none">
                                 <li>
                                     <i
