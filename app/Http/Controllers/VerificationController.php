@@ -17,7 +17,7 @@ class VerificationController extends Controller
     public function view(): Response
     {
 
-        $form = Form::where('is_paid_registration', true)->paginate(10)->through(function ($form) {
+        $form = Form::where('is_submitted', true)->paginate(10)->through(function ($form) {
             // if ($form->is_submitted) 
             return [
                 'id' => $form->id,
@@ -73,13 +73,20 @@ class VerificationController extends Controller
             'is_submitted' => ['required', 'boolean'],
         ]);
 
-        Form::where('id', $id)->update([
-            'status' => $request->status,
-            'note' => $request->note,
-            'is_via_online' => $request->is_via_online,
-            'is_lock' => $request->is_lock,
-            'is_submitted' => $request->is_submitted
-        ]);
+        $form = Form::where('id', $id)->first();
+        $user = User::where('id', $form->user_id)->first();
+        $prodi = Prodi::find($form->option_id)->first();
+        $wave = Wave::where('id', $form->wave_id)->first();
+
+        if ($request->status == 'approved' && !$form->no_exam) {
+            $form->no_exam = $wave->code . '-' . $prodi->id . '-' . $form->id;
+        }
+        $form->status = $request->status;
+        $form->note = $request->note;
+        $form->is_via_online = $request->is_via_online;
+        $form->is_lock = $request->is_lock;
+        $form->is_submitted = $request->is_submitted;
+        $form->save();
 
         session()->flash('alert', [
             'type' => 'success',
