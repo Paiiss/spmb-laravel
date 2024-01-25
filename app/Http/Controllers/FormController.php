@@ -71,7 +71,7 @@ class FormController extends Controller
             'wave' => $user?->getWave()?->first() ?? null,
             'form_status' => $user->getForm()->get()->isNotEmpty(),
             'amount' => $user?->getProdi()->biaya_registrasi ?? 0,
-            'is_paid_registration' => $form->is_paid_registration ?? false,
+            'is_paid_registration' => $form->is_paid_registration ?? null,
             'code' => $form->code_registration ?? null,
             'percent' => $user->getProgress() ?? null,
             'is_lock' => $form->is_lock ?? false,

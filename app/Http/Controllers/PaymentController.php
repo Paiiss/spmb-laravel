@@ -56,9 +56,9 @@ class PaymentController extends Controller
 
         $user = User::find($payment->user_id)->getForm()->first();
         if ($request->status === 'approved' && $payment->type_payment == 'form') {
-            $user->is_paid_registration = true;
+            $user->is_paid_registration = $payment->created_at;
         } else {
-            $user->is_paid_registration = false;
+            $user->is_paid_registration = null;
         }
         $user->save();
 
