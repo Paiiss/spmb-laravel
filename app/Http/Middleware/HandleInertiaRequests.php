@@ -30,10 +30,24 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $form =  $request->user()?->getForm()->first() ?? null;
+        $prodi = $request->user()?->getProdi()->first() ?? null;
+        $exams = [
+            'knowledge' => $prodi?->tes_ujian ?? null,
+            'health' => $prodi?->tes_kesehatan ?? null,
+            'interview' => $prodi?->tes_wawancara ?? null,
+        ];
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'form' => [
+                    'already' => $form ? true : false,
+                    'status' => $form?->status ?? null,
+                    'is_paid_registration' => $form?->is_paid_registration ?? null,
+                ],
+                'exams' => $exams,
+
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
