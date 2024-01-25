@@ -351,6 +351,45 @@ const isSideBarOpen = ref(false);
                         </li>
                     </ul>
 
+                    <template v-if="$page.props.auth.form.status == 'approved'">
+                        <ul
+                            class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700"
+                        >
+                            <!-- <h5
+                                class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400"
+                            >
+                                Tes
+                            </h5> -->
+                            <li v-if="$page.props.auth.exams.knowledge">
+                                <ResponsiveSideBar
+                                    :href="route('admin.user')"
+                                    :active="route().current('admin.user')"
+                                    icon="fas fa-clipboard"
+                                >
+                                    Ujian Online
+                                </ResponsiveSideBar>
+                            </li>
+                            <li v-if="$page.props.auth.exams.health">
+                                <ResponsiveSideBar
+                                    :href="route('exams.health')"
+                                    :active="route().current('exams.health')"
+                                    icon="fas fa-stethoscope"
+                                >
+                                    Pemeriksaan kesehatan
+                                </ResponsiveSideBar>
+                            </li>
+                            <li v-if="$page.props.auth.exams.interview">
+                                <ResponsiveSideBar
+                                    :href="route('admin.user')"
+                                    :active="route().current('admin.user')"
+                                    icon="fas fa-microphone"
+                                >
+                                    Wawancara
+                                </ResponsiveSideBar>
+                            </li>
+                        </ul>
+                    </template>
+
                     <template
                         v-if="$page.props.auth.user.roles.includes('admin')"
                     >
@@ -437,6 +476,7 @@ const isSideBarOpen = ref(false);
             <main class="p-4 py-20 sm:ml-64">
                 <slot />
             </main>
+            {{ $page.props.alert }}
             <AlertHandler />
         </div>
     </div>
