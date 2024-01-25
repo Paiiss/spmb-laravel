@@ -11,6 +11,9 @@ use App\Http\Controllers\ExamQuesionController;
 use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\WebSettingController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\Exams\HealthController;
+use App\Http\Controllers\Exams\KnowledgeController;
+use App\Http\Controllers\Exams\InterviewController;
 
 use App\Models\User;
 use App\Models\Wave;
@@ -74,6 +77,11 @@ Route::middleware(['auth', 'verified', 'payform'])->prefix('/form')->name('form.
 Route::middleware(['auth', 'verified', 'payform'])->prefix('/documents')->name('documents.')->group(function () {
     Route::get('/', [DocumentsController::class, 'index'])->name('index');
     Route::post('/', [DocumentsController::class, 'update'])->name('update');
+});
+
+Route::middleware(['auth', 'verified', 'formapproved'])->prefix('/exams')->name('exams.')->group(function () {
+    Route::get('/health', [HealthController::class, 'index'])->name('health');
+    Route::post('/health', [HealthController::class, 'update'])->name('health.update');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('/admin')->name('admin.')->group(function () {
