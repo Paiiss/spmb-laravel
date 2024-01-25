@@ -24,7 +24,7 @@ defineProps({
         default: 0,
     },
     is_paid_registration: {
-        default: false,
+        default: null,
     },
     code: {
         default: null,
