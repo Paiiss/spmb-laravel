@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -20,18 +19,13 @@ return new class extends Migration
             $table->string('blood_type')->nullable();
             $table->integer('blood_pressure')->nullable();
             $table->integer('blood_sugar')->nullable();
-            $table->boolean('is_smoking')->nullable();
-            $table->boolean('color_blind')->nullable();
-            $table->boolean('is_disability')->nullable();
-            $table->string('vision')->nullable();
-            $table->string('history_of_disease')->nullable();
-            $table->string('note')->nullable();
-            $table->string('image')->nullable();
+            $table->boolean('is_smoking')->default(false);
+            $table->boolean('color_blind')->default(false);
+            $table->boolean('is_disability')->default(false);
+            $table->text('note')->nullable();
 
-            $table->string('status')->default('pending');
-            $table->boolean('is_approved')->nullable();
-            $table->boolean('is_rejected')->nullable();
-            $table->string('rejected_note')->nullable();
+            $table->enum('status', ['waiting', 'submitted', 'approved', 'rejected'])->default('waiting');
+            $table->text('admin_note')->nullable();
             $table->timestamps();
         });
     }
