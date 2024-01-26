@@ -10,6 +10,7 @@ use Inertia\Inertia;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\PaymentRequest;
+use App\Notifications\Candidate;
 
 class PaymentController extends Controller
 {
@@ -57,10 +58,21 @@ class PaymentController extends Controller
         $user = User::find($payment->user_id)->getForm()->first();
         if ($request->status === 'approved' && $payment->type_payment == 'form') {
             $user->is_paid_registration = $payment->created_at;
+            $user->notify(
+                new Candidate(
+                    'Pembayaran Pendaftaran Diterima',
+                    'Selamat, pembayaran pendaftaran Anda telah diterima. Silahkan lengkapi data diri Anda untuk melanjutkan proses pendaftaran.'
+                )
+            );
         } else {
             $user->is_paid_registration = null;
         }
         $user->save();
+
+        session()->flash('alert', [
+            'type' => 'success',
+            'message' => 'Pembayaran berhasil diubah'
+        ]);
 
         return Redirect::back();
     }
@@ -72,6 +84,10 @@ class PaymentController extends Controller
         $userPayment = User::find(auth()->user()->id)->payments()->where('id', $id)->first();
         if ($userPayment && $userPayment->status !== 'approved') {
             $userPayment->delete();
+            session()->flash('alert', [
+                'type' => 'success',
+                'message' => 'Pembayaran berhasil dihapus'
+            ]);
         }
         return Redirect::back();
     }
