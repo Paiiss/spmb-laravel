@@ -8,6 +8,10 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import ResponsiveSideBar from "@/Components/ResponsiveSideBar.vue";
 import { Link, usePage } from "@inertiajs/vue3";
 import AlertHandler from "@/Components/AlertHandler.vue";
+import NotifsHandler from "@/Components/NotifsHandler.vue";
+
+import useNotifs from "@/Composables/useNotifs.js";
+const { unreadNotif } = useNotifs();
 
 const showingNavigationDropdown = ref(false);
 const showingListForm = ref(
@@ -63,6 +67,33 @@ const isSideBarOpen = ref(false);
 
                         <div class="flex items-center ms-6">
                             <!-- Settings Dropdown -->
+                            <div class="ms-3 relative">
+                                <Dropdown align="right" width="responsive">
+                                    <template #trigger>
+                                        <span class="inline-flex rounded-md">
+                                            <button
+                                                type="button"
+                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                                            >
+                                                <i
+                                                    class="fa-solid fa-bell text-2xl"
+                                                >
+                                                    <div
+                                                        v-if="unreadNotif() > 0"
+                                                        class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full top-0 end-0 dark:border-gray-900"
+                                                    >
+                                                        {{ unreadNotif() }}
+                                                    </div>
+                                                </i>
+                                            </button>
+                                        </span>
+                                    </template>
+
+                                    <template #content>
+                                        <NotifsHandler />
+                                    </template>
+                                </Dropdown>
+                            </div>
                             <div class="ms-3 relative">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
