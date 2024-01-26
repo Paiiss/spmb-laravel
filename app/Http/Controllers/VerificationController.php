@@ -12,6 +12,8 @@ use App\Models\User;
 use App\Models\Prodi;
 use App\Models\Wave;
 
+use App\Notifications\Candidate;
+
 class VerificationController extends Controller
 {
     public function view(): Response
@@ -39,7 +41,7 @@ class VerificationController extends Controller
         ]);
     }
 
-    public function index(String $id): Response | RedirectResponse
+    public function index(string $id): Response|RedirectResponse
     {
         $form = Form::where('id', $id)->first();
         if (!$form) {
@@ -63,7 +65,7 @@ class VerificationController extends Controller
         ]);
     }
 
-    public function update(Request $request, String $id): RedirectResponse
+    public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate([
             'status' => ['required', 'string', 'in:waitting,pending,approved,rejected'],
@@ -87,6 +89,13 @@ class VerificationController extends Controller
         $form->is_lock = $request->is_lock;
         $form->is_submitted = $request->is_submitted;
         $form->save();
+
+        $user->notify(
+            new Candidate(
+                'Pendaftaran',
+                'Pendaftaran anda telah di ' . $request->status . ' oleh admin'
+            )
+        );
 
         session()->flash('alert', [
             'type' => 'success',
