@@ -44,6 +44,11 @@ Route::get('/', function () {
     ]);
 });
 
+Route::delete('/notification/{id}', function ($id) {
+    auth()->user()->notifications()->where('id', $id)->delete();
+    return;
+})->name('notifications.destroy')->middleware(['auth', 'verified']);
+
 Route::get('/dashboard', function (Request $request) {
     $user = User::find(auth()->user()->id);
     return Inertia::render('Dashboard', [
