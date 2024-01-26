@@ -28,6 +28,8 @@ onUnmounted(() => document.removeEventListener("keydown", closeOnEscape));
 const widthClass = computed(() => {
     return {
         48: "w-48",
+        responsive:
+            "w-60 md:w-screen md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl",
     }[props.width.toString()];
 });
 
@@ -70,7 +72,6 @@ const open = ref(false);
                 class="absolute z-50 mt-2 rounded-md shadow-lg"
                 :class="[widthClass, alignmentClasses]"
                 style="display: none"
-                @click="open = false"
             >
                 <div
                     class="rounded-md ring-1 ring-black ring-opacity-5"
