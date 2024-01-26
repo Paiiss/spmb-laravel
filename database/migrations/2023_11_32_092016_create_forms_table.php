@@ -104,7 +104,7 @@ return new class extends Migration
             $table->boolean('is_submitted')->default(false);
             $table->string('status')->enum(['waitting', 'pending', 'approved', 'rejected'])->default('waitting');
             $table->text('note')->nullable();
-            $table->boolean('is_paid_registration')->default(false);
+            $table->timestamp('is_paid_registration')->nullable();
             $table->boolean('is_paid_tuition')->default(false);
 
             $table->timestamps();
