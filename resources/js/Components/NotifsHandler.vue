@@ -1,0 +1,59 @@
+<template>
+    <div v-if="notification.length" class="">
+        <div
+            class="w-full text-sm rounded-lg"
+            v-for="x in notification"
+            :key="x.id"
+        >
+            <div class="flex p-4">
+                {{ x.data.message }}
+
+                <div class="ms-auto">
+                    <button
+                        type="button"
+                        @click="removeNotif(x.id)"
+                        class="inline-flex flex-shrink-0 justify-center items-center h-5 w-5 rounded-lg text-yellow-800 opacity-50 hover:opacity-100 focus:outline-none focus:opacity-100 dark:text-yellow-200"
+                    >
+                        <span class="sr-only">Close</span>
+                        <i class="fas fa-times flex-shrink-0 w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div v-else>
+        <div class="w-full text-sm rounded-lg">
+            <div class="flex p-4">Tidak ada notifikasi</div>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { computed, watch, onMounted } from "vue";
+import { usePage } from "@inertiajs/vue3";
+import useNotifs from "@/Composables/useNotifs.js";
+
+const { addNotif, notification, removeNotif } = useNotifs();
+const notif = computed(() => usePage().props.notifications);
+onMounted(() => {
+    if (notif.value) {
+        for (let i = 0; i < notif.value.length; i++) {
+            if (
+                notification.value.filter((e) => e.id === notif.value[i].id)
+                    .length
+            )
+                continue;
+            addNotif(notif.value[i]);
+        }
+    }
+});
+watch(notif, (newVal) => {
+    if (newVal) {
+        for (let i = 0; i < newVal.length; i++) {
+            if (notification.value.filter((e) => e.id === newVal[i].id).length)
+                continue;
+            addNotif(newVal[i]);
+        }
+    }
+});
+</script>
