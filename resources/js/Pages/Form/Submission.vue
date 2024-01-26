@@ -30,7 +30,10 @@ defineProps({
         default: null,
     },
     percent: Object,
-    is_lock: Boolean,
+    is_lock: {
+        type: Boolean,
+        default: false,
+    },
     is_submitted: Boolean,
 });
 
