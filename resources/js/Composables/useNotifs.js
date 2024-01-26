@@ -1,4 +1,5 @@
 import { ref } from "vue";
+import axios from "axios";
 const notification = ref([]);
 
 export default function useNotif() {
@@ -11,7 +12,8 @@ export default function useNotif() {
         }
     };
 
-    const removeNotif = (id) => {
+    const removeNotif = async (id) => {
+        await axios.delete(route("notifications.destroy", id));
         notification.value = notification.value.filter(
             (notif) => notif.id !== id
         );
