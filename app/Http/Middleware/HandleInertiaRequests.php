@@ -30,8 +30,14 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $form =  $request->user()?->getForm()->first() ?? null;
-        $prodi = $request->user()?->getProdi()->first() ?? null;
+        // dd($request->user()->notifications as $notification);
+        /* foreach ($request->user()->notifications as $notification) {
+            // dd($notification->data)
+            $notification->markAsRead();
+        } */
+        $user = $request->user();
+        $form = $user?->getForm ?? null;
+        $prodi = $user?->getProdi()->first() ?? null;
         $exams = [
             'knowledge' => $prodi?->tes_ujian ?? null,
             'health' => $prodi?->tes_kesehatan ?? null,
@@ -40,7 +46,7 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user,
                 'form' => [
                     'already' => $form ? true : false,
                     'status' => $form?->status ?? null,
@@ -49,13 +55,14 @@ class HandleInertiaRequests extends Middleware
                 'exams' => $exams,
 
             ],
-            'ziggy' => fn () => [
+            'ziggy' => fn() => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
             'flash' => [
                 'alert' => $request->session()->get('alert'),
             ],
+            'notifications' => $user?->notifications ?? null,
         ];
     }
 }
