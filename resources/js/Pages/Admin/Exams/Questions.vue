@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, usePage, useForm, router } from "@inertiajs/vue3";
-import { ref, computed, provide } from "vue";
+import { ref, computed } from "vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Modal from "@/Components/Modal.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
@@ -63,7 +63,6 @@ const close = () => {
 };
 
 const save = () => {
-    console.log(usePage().props.exam.id);
     if (dialogIndex.value === 0) {
         form.post(
             route("admin.exams.questions.store", usePage().props.exam.id),
