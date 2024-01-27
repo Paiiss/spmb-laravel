@@ -87,6 +87,10 @@ Route::middleware(['auth', 'verified', 'payform'])->prefix('/documents')->name('
 Route::middleware(['auth', 'verified', 'formapproved'])->prefix('/exams')->name('exams.')->group(function () {
     Route::get('/health', [HealthController::class, 'index'])->name('health');
     Route::post('/health', [HealthController::class, 'update'])->name('health.update');
+
+    Route::get('/knowledge', [KnowledgeController::class, 'index'])->name('knowledge');
+
+    Route::get('/interview', [InterviewController::class, 'index'])->name('interview');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('/admin')->name('admin.')->group(function () {
