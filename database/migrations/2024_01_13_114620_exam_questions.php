@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -20,7 +19,7 @@ return new class extends Migration
             $table->string('option_c')->nullable();
             $table->string('option_d')->nullable();
             $table->string('option_e')->nullable();
-            $table->enum('answer', ['a', 'b', 'c', 'd', 'e']);
+            $table->enum('answer', ['A', 'B', 'C', 'D', 'E']);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

@@ -26,7 +26,7 @@ class ExamQuestionsRequest extends FormRequest
     {
         return [
             'question' => ['required', 'string'],
-            'answer' => ['required', 'string', 'in:a,b,c,d,e'],
+            'answer' => ['required', 'string', 'in:A,B,C,D,E'],
             'option_a' => ['nullable', 'string'],
             'option_b' => ['nullable', 'string'],
             'option_c' => ['nullable', 'string'],
@@ -45,7 +45,7 @@ class ExamQuestionsRequest extends FormRequest
         return [
             'question.required' => 'Pertanyaan harus diisi',
             'answer.required' => 'Jawaban harus diisi',
-            'answer.in' => 'Jawaban hanya berisi: a, b, c, d, e',
+            'answer.in' => 'Jawaban hanya berisi: A, B, C, D, E',
         ];
     }
 }
