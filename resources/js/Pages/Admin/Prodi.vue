@@ -27,9 +27,9 @@ const form = useForm({
     biaya_registrasi: 0,
 }).transform((x) => ({
     ...x,
-    tes_ujian: x.tes_ujian ? 1 : 0,
-    tes_wawancara: x.tes_wawancara ? 1 : 0,
-    tes_kesehatan: x.tes_kesehatan ? 1 : 0,
+    tes_ujian: x.tes_ujian == "true" ? true : false,
+    tes_wawancara: x.tes_wawancara == "true" ? true : false,
+    tes_kesehatan: x.tes_kesehatan == "true" ? true : false,
     biaya_registrasi: parseInt(x.biaya_registrasi),
 }));
 
@@ -70,9 +70,9 @@ const editProdi = (item = null) => {
         form.fakultas = findProdi.fakultas;
         form.jenjang = findProdi.jenjang;
         form.nama_prodi = findProdi.nama_prodi;
-        form.tes_kesehatan = findProdi.tes_kesehatan == 1 ? true : false;
-        form.tes_ujian = findProdi.tes_ujian == 1 ? true : false;
-        form.tes_wawancara = findProdi.tes_wawancara == 1 ? true : false;
+        form.tes_kesehatan = findProdi.tes_kesehatan == 1 ? "true" : "false";
+        form.tes_ujian = findProdi.tes_ujian == 1 ? "true" : "false";
+        form.tes_wawancara = findProdi.tes_wawancara == 1 ? "true" : "false";
         form.biaya_registrasi = findProdi.biaya_registrasi;
     }
 };
