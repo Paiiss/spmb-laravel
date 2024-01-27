@@ -28,6 +28,12 @@ class ExamsRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'duration' => ['required', 'integer'],
+            'allowed' => ['nullable', 'json'],
+            'shuffle_question' => ['required', 'boolean'],
+            'shuffle_answer' => ['required', 'boolean'],
+            'show_result' => ['required', 'boolean'],
+            'access_start_time' => ['required', 'regex:/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/'],
+            'access_end_time' => ['required', 'regex:/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/'],
             'is_active' => ['required', 'boolean'],
         ];
     }
@@ -38,9 +44,32 @@ class ExamsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Nama soal harus diisi',
-            'duration.required' => 'Durasi soal harus diisi',
-            'is_active.required' => 'Status aktif soal harus diisi',
+            'required' => ':attribute harus diisi.',
+            'string' => ':attribute harus berupa text/kata.',
+            'max' => ':attribute tidak boleh lebih dari :max karakter.',
+            'integer' => ':attribute harus berupa angka.',
+            'boolean' => ':attribute harus berupa Ya/Tidak.',
+            'H:i' => ':attribute harus berupa format jam:menit.',
+            'array' => ':attribute harus berupa array.',
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     */
+    public function attributes(): array
+    {
+        return [
+            'name' => 'Nama Ujian',
+            'description' => 'Deskripsi Ujian',
+            'duration' => 'Durasi Ujian',
+            'allowed' => 'Prodi yang diizinkan',
+            'shuffle_question' => 'Acak pertanyaan',
+            'shuffle_answer' => 'Acak jawaban',
+            'show_result' => 'Tampilkan hasil',
+            'access_start_time' => 'Waktu mulai akses',
+            'access_end_time' => 'Waktu akhir akses',
+            'is_active' => 'Aktif',
         ];
     }
 }
