@@ -29,6 +29,16 @@ class Exams extends Model
         return $this->hasMany(ExamQuestion::class, 'exam_id', 'id');
     }
 
+    public static function activeExamSelect()
+    {
+        return static::select('id', 'name')->where('is_active', true)->get()->map(function ($exam) {
+            return [
+                'value' => $exam->id,
+                'label' => $exam->name,
+            ];
+        });
+    }
+
     // public function histories()
     // {
     //     return $this->hasMany(ExamHistory::class, 'exam_id', 'id');
