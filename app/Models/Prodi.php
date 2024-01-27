@@ -17,6 +17,7 @@ class Prodi extends Model
         'fakultas',
         'akreditasi',
         'tes_ujian',
+        'ujian',
         'tes_wawancara',
         'tes_kesehatan',
         'biaya_registrasi',
@@ -37,4 +38,5 @@ class Prodi extends Model
     {
         return static::where('id', $id)->first() ?: null;
     }
+
 }
