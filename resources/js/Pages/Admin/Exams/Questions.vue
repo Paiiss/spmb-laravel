@@ -101,6 +101,14 @@ const save = () => {
         );
     }
 };
+
+const option = {
+    A: "option_a",
+    B: "option_b",
+    C: "option_c",
+    D: "option_d",
+    E: "option_e",
+};
 </script>
 
 <template>
@@ -140,16 +148,11 @@ const save = () => {
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                             >
                                 <tr>
-                                    <th scope="col " class="px-6 py-3">No</th>
+                                    <th scope="col " class="px-3 py-3">No</th>
                                     <th scope="col" class="px-6 py-3">Soal</th>
-                                    <th scope="col" class="px-6 py-3">Kunci</th>
-                                    <th scope="col" class="px-6 py-3">A</th>
-                                    <th scope="col" class="px-6 py-3">B</th>
-                                    <th scope="col" class="px-6 py-3">C</th>
-                                    <th scope="col" class="px-6 py-3">D</th>
-                                    <th scope="col" class="px-6 py-3">E</th>
-
-                                    <th scope="col" class="px-6 py-3">Aksi</th>
+                                    <th scope="col" class="px-6 py-3 text-end">
+                                        Action
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -160,7 +163,7 @@ const save = () => {
                                 >
                                     <th
                                         scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                        class="px-3 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                     >
                                         {{
                                             index +
@@ -170,74 +173,36 @@ const save = () => {
                                         }}
                                     </th>
 
-                                    <td class="px-6 py-4 break-all">
-                                        {{
-                                            item.question?.length > 30
-                                                ? item.question.substring(
-                                                      0,
-                                                      30
-                                                  ) + "..."
-                                                : item.question
-                                        }}
-                                    </td>
-
-                                    <td class="px-6 py-4">
-                                        {{ item.answer }}
-                                    </td>
-
-                                    <td class="px-6 py-4">
-                                        {{
-                                            item.option_a?.length > 20
-                                                ? item.option_a.substring(
-                                                      0,
-                                                      20
-                                                  ) + "..."
-                                                : item.option_a
-                                        }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{
-                                            item.option_b.length > 20
-                                                ? item.option_b.substring(
-                                                      0,
-                                                      20
-                                                  ) + "..."
-                                                : item.option_b
-                                        }}
+                                    <td class="px-6 py-4 break-all w-2/3">
+                                        <div v-html="item.question"></div>
+                                        <br />
+                                        <span
+                                            v-for="(value, key) in Object.keys(
+                                                option
+                                            )"
+                                            :key="key"
+                                            :class="{
+                                                'font-bold text-green-400':
+                                                    item.answer == value,
+                                            }"
+                                        >
+                                            <span
+                                                v-if="
+                                                    item[option[value]] !=
+                                                        null ||
+                                                    item[option[value]] != ''
+                                                "
+                                            >
+                                                {{ value }}.
+                                                <span
+                                                    v-html="item[option[value]]"
+                                                ></span
+                                                ><br />
+                                            </span>
+                                        </span>
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{
-                                            item.option_c?.length > 20
-                                                ? item.option_c.substring(
-                                                      0,
-                                                      20
-                                                  ) + "..."
-                                                : item.option_c
-                                        }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{
-                                            item.option_d?.length > 20
-                                                ? item.option_d.substring(
-                                                      0,
-                                                      20
-                                                  ) + "..."
-                                                : item.option_d
-                                        }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{
-                                            item.option_e?.length > 20
-                                                ? item.option_e.substring(
-                                                      0,
-                                                      20
-                                                  ) + "..."
-                                                : item.option_e
-                                        }}
-                                    </td>
-
-                                    <td class="px-6 py-4">
-                                        <div class="flex gap-2">
+                                        <div class="flex justify-end gap-2">
                                             <button
                                                 @click="open(1, item)"
                                                 class="text-indigo-600 hover:text-indigo-900"
@@ -332,11 +297,11 @@ const save = () => {
                                             value: '',
                                             text: '--PILIH JAWABAN--',
                                         },
-                                        { value: 'a', text: 'A' },
-                                        { value: 'b', text: 'B' },
-                                        { value: 'c', text: 'C' },
-                                        { value: 'd', text: 'D' },
-                                        { value: 'e', text: 'E' },
+                                        { value: 'A', text: 'A' },
+                                        { value: 'B', text: 'B' },
+                                        { value: 'C', text: 'C' },
+                                        { value: 'D', text: 'D' },
+                                        { value: 'E', text: 'E' },
                                     ]"
                                 />
                                 <InputError :message="form.errors.answer" />
