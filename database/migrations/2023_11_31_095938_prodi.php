@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,6 +17,7 @@ return new class extends Migration
             $table->string("fakultas")->nullable();
             $table->string("akreditasi")->nullable();
             $table->boolean('tes_ujian')->default(false);
+            $table->string('ujian')->nullable();
             $table->boolean('tes_wawancara')->default(false);
             $table->boolean('tes_kesehatan')->default(false);
             $table->integer('biaya_registrasi')->default(0);
