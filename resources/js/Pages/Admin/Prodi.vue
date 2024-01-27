@@ -9,10 +9,14 @@ import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import Combobox from "@/Components/Combobox.vue";
+import Multiselect from "@vueform/multiselect";
 
 defineProps({
     prodi: {
         type: Object,
+    },
+    knowledges: {
+        type: Array,
     },
 });
 
@@ -22,12 +26,14 @@ const form = useForm({
     fakultas: "",
     akreditasi: "",
     tes_ujian: false,
+    ujian: [],
     tes_wawancara: false,
     tes_kesehatan: false,
     biaya_registrasi: 0,
 }).transform((x) => ({
     ...x,
     tes_ujian: x.tes_ujian == "true" ? true : false,
+    ujian: x.ujian?.join(",") || null,
     tes_wawancara: x.tes_wawancara == "true" ? true : false,
     tes_kesehatan: x.tes_kesehatan == "true" ? true : false,
     biaya_registrasi: parseInt(x.biaya_registrasi),
@@ -72,6 +78,7 @@ const editProdi = (item = null) => {
         form.nama_prodi = findProdi.nama_prodi;
         form.tes_kesehatan = findProdi.tes_kesehatan == 1 ? "true" : "false";
         form.tes_ujian = findProdi.tes_ujian == 1 ? "true" : "false";
+        form.ujian = findProdi.ujian?.split(",") || [];
         form.tes_wawancara = findProdi.tes_wawancara == 1 ? "true" : "false";
         form.biaya_registrasi = findProdi.biaya_registrasi;
     }
@@ -99,6 +106,8 @@ const closeModal = () => {
     form.reset();
 };
 </script>
+
+<style src="@vueform/multiselect/themes/tailwind.css"></style>
 
 <template>
     <Head title="Setting Prodi" />
@@ -138,9 +147,7 @@ const closeModal = () => {
                                     <th scope="col" class="px-6 py-3">
                                         Akreditasi
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Tes Ujian
-                                    </th>
+                                    <th scope="col" class="px-6 py-3">Ujian</th>
                                     <th scope="col" class="px-6 py-3">
                                         Tes Wawancara
                                     </th>
@@ -321,6 +328,30 @@ const closeModal = () => {
                             />
                             <InputError
                                 :message="form.errors.tes_ujian"
+                                class="mt-2"
+                            />
+                        </div>
+
+                        <div>
+                            <InputLabel for="ujian" value="Ujian" />
+                            <Multiselect
+                                id="ujian"
+                                ref="ujianInput"
+                                v-model="form.ujian"
+                                class="mt-1 block w-full"
+                                placeholder="Ujian"
+                                :options="knowledges"
+                                mode="multiple"
+                                :close-on-select="false"
+                                :clear-on-select="false"
+                                :preserve-search="true"
+                                label="label"
+                                track-by="label"
+                                :preselect-first="true"
+                                :hide-selected="false"
+                            />
+                            <InputError
+                                :message="form.errors.ujian"
                                 class="mt-2"
                             />
                         </div>
