@@ -30,14 +30,9 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        // dd($request->user()->notifications as $notification);
-        /* foreach ($request->user()->notifications as $notification) {
-            // dd($notification->data)
-            $notification->markAsRead();
-        } */
         $user = $request->user();
         $form = $user?->getForm ?? null;
-        $prodi = $user?->getProdi()->first() ?? null;
+        $prodi = $user?->getProdi ?? null;
         $exams = [
             'knowledge' => $prodi?->tes_ujian ?? null,
             'health' => $prodi?->tes_kesehatan ?? null,
