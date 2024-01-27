@@ -393,11 +393,11 @@ const isSideBarOpen = ref(false);
                             </h5> -->
                             <li v-if="$page.props.auth.exams.knowledge">
                                 <ResponsiveSideBar
-                                    :href="route('admin.user')"
-                                    :active="route().current('admin.user')"
+                                    :href="route('exams.knowledge')"
+                                    :active="route().current('exams.knowledge')"
                                     icon="fas fa-clipboard"
                                 >
-                                    Ujian Online
+                                    Ujian pengetahuan
                                 </ResponsiveSideBar>
                             </li>
                             <li v-if="$page.props.auth.exams.health">
@@ -411,8 +411,8 @@ const isSideBarOpen = ref(false);
                             </li>
                             <li v-if="$page.props.auth.exams.interview">
                                 <ResponsiveSideBar
-                                    :href="route('admin.user')"
-                                    :active="route().current('admin.user')"
+                                    :href="route('exams.interview')"
+                                    :active="route().current('exams.interview')"
                                     icon="fas fa-microphone"
                                 >
                                     Wawancara
