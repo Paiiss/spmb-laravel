@@ -61,7 +61,6 @@ const close = () => {
 };
 
 const save = () => {
-    console.log(form[dialogItem.value]);
     form.post(route("documents.update"), {
         onSuccess: () => {
             close();
@@ -121,9 +120,7 @@ const save = () => {
                                     >
                                         <p class="text-gray-400">
                                             Belum ada
-                                            {{
-                                                document.replace("_", " ")
-                                            }}
+                                            {{ document.replace("_", " ") }}
                                             yang diunggah
                                         </p>
                                     </div>

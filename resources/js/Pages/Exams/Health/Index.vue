@@ -63,7 +63,6 @@ const url = ref(null);
 
 const onFileChange = (e) => {
     form.image = e.target.files[0];
-    console.log(form.image);
     if (form.image) {
         url.value = URL.createObjectURL(form.image);
     } else {
