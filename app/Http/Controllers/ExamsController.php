@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exams;
+use App\models\Prodi;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\Request;
@@ -15,9 +16,25 @@ class ExamsController extends Controller
 {
     public function index(): Response
     {
-        $exams = Exams::all();
+        $exams = Exams::paginate(5)->through(function ($exam) {
+            return [
+                'id' => $exam->id,
+                'name' => $exam->name,
+                'description' => $exam->description,
+                'duration' => $exam->duration,
+                'allowed' => $exam->allowed,
+                'shuffle_question' => $exam->shuffle_question,
+                'shuffle_answer' => $exam->shuffle_answer,
+                'show_result' => $exam->show_result,
+                'access_start_time' => $exam->access_start_time,
+                'access_end_time' => $exam->access_end_time,
+                'questions_count' => $exam->questions()->count(),
+                'is_active' => $exam->is_active,
+            ];
+        });
         return Inertia::render('Admin/Exams/Index', [
             'exams' => $exams,
+            'prodis' => Prodi::all(),
         ]);
     }
     public function store(ExamsRequest $request): RedirectResponse
