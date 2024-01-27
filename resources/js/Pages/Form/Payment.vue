@@ -63,7 +63,6 @@ const save = () => {
         form.post(route("form.payment.store"), {
             preserveScroll: true,
             onSuccess: () => close(),
-            onError: (e) => console.log(e),
             // onFinish: () => form.reset(),
         });
     } else if (dialogType.value == 1) {
