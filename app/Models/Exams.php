@@ -15,6 +15,12 @@ class Exams extends Model
         'name',
         'description',
         'duration',
+        'allowed',
+        'shuffle_question',
+        'shuffle_answer',
+        'show_result',
+        'access_start_time',
+        'access_end_time',
         'is_active',
     ];
 
