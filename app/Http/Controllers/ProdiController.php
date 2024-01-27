@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Prodi;
+use App\Models\Exams;
 use Inertia\Response;
 use Inertia\Inertia;
 use Illuminate\Http\RedirectResponse;
@@ -15,7 +16,8 @@ class ProdiController extends Controller
     {
         $prodi = Prodi::all();
         return Inertia::render('Admin/Prodi', [
-            'prodi' => $prodi
+            'prodi' => $prodi,
+            'knowledges' => Exams::activeExamSelect(),
         ]);
     }
 
@@ -27,6 +29,7 @@ class ProdiController extends Controller
             'fakultas' => 'required|string|max:255',
             'akreditasi' => 'required|string|max:255',
             'tes_ujian' => 'required|boolean',
+            'ujian' => 'nullable|string|max:100',
             'tes_wawancara' => 'required|boolean',
             'tes_kesehatan' => 'required|boolean',
             'biaya_registrasi' => 'required|integer',
@@ -39,6 +42,7 @@ class ProdiController extends Controller
             'fakultas' => $request->fakultas,
             'akreditasi' => $request->akreditasi,
             'tes_ujian' => $request->tes_ujian,
+            'ujian' => $request->ujian,
             'tes_wawancara' => $request->tes_wawancara,
             'tes_kesehatan' => $request->tes_kesehatan,
             'biaya_registrasi' => $request->biaya_registrasi,
@@ -56,6 +60,7 @@ class ProdiController extends Controller
             'fakultas' => 'required|string|max:255',
             'akreditasi' => 'required|string|max:255',
             'tes_ujian' => 'required|boolean',
+            'ujian' => 'nullable|string|max:100',
             'tes_wawancara' => 'required|boolean',
             'tes_kesehatan' => 'required|boolean',
             'biaya_registrasi' => 'required|integer',
@@ -68,6 +73,7 @@ class ProdiController extends Controller
             'fakultas' => $request->fakultas,
             'akreditasi' => $request->akreditasi,
             'tes_ujian' => $request->tes_ujian,
+            'ujian' => $request->ujian,
             'tes_wawancara' => $request->tes_wawancara,
             'tes_kesehatan' => $request->tes_kesehatan,
             'biaya_registrasi' => $request->biaya_registrasi,
