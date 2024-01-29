@@ -39,13 +39,17 @@ class Exams extends Model
         });
     }
 
-    // public function histories()
-    // {
-    //     return $this->hasMany(ExamHistory::class, 'exam_id', 'id');
-    // }
+    public function canStartExams()
+    {
+        $now = date('H:i:s');
+        $startTime = date('H:i:s', strtotime($this->attributes['access_start_time']));
+        $endTime = date('H:i:s', strtotime($this->attributes['access_end_time']));
+        // now >= startTime && now <= endTime
+        return $now >= $startTime && $now <= $endTime;
+    }
 
-    // public function scopeActive($query)
-    // {
-    //     return $query->where('is_active', true);
-    // }
+    public function histories()
+    {
+        return $this->hasOne(ExamHistory::class, 'exam_id');
+    }
 }
