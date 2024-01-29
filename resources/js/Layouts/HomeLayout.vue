@@ -35,7 +35,7 @@ const showingNavigationDropdown = ref(false);
                                 <h1
                                     class="border-l-2 text-lg inline-flex items-center font-bold text-white px-3 leading-relaxed"
                                 >
-                                    PMB 2024/2025
+                                    {{ $page.props.web_settings.title_home }}
                                 </h1>
                             </div>
 
@@ -245,12 +245,13 @@ const showingNavigationDropdown = ref(false);
                                     <i
                                         class="fa-solid fa-location-dot pr-2"
                                     ></i>
-                                    Jl. Mustafa Sari No.5, Tengkerang Sel., Kec.
-                                    Bukit Raya, Kota Pekanbaru, Riau 28281
+                                    {{
+                                        $page.props.web_settings.contact_address
+                                    }}
                                 </li>
                                 <li>
                                     <i class="fa-solid fa-envelope pr-2"></i>
-                                    stikes.hangtuah@gmail.com
+                                    {{ $page.props.web_settings.contact_email }}
                                 </li>
                                 <li>
                                     <i class="fa-solid fa-phone pr-2"></i>+ 0761
@@ -268,11 +269,12 @@ const showingNavigationDropdown = ref(false);
                     class="text-xs md:text-sm font-bold tracking-wide max-w-7xl mx-auto text-center py-6"
                 >
                     <p>
-                        &copy; 2023
+                        <!-- &copy; 2023
                         <a href="https://htp.ac.id/" class="hover:text-teal-500"
                             >University Hang Tuah Pekanbaru.</a
                         >
-                        <span>Created by pais hehe</span>
+                        <span>Created by pais hehe</span> -->
+                        {{ $page.props.web_settings.footer }}
                     </p>
                 </div>
             </footer>
