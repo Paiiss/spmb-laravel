@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
+use App\Models\WebSettings;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -30,6 +31,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $webSettings = WebSettings::first();
         $user = $request->user();
         $form = $user?->getForm ?? null;
         $prodi = $user?->getProdi ?? null;
@@ -58,6 +60,7 @@ class HandleInertiaRequests extends Middleware
                 'alert' => $request->session()->get('alert'),
             ],
             'notifications' => $user?->notifications ?? null,
+            'web_settings' => $webSettings,
         ];
     }
 }
