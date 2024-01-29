@@ -56,7 +56,7 @@ const programStudi = [
                         <div class="flex gap-3 pt-4">
                             <Link
                                 :href="route('register')"
-                                class="animate-pulse hover:animate-none hover:animate-pulse-none inline-flex items-center px-3 py-2 text-white bg-gray-800 rounded-lg capitalize hover:bg-gray-700 focus:outline focus:outline-2 focus:rounded-;g focus:outline-teal-950 font-semibold"
+                                class="inline-flex items-center px-3 py-2 text-white bg-gray-800 rounded-lg capitalize hover:bg-gray-700 focus:outline focus:outline-2 focus:rounded-;g focus:outline-teal-950 font-semibold"
                                 ><i class="fa-solid fa-user-graduate pr-2" />
                                 Daftar sekarang
                             </Link>
