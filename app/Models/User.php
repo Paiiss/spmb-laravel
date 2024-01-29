@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -57,7 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return count(array_intersect($roles, $this->roles)) > 0;
     }
 
-    public function getForm()
+    public function getForm(): HasOne
     {
         return $this->hasOne(Form::class);
     }
@@ -127,5 +128,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function health(): HasOne
     {
         return $this->hasOne(Health::class);
+    }
+
+    public function historyExam(): HasMany
+    {
+        return $this->hasMany(ExamHistory::class);
     }
 }
