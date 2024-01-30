@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class FormController extends Controller
 {
-    public function edit(Request $request, string $id): Response | RedirectResponse
+    public function edit(Request $request, string $id): Response|RedirectResponse
     {
         if (!(!$id || $id == "personal" || $id == 'address' || $id == 'disability' || $id == 'education' || $id == 'parent')) {
             session()->flash('alert', [
@@ -66,7 +66,6 @@ class FormController extends Controller
     {
         $user = $user = User::find(auth()->user()->id);
         $form = $user->getForm()->first();
-
         return Inertia::render('Form/Submission', [
             'wave' => $user?->getWave()?->first() ?? null,
             'form_status' => $user->getForm()->get()->isNotEmpty(),
