@@ -43,7 +43,7 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $user,
+                'user' => $user?->only('id', 'phone', 'roles', 'name', 'email', 'email_verified_at', 'created_at', 'updated_at'),
                 'form' => [
                     'already' => $form ? true : false,
                     'status' => $form?->status ?? null,
