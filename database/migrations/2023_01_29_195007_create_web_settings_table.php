@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('name')->nullable();
             $table->string('title_home')->nullable();
             $table->string('title_dashboard')->nullable();
+            $table->string('title_exam')->nullable();
 
             $table->text('footer')->nullable();
             $table->string('link_univ')->nullable();
@@ -35,6 +36,7 @@ return new class extends Migration {
             'name' => 'Spmb Hangtuah',
             'title_home' => 'PMB 2024/2025',
             'title_dashboard' => 'PMB',
+            'title_exam' => 'CBT',
             'footer' => '© 2023 University Hang Tuah Pekanbaru.',
             'contact_telp' => '081234567890',
             'contact_email' => 'admin@gmail.com',
