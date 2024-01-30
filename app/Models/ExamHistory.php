@@ -21,6 +21,7 @@ class ExamHistory extends Model
         'is_submitted',
         'started_at',
         'finished_at',
+        'order_questions',
     ];
 
     public function exam()
