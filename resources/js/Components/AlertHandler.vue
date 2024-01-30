@@ -47,12 +47,18 @@
 </template>
 
 <script setup>
-import { computed, watch } from "vue";
+import { computed, watch, onMounted } from "vue";
 import { usePage } from "@inertiajs/vue3";
 import useAlerts from "@/Composables/useAlerts.js";
 
 const { addAlert, alerts, removeAlert } = useAlerts();
 const alert = computed(() => usePage().props.flash.alert);
+
+onMounted(() => {
+    if (alert.value) {
+        addAlert(alert.value);
+    }
+});
 watch(alert, (newVal) => {
     if (newVal) {
         addAlert(newVal);
