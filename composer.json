@@ -19,6 +19,7 @@
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.9",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.26",
         "laravel/pint": "^1.0",
