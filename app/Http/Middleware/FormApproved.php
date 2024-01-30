@@ -15,7 +15,7 @@ class FormApproved
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $form = $request->user()->getForm()->first();
+        $form = $request->user()->getForm;
 
         if ($form && $form->get()->isNotEmpty() && $form['status'] == 'approved' && $form['is_paid_registration']) {
             return $next($request);
