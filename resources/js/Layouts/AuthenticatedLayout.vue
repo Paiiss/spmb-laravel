@@ -56,7 +56,9 @@ const isSideBarOpen = ref(false);
                                     </svg>
                                 </button>
                                 <Link :href="route('dashboard')" class="ml-3">
-                                    PMB HTP
+                                    {{
+                                        $page.props.web_settings.title_dashboard
+                                    }}
                                 </Link>
                             </div>
 
