@@ -50,6 +50,16 @@ class Exams extends Model
 
     public function histories()
     {
-        return $this->hasOne(ExamHistory::class, 'exam_id');
+        return $this->hasMany(ExamHistory::class, 'exam_id', 'id');
+    }
+
+    public function getHistoryByUser($user_id)
+    {
+        return $this->histories()->where('user_id', $user_id)->first();
+    }
+
+    public function getHistoryByUserAndExam($user_id, $exam_id)
+    {
+        return $this->histories()->where('user_id', $user_id)->where('exam_id', $exam_id)->first();
     }
 }
