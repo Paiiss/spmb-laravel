@@ -89,6 +89,10 @@ Route::middleware(['auth', 'verified', 'formapproved'])->prefix('/exams')->name(
     Route::post('/health', [HealthController::class, 'update'])->name('health.update');
 
     Route::get('/knowledge', [KnowledgeController::class, 'index'])->name('knowledge');
+    Route::get('/knowledge/{id}', [KnowledgeController::class, 'exams'])->name('knowledge.exams');
+    Route::post('/knowledge/{id}', [KnowledgeController::class, 'start'])->name('knowledge.start');
+    Route::patch('/knowledge/{id}', [KnowledgeController::class, 'store'])->name('knowledge.store');
+    // Route::get('/knowledge/{id}', [KnowledgeController::class, 'show'])->name('knowledge.show');
 
     Route::get('/interview', [InterviewController::class, 'index'])->name('interview');
 });
