@@ -64,9 +64,7 @@ onMounted(() => {
                 text: "Pilih Gelombang",
             });
         })
-        .catch((error) => {
-            console.log(error);
-        });
+        .catch((error) => {});
 
     axios.get("/api/program-studi").then((response) => {
         choicesProdi.value = response.data.data.map((item) => ({
