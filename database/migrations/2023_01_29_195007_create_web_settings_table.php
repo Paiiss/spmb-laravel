@@ -30,6 +30,8 @@ return new class extends Migration {
             $table->string('contact_instagram')->nullable();
             $table->string('contact_twitter')->nullable();
             $table->string('contact_youtube')->nullable();
+
+            $table->timestamps();
         });
 
         DB::table('web_settings')->insert([
