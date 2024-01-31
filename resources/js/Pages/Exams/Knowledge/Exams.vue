@@ -81,6 +81,12 @@ onMounted(() => {
         );
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        if (distance < 0) {
+            clearInterval(countdownInterval.value);
+            countdown.value = "00:00:00";
+            submit();
+            return;
+        }
 
         countdown.value = `${hours}:${minutes}:${seconds}`;
     }, 1000);
