@@ -125,7 +125,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('/admin')->name('a
     Route::delete('/exams/{exam_id}/questions/{question_id}', [ExamQuesionController::class, 'destroy'])->name('exams.questions.destroy');
 
     Route::get('/web-setting', [WebSettingController::class, 'index'])->name('web-setting');
-    Route::patch('/web-setting', [WebSettingController::class, 'backup'])->name('web-setting.backup');
+    Route::patch('/web-setting/backup', [WebSettingController::class, 'backup'])->name('web-setting.backup');
+    Route::patch('/web-setting', [WebSettingController::class, 'update'])->name('web-setting.update');
+
 
     Route::get('/verification', [VerificationController::class, 'view'])->name('verification');
     Route::get('/verification/{id}', [VerificationController::class, 'index'])->name('verification.user');
