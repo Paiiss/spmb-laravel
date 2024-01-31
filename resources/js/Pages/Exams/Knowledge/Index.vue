@@ -15,7 +15,6 @@ import Modal from "@/Components/Modal.vue";
 defineProps({
     ujian: Array,
     user: Object,
-    history: Array,
 });
 
 const confirmStartExam = ref(false);
@@ -51,10 +50,7 @@ const start = (exam) => {
     confirmStartExam.value = true;
     form.get(route("exams.knowledge.start", exam.id), {
         preserveScroll: true,
-        onSuccess: () => {
-            // confirmStartExam.value = false;
-            // Inertia.reload({ preserveScroll: true, preserveState: true });
-        },
+        onSuccess: () => {},
     });
 };
 
@@ -72,7 +68,6 @@ const close = () => {
                 <div
                     class="bg-white dark:bg-gray-800 p-4 sm:p-8 shadow-md rounded-lg sm:shadow-lg"
                 >
-                    {{ ujian }} . {{ user }} . {{ history }}
                     <div
                         class="flex flex-column sm:flex-row flex-wrap items-center justify-between pb-4"
                     >
@@ -150,6 +145,12 @@ const close = () => {
                                                 {{ exam.access_start_time }} -
                                                 {{ exam.access_end_time }}
                                             </div>
+                                            <div
+                                                v-if="exam.score"
+                                                class="text-xs text-gray-500"
+                                            >
+                                                Nilai: {{ exam.score }}
+                                            </div>
                                         </div>
                                     </th>
                                     <td class="px-6 py-4">
@@ -159,13 +160,13 @@ const close = () => {
                                             <span
                                                 :class="{
                                                     'bg-blue-600 text-white dark:bg-blue-500':
-                                                        exam.is_active,
+                                                        exam.is_end,
                                                     'bg-red-600 text-white dark:bg-red-500':
-                                                        !exam.is_active,
+                                                        !exam.is_end,
                                                 }"
                                                 class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium whitespace-nowrap"
                                                 >{{
-                                                    exam.is_active
+                                                    exam.is_end
                                                         ? "SELESAI"
                                                         : "BELUM DI KERJAKAN"
                                                 }}</span
@@ -176,12 +177,17 @@ const close = () => {
                                         <div class="flex justify-center gap-3">
                                             <button
                                                 class="inline-block rounded px-4 py-2 text-xs font-medium text-white whitespace-nowrap"
-                                                :disabled="!checkTime(exam)"
+                                                :disabled="
+                                                    !checkTime(exam) ||
+                                                    !exam.can_start
+                                                "
                                                 :class="{
                                                     'bg-blue-600 hover:bg-blue-700':
-                                                        checkTime(exam),
+                                                        checkTime(exam) &&
+                                                        exam.can_start,
                                                     'bg-gray-400 cursor-not-allowed':
-                                                        !checkTime(exam),
+                                                        !checkTime(exam) ||
+                                                        !exam.can_start,
                                                 }"
                                                 @click="
                                                     checkTime(exam)
@@ -190,9 +196,11 @@ const close = () => {
                                                 "
                                             >
                                                 {{
-                                                    checkTime(exam)
-                                                        ? "KERJAKAN"
-                                                        : "BELUM WAKTUNYA"
+                                                    exam.is_end
+                                                        ? "SELESAI"
+                                                        : checkTime(exam)
+                                                        ? "MULAI"
+                                                        : "BELUM WAKTU"
                                                 }}
                                             </button>
                                         </div>
