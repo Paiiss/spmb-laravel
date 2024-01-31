@@ -2,18 +2,17 @@
 import { Head, Link, usePage, useForm } from "@inertiajs/vue3";
 import ExamLayout from "@/Layouts/ExamLayout.vue";
 import { ref, onMounted, onBeforeUnmount } from "vue";
+import Modal from "@/Components/Modal.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 
 defineProps({
     exam: {
         type: Object,
         required: true,
     },
-    no_exam: {
-        type: String,
-        required: true,
-    },
     history: {
-        type: Array,
+        type: Object,
         required: true,
     },
 });
@@ -31,33 +30,47 @@ const countdownInterval = ref(null);
 const question = ref([]);
 const answer = ref({});
 const posistion = ref(0);
+const timeoutSaveId = ref(null);
+const modalSubmit = ref(false);
+
+const form = useForm({
+    answers: {},
+    finish: false,
+});
+
 const changeQuestion = (index) => {
     posistion.value = index;
 };
 
 const changeAnswer = (index, value) => {
     answer.value[index] = value;
+    clearTimeout(timeoutSaveId.value);
+    timeoutSaveId.value = setTimeout(() => {
+        form.answers = answer.value;
+        form.patch(route("exams.knowledge.store", usePage().props.exam.id));
+    }, 2000);
+};
+
+const submit = () => {
+    form.finish = true;
+    form.answers = answer.value;
+    form.patch(route("exams.knowledge.store", usePage().props.exam.id));
 };
 
 onMounted(() => {
-    const examOrder = JSON.parse(
-        usePage().props.exam.histories.order_questions
-    );
+    const examOrder = JSON.parse(usePage().props.history.order_questions);
     const quest = JSON.parse(JSON.stringify(usePage().props.exam.questions));
 
     question.value =
         examOrder.map((id) => quest.find((q) => q.id == id)) || quest;
-    const answer = usePage().props.exam.histories.answers;
+    // const answer = usePage().props.history.answers;
 
-    if (answer)
-        answer.value = JSON.parse(
-            JSON.stringify(usePage().props.exam.histories.answers)
-        );
+    // if (answer)
+    if (usePage().props.history.answers)
+        answer.value = JSON.parse(usePage().props.history.answers);
 
     // countdown
-    const finishAt = new Date(
-        usePage().props.exam.histories?.finished_at
-    ).getTime();
+    const finishAt = new Date(usePage().props.history?.finished_at).getTime();
 
     countdownInterval.value = setInterval(() => {
         const now = new Date().getTime();
@@ -190,6 +203,7 @@ onBeforeUnmount(() => {
                                                 Object.keys(answer).length <
                                                 question.length,
                                         }"
+                                        @click="modalSubmit = true"
                                     >
                                         Selesai
                                     </button>
@@ -227,10 +241,36 @@ onBeforeUnmount(() => {
                             <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
-                    <!-- {{ answer }} -->
+                    {{ answer }}
                 </div>
-                <!-- {{ $page.props.exam.histories }} -->
             </div>
+            <Modal :show="modalSubmit" @close="modalSubmit = false">
+                <div class="bg-white shadow-md rounded-md p-4">
+                    <div class="flex flex-row justify-between items-center">
+                        <h1 class="text-2xl font-bold text-gray-800">
+                            Submit jawaban
+                        </h1>
+                    </div>
+                    <div class="mt-4">
+                        <p>
+                            Apakah anda yakin ingin mengumpulkan jawaban anda?,
+                            jawaban yang sudah dikumpulkan tidak dapat diubah
+                            kembali.
+                        </p>
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="flex justify-end gap-2">
+                            <PrimaryButton @click="submit">
+                                Submit
+                            </PrimaryButton>
+                            <SecondaryButton @click="modalSubmit = false">
+                                Batal
+                            </SecondaryButton>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
         </div>
     </ExamLayout>
 </template>
