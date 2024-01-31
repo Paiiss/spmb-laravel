@@ -48,7 +48,7 @@ const open = (exam) => {
 
 const start = (exam) => {
     confirmStartExam.value = true;
-    form.get(route("exams.knowledge.start", exam.id), {
+    form.post(route("exams.knowledge.start", exam.id), {
         preserveScroll: true,
         onSuccess: () => {},
     });
