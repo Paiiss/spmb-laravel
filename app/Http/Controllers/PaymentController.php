@@ -17,7 +17,12 @@ class PaymentController extends Controller
     public function index(): Response
     {
         // dd(rand(1000, 9999));
-        $payment = Payment::all();
+        $payment = Payment::all()->map(function ($payment) {
+            return [
+                ...$payment->toArray(),
+                'image' => $payment->getFirstMediaUrl('image') ?? '',
+            ];
+        });
         return Inertia::render('Admin/Payment', [
             'payment' => $payment
         ]);
@@ -25,22 +30,24 @@ class PaymentController extends Controller
 
     public function store(PaymentRequest $request): RedirectResponse
     {
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images/payments'), $imageName);
-        $imagePath = 'images/payments/' . $imageName;
-
-        $create = User::find(auth()->user()->id)->payments()->create(
+        $request->validated();
+        $payment = User::find(auth()->user()->id)->payments()->create(
             [
                 'bank' => $request->bank,
                 'account_name' => $request->account_name,
                 'account_number' => $request->account_number,
                 'amount' => $request->amount,
                 'date' => $request->date,
-                'image' => $imagePath,
+                // 'image' => $imagePath,
                 'type_payment' => $request->type_payment,
                 'code' => $request->code,
             ]
         );
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $payment->addMedia($request->file('image'))->toMediaCollection('image');
+        }
+
         session()->flash('alert', [
             'type' => 'success',
             'message' => 'Pembayaran berhasil diupload'
@@ -55,9 +62,10 @@ class PaymentController extends Controller
         $payment->note = $request->note ?? null;
         $payment->save();
 
-        $user = User::find($payment->user_id)->getForm()->first();
+        $user = User::find($payment->user_id);
+        $form = $user->getForm;
         if ($request->status === 'approved' && $payment->type_payment == 'form') {
-            $user->is_paid_registration = $payment->created_at;
+            $form->is_paid_registration = $payment->created_at;
             $user->notify(
                 new Candidate(
                     'Pembayaran Pendaftaran Diterima',
@@ -65,9 +73,9 @@ class PaymentController extends Controller
                 )
             );
         } else {
-            $user->is_paid_registration = null;
+            $form->is_paid_registration = null;
         }
-        $user->save();
+        $form->save();
 
         session()->flash('alert', [
             'type' => 'success',
