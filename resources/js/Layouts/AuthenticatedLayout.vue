@@ -19,6 +19,11 @@ const showingListForm = ref(
 );
 const showingListAdmin = ref(route() || false);
 const isSideBarOpen = ref(false);
+
+const checkRole = (role = []) => {
+    if (role.length == 0) return true;
+    return role.some((r) => usePage().props.auth.user.roles.includes(r));
+};
 </script>
 
 <template>
@@ -128,107 +133,8 @@ const isSideBarOpen = ref(false);
                                 </Dropdown>
                             </div>
                         </div>
-
-                        <!-- Hamburger -->
-                        <!-- <div class="-me-2 flex items-center">
-                            <button
-                                @click="
-                                    showingNavigationDropdown =
-                                        !showingNavigationDropdown
-                                "
-                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out"
-                            >
-                                <svg
-                                    class="h-6 w-6"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        :class="{
-                                            hidden: showingNavigationDropdown,
-                                            'inline-flex':
-                                                !showingNavigationDropdown,
-                                        }"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                    <path
-                                        :class="{
-                                            hidden: !showingNavigationDropdown,
-                                            'inline-flex':
-                                                showingNavigationDropdown,
-                                        }"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
-                        </div> -->
                     </div>
                 </div>
-
-                <!-- Responsive Navigation Menu -->
-                <!-- <div
-                    :class="{
-                        block: showingNavigationDropdown,
-                        hidden: !showingNavigationDropdown,
-                    }"
-                    class="sm:hidden"
-                >
-                    <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink
-                            :href="route('dashboard')"
-                            :active="route().current('dashboard')"
-                        >
-                            Dashboard
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            :href="
-                                route('form.edit', {
-                                    id: 'personal',
-                                })
-                            "
-                            :active="
-                                route().current('form.edit', { id: 'personal' })
-                            "
-                        >
-                            Form
-                        </ResponsiveNavLink>
-                    </div>
-
-                    <div
-                        class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600"
-                    >
-                        <div class="px-4">
-                            <div
-                                class="font-medium text-base text-gray-800 dark:text-gray-200"
-                            >
-                                {{ $page.props.auth.user.name }}
-                            </div>
-                            <div class="font-medium text-sm text-gray-500">
-                                {{ $page.props.auth.user.email }}
-                            </div>
-                        </div>
-
-                        <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')">
-                                Profile
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink
-                                :href="route('logout')"
-                                method="post"
-                                as="button"
-                            >
-                                Log Out
-                            </ResponsiveNavLink>
-                        </div>
-                    </div>
-                </div> -->
             </nav>
 
             <aside
@@ -236,268 +142,322 @@ const isSideBarOpen = ref(false);
                 :class="{ 'translate-x-0': isSideBarOpen }"
             >
                 <div class="h-full px-3 py-4 overflow-y-auto">
-                    <ul class="space-y-2 font-medium">
-                        <li>
-                            <ResponsiveSideBar
-                                icon="fa-solid fa-house"
-                                :href="route('dashboard')"
-                                :active="route().current('dashboard')"
-                            >
-                                Dashboard
-                            </ResponsiveSideBar>
-                        </li>
-                        <li>
-                            <ResponsiveSideBar
-                                icon="fa-solid fa-file-invoice"
-                                :href="route('form.submission')"
-                                :active="route().current('form.submission')"
-                            >
-                                Pendaftaran
-                            </ResponsiveSideBar>
-                        </li>
-                        <li>
-                            <button
-                                type="button"
-                                @click="showingListForm = !showingListForm"
-                                class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                            >
-                                <i class="fa-solid fa-address-card" />
-                                <span
-                                    class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap capitalize"
-                                    >Data diri</span
+                    <template v-if="checkRole(['user'])">
+                        <ul class="space-y-2 font-medium">
+                            <li>
+                                <ResponsiveSideBar
+                                    icon="fa-solid fa-house"
+                                    :href="route('dashboard')"
+                                    :active="route().current('dashboard')"
                                 >
-                                <i
-                                    class="fa-solid"
+                                    Dashboard
+                                </ResponsiveSideBar>
+                            </li>
+                            <li>
+                                <ResponsiveSideBar
+                                    icon="fa-solid fa-file-invoice"
+                                    :href="route('form.submission')"
+                                    :active="route().current('form.submission')"
+                                >
+                                    Pendaftaran
+                                </ResponsiveSideBar>
+                            </li>
+                            <li>
+                                <button
+                                    type="button"
+                                    @click="showingListForm = !showingListForm"
+                                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                >
+                                    <i class="fa-solid fa-address-card" />
+                                    <span
+                                        class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap capitalize"
+                                        >Data diri</span
+                                    >
+                                    <i
+                                        class="fa-solid"
+                                        :class="{
+                                            'fa-chevron-up': showingListForm,
+                                            'fa-chevron-down': !showingListForm,
+                                        }"
+                                    />
+                                </button>
+                                <ul
+                                    class="py-2 space-y-2"
                                     :class="{
-                                        'fa-chevron-up': showingListForm,
-                                        'fa-chevron-down': !showingListForm,
+                                        block: showingListForm,
+                                        hidden: !showingListForm,
                                     }"
-                                />
-                            </button>
-                            <ul
-                                class="py-2 space-y-2"
-                                :class="{
-                                    block: showingListForm,
-                                    hidden: !showingListForm,
-                                }"
-                            >
-                                <li>
-                                    <ResponsiveSideBar
-                                        :href="
-                                            route('form.edit', {
-                                                id: 'personal',
-                                            })
-                                        "
-                                        :active="
-                                            route().current('form.edit', {
-                                                id: 'personal',
-                                            })
-                                        "
-                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                        >Personal</ResponsiveSideBar
-                                    >
-                                </li>
-                                <li>
-                                    <ResponsiveSideBar
-                                        :href="
-                                            route('form.edit', {
-                                                id: 'address',
-                                            })
-                                        "
-                                        :active="
-                                            route().current('form.edit', {
-                                                id: 'address',
-                                            })
-                                        "
-                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                        >Alamat</ResponsiveSideBar
-                                    >
-                                </li>
-                                <li>
-                                    <ResponsiveSideBar
-                                        :href="
-                                            route('form.edit', {
-                                                id: 'disability',
-                                            })
-                                        "
-                                        :active="
-                                            route().current('form.edit', {
-                                                id: 'disability',
-                                            })
-                                        "
-                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                        >Disabilitas</ResponsiveSideBar
-                                    >
-                                </li>
-                                <li>
-                                    <ResponsiveSideBar
-                                        :href="
-                                            route('form.edit', {
-                                                id: 'education',
-                                            })
-                                        "
-                                        :active="
-                                            route().current('form.edit', {
-                                                id: 'education',
-                                            })
-                                        "
-                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                        >Pendidikan</ResponsiveSideBar
-                                    >
-                                </li>
-                                <li>
-                                    <ResponsiveSideBar
-                                        :href="
-                                            route('form.edit', {
-                                                id: 'parent',
-                                            })
-                                        "
-                                        :active="
-                                            route().current('form.edit', {
-                                                id: 'parent',
-                                            })
-                                        "
-                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                        >Orang tua / wali</ResponsiveSideBar
-                                    >
-                                </li>
-                                <li>
-                                    <ResponsiveSideBar
-                                        :href="route('documents.index')"
-                                        :active="
-                                            route().current('documents.index')
-                                        "
-                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                        >Dokumen</ResponsiveSideBar
-                                    >
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <ResponsiveSideBar
-                                icon="fa-solid fa-money-bill"
-                                :href="route('form.payment')"
-                                :active="route().current('form.payment')"
-                            >
-                                Pembayaran
-                            </ResponsiveSideBar>
-                        </li>
-                    </ul>
-
-                    <template v-if="$page.props.auth.form.status == 'approved'">
-                        <ul
-                            class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700"
-                        >
-                            <!-- <h5
-                                class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400"
-                            >
-                                Tes
-                            </h5> -->
-                            <li v-if="$page.props.auth.exams.knowledge">
-                                <ResponsiveSideBar
-                                    :href="route('exams.knowledge')"
-                                    :active="route().current('exams.knowledge')"
-                                    icon="fas fa-clipboard"
                                 >
-                                    Ujian pengetahuan
-                                </ResponsiveSideBar>
+                                    <li>
+                                        <ResponsiveSideBar
+                                            :href="
+                                                route('form.edit', {
+                                                    id: 'personal',
+                                                })
+                                            "
+                                            :active="
+                                                route().current('form.edit', {
+                                                    id: 'personal',
+                                                })
+                                            "
+                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                            >Personal</ResponsiveSideBar
+                                        >
+                                    </li>
+                                    <li>
+                                        <ResponsiveSideBar
+                                            :href="
+                                                route('form.edit', {
+                                                    id: 'address',
+                                                })
+                                            "
+                                            :active="
+                                                route().current('form.edit', {
+                                                    id: 'address',
+                                                })
+                                            "
+                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                            >Alamat</ResponsiveSideBar
+                                        >
+                                    </li>
+                                    <li>
+                                        <ResponsiveSideBar
+                                            :href="
+                                                route('form.edit', {
+                                                    id: 'disability',
+                                                })
+                                            "
+                                            :active="
+                                                route().current('form.edit', {
+                                                    id: 'disability',
+                                                })
+                                            "
+                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                            >Disabilitas</ResponsiveSideBar
+                                        >
+                                    </li>
+                                    <li>
+                                        <ResponsiveSideBar
+                                            :href="
+                                                route('form.edit', {
+                                                    id: 'education',
+                                                })
+                                            "
+                                            :active="
+                                                route().current('form.edit', {
+                                                    id: 'education',
+                                                })
+                                            "
+                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                            >Pendidikan</ResponsiveSideBar
+                                        >
+                                    </li>
+                                    <li>
+                                        <ResponsiveSideBar
+                                            :href="
+                                                route('form.edit', {
+                                                    id: 'parent',
+                                                })
+                                            "
+                                            :active="
+                                                route().current('form.edit', {
+                                                    id: 'parent',
+                                                })
+                                            "
+                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                            >Orang tua / wali</ResponsiveSideBar
+                                        >
+                                    </li>
+                                    <li>
+                                        <ResponsiveSideBar
+                                            :href="route('documents.index')"
+                                            :active="
+                                                route().current(
+                                                    'documents.index'
+                                                )
+                                            "
+                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                            >Dokumen</ResponsiveSideBar
+                                        >
+                                    </li>
+                                </ul>
                             </li>
-                            <li v-if="$page.props.auth.exams.health">
+                            <li>
                                 <ResponsiveSideBar
-                                    :href="route('exams.health')"
-                                    :active="route().current('exams.health')"
-                                    icon="fas fa-stethoscope"
+                                    icon="fa-solid fa-money-bill"
+                                    :href="route('form.payment')"
+                                    :active="route().current('form.payment')"
                                 >
-                                    Pemeriksaan kesehatan
-                                </ResponsiveSideBar>
-                            </li>
-                            <li v-if="$page.props.auth.exams.interview">
-                                <ResponsiveSideBar
-                                    :href="route('exams.interview')"
-                                    :active="route().current('exams.interview')"
-                                    icon="fas fa-microphone"
-                                >
-                                    Wawancara
+                                    Pembayaran
                                 </ResponsiveSideBar>
                             </li>
                         </ul>
                     </template>
 
                     <template
-                        v-if="$page.props.auth.user.roles.includes('admin')"
+                        v-if="
+                            $page.props.auth.form.status == 'approved' &&
+                            checkRole(['user'])
+                        "
                     >
-                        <ul
-                            class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700"
-                        >
-                            <li>
-                                <ResponsiveSideBar
-                                    :href="route('admin.user')"
-                                    :active="route().current('admin.user')"
-                                    icon="fa-solid fa-users"
-                                >
-                                    User
-                                </ResponsiveSideBar>
-                            </li>
-                            <li>
-                                <ResponsiveSideBar
-                                    :href="route('admin.payment')"
-                                    :active="route().current('admin.payment')"
-                                    icon="fa-solid fa-money-bill"
-                                >
-                                    Pembayaran
-                                </ResponsiveSideBar>
-                            </li>
+                        <div class="mt-8">
+                            <header
+                                class="px-3 mb-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400"
+                            >
+                                Ujian
+                            </header>
+                            <ul
+                                class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700"
+                            >
+                                <li v-if="$page.props.auth.exams.knowledge">
+                                    <ResponsiveSideBar
+                                        :href="route('exams.knowledge')"
+                                        :active="
+                                            route().current('exams.knowledge')
+                                        "
+                                        icon="fas fa-clipboard"
+                                    >
+                                        Ujian pengetahuan
+                                    </ResponsiveSideBar>
+                                </li>
+                                <li v-if="$page.props.auth.exams.health">
+                                    <ResponsiveSideBar
+                                        :href="route('exams.health')"
+                                        :active="
+                                            route().current('exams.health')
+                                        "
+                                        icon="fas fa-stethoscope"
+                                    >
+                                        Pemeriksaan kesehatan
+                                    </ResponsiveSideBar>
+                                </li>
+                                <li v-if="$page.props.auth.exams.interview">
+                                    <ResponsiveSideBar
+                                        :href="route('exams.interview')"
+                                        :active="
+                                            route().current('exams.interview')
+                                        "
+                                        icon="fas fa-microphone"
+                                    >
+                                        Wawancara
+                                    </ResponsiveSideBar>
+                                </li>
+                            </ul>
+                        </div>
+                    </template>
 
-                            <li>
-                                <ResponsiveSideBar
-                                    :href="route('admin.prodi')"
-                                    :active="route().current('admin.prodi')"
-                                    icon="fa-solid fa-university"
-                                >
-                                    Prodi
-                                </ResponsiveSideBar>
-                            </li>
-                            <li>
-                                <ResponsiveSideBar
-                                    :href="route('admin.wave')"
-                                    :active="route().current('admin.wave')"
-                                    icon="fa-solid fa-wave-square"
-                                >
-                                    Gelombang
-                                </ResponsiveSideBar>
-                            </li>
-                            <li>
-                                <ResponsiveSideBar
-                                    :href="route('admin.exams')"
-                                    :active="route().current('admin.exams')"
-                                    icon="fa-solid fa-book"
-                                >
-                                    Soal
-                                </ResponsiveSideBar>
-                            </li>
-                            <li>
-                                <ResponsiveSideBar
-                                    :href="route('admin.web-setting')"
-                                    :active="
-                                        route().current('admin.web-setting')
-                                    "
-                                    icon="fa-solid fa-cog"
-                                >
-                                    Web Setting
-                                </ResponsiveSideBar>
-                            </li>
-                            <li>
-                                <ResponsiveSideBar
-                                    :href="route('admin.verification')"
-                                    :active="
-                                        route().current('admin.verification')
-                                    "
-                                    icon="fa-solid fa-check-circle"
-                                >
-                                    Verifikasi
-                                </ResponsiveSideBar>
-                            </li>
-                        </ul>
+                    <template v-if="checkRole(['admin', 'panitia'])">
+                        <div class="mt-8">
+                            <header
+                                class="px-3 mb-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400"
+                            >
+                                Panitia
+                            </header>
+                            <ul
+                                class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700"
+                            >
+                                <li>
+                                    <ResponsiveSideBar
+                                        :href="route('admin.user')"
+                                        :active="route().current('admin.user')"
+                                        icon="fa-solid fa-users"
+                                    >
+                                        User
+                                    </ResponsiveSideBar>
+                                </li>
+
+                                <li>
+                                    <ResponsiveSideBar
+                                        :href="route('admin.prodi')"
+                                        :active="route().current('admin.prodi')"
+                                        icon="fa-solid fa-university"
+                                    >
+                                        Prodi
+                                    </ResponsiveSideBar>
+                                </li>
+                                <li>
+                                    <ResponsiveSideBar
+                                        :href="route('admin.wave')"
+                                        :active="route().current('admin.wave')"
+                                        icon="fa-solid fa-wave-square"
+                                    >
+                                        Gelombang
+                                    </ResponsiveSideBar>
+                                </li>
+                                <li>
+                                    <ResponsiveSideBar
+                                        :href="route('admin.exams')"
+                                        :active="route().current('admin.exams')"
+                                        icon="fa-solid fa-book"
+                                    >
+                                        Soal
+                                    </ResponsiveSideBar>
+                                </li>
+                                <li>
+                                    <ResponsiveSideBar
+                                        :href="route('admin.verification')"
+                                        :active="
+                                            route().current(
+                                                'admin.verification'
+                                            )
+                                        "
+                                        icon="fa-solid fa-check-circle"
+                                    >
+                                        Verifikasi
+                                    </ResponsiveSideBar>
+                                </li>
+                            </ul>
+                        </div>
+                    </template>
+
+                    <template v-if="checkRole(['admin', 'keuangan'])">
+                        <div class="mt-8">
+                            <header
+                                class="px-3 mb-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400"
+                            >
+                                Keuangan
+                            </header>
+                            <ul
+                                class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700"
+                            >
+                                <li>
+                                    <ResponsiveSideBar
+                                        :href="route('admin.payment')"
+                                        :active="
+                                            route().current('admin.payment')
+                                        "
+                                        icon="fa-solid fa-money-bill"
+                                    >
+                                        Pembayaran
+                                    </ResponsiveSideBar>
+                                </li>
+                            </ul>
+                        </div>
+                    </template>
+
+                    <template v-if="checkRole(['admin'])">
+                        <div class="mt-8">
+                            <header
+                                class="px-3 mb-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400"
+                            >
+                                Admin
+                            </header>
+                            <ul
+                                class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700"
+                            >
+                                <li>
+                                    <ResponsiveSideBar
+                                        :href="route('admin.web-setting')"
+                                        :active="
+                                            route().current('admin.web-setting')
+                                        "
+                                        icon="fa-solid fa-cog"
+                                    >
+                                        Web Setting
+                                    </ResponsiveSideBar>
+                                </li>
+                            </ul>
+                        </div>
                     </template>
                 </div>
             </aside>
