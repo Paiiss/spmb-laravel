@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, useForm, Link } from "@inertiajs/vue3";
+import { Head, useForm, Link, usePage } from "@inertiajs/vue3";
 import { onMounted, ref } from "vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
@@ -52,30 +52,32 @@ const form = useForm({
 const choices = ref([]);
 const choicesProdi = ref([]);
 onMounted(() => {
-    axios
-        .get("/api/gelombang")
-        .then((response) => {
-            choices.value = response.data.data.map((item) => ({
-                value: `${item.id}`,
-                text: item.gelombang,
-            }));
-            choices.value.unshift({
-                value: "",
-                text: "Pilih Gelombang",
-            });
-        })
-        .catch((error) => {});
+    if (!usePage().props?.form_status) {
+        axios
+            .get("/api/gelombang")
+            .then((response) => {
+                choices.value = response.data.data.map((item) => ({
+                    value: `${item.id}`,
+                    text: item.gelombang,
+                }));
+                choices.value.unshift({
+                    value: "",
+                    text: "Pilih Gelombang",
+                });
+            })
+            .catch((error) => {});
 
-    axios.get("/api/program-studi").then((response) => {
-        choicesProdi.value = response.data.data.map((item) => ({
-            value: `${item.id}`,
-            text: item.nama_prodi,
-        }));
-        choicesProdi.value.unshift({
-            value: "",
-            text: "Pilih Prodi",
+        axios.get("/api/program-studi").then((response) => {
+            choicesProdi.value = response.data.data.map((item) => ({
+                value: `${item.id}`,
+                text: item.nama_prodi,
+            }));
+            choicesProdi.value.unshift({
+                value: "",
+                text: "Pilih Prodi",
+            });
         });
-    });
+    }
 });
 
 const submit = () => {
