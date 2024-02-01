@@ -97,41 +97,51 @@ Route::middleware(['auth', 'verified', 'formapproved'])->prefix('/exams')->name(
     Route::get('/interview', [InterviewController::class, 'index'])->name('interview');
 });
 
-Route::middleware(['auth', 'verified', 'role:admin'])->prefix('/admin')->name('admin.')->group(function () {
-    Route::get('/user', [AdminController::class, 'allUser'])->name('user');
+Route::middleware(['auth', 'verified'])->prefix('/admin')->name('admin.')->group(function () {
 
-    Route::get('/program-studi', [ProdiController::class, 'index'])->name('prodi');
-    Route::post('/program-studi', [ProdiController::class, 'store'])->name('prodi.store');
-    Route::patch('/program-studi/{id}', [ProdiController::class, 'update'])->name('prodi.update');
-    Route::delete('/program-studi/{id}', [ProdiController::class, 'destroy'])->name('prodi.destroy');
+    Route::middleware(['role:admin,panitia'])->group(function () {
+        Route::get('/user', [AdminController::class, 'allUser'])->name('user');
 
-    Route::get('/wave', [WaveController::class, 'index'])->name('wave');
-    Route::post('/wave', [WaveController::class, 'store'])->name('wave.store');
-    Route::patch('/wave/{id}', [WaveController::class, 'update'])->name('wave.update');
-    Route::delete('/wave/{id}', [WaveController::class, 'destroy'])->name('wave.destroy');
+        Route::get('/program-studi', [ProdiController::class, 'index'])->name('prodi');
+        Route::post('/program-studi', [ProdiController::class, 'store'])->name('prodi.store');
+        Route::patch('/program-studi/{id}', [ProdiController::class, 'update'])->name('prodi.update');
+        Route::delete('/program-studi/{id}', [ProdiController::class, 'destroy'])->name('prodi.destroy');
 
-    Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
-    Route::patch('/payment/{id}', [PaymentController::class, 'update'])->name('payment.update');
-    Route::delete('/payment/{id}', [PaymentController::class, 'destroy'])->name('payment.destroy');
+        Route::get('/wave', [WaveController::class, 'index'])->name('wave');
+        Route::post('/wave', [WaveController::class, 'store'])->name('wave.store');
+        Route::patch('/wave/{id}', [WaveController::class, 'update'])->name('wave.update');
+        Route::delete('/wave/{id}', [WaveController::class, 'destroy'])->name('wave.destroy');
 
-    Route::get('/exams', [ExamsController::class, 'index'])->name('exams');
-    Route::post('/exams', [ExamsController::class, 'store'])->name('exams.store');
-    Route::patch('/exams/{id}', [ExamsController::class, 'update'])->name('exams.update');
-    Route::delete('/exams/{id}', [ExamsController::class, 'destroy'])->name('exams.destroy');
+        Route::get('/exams', [ExamsController::class, 'index'])->name('exams');
+        Route::post('/exams', [ExamsController::class, 'store'])->name('exams.store');
+        Route::patch('/exams/{id}', [ExamsController::class, 'update'])->name('exams.update');
+        Route::delete('/exams/{id}', [ExamsController::class, 'destroy'])->name('exams.destroy');
 
-    Route::get('/exams/{exam_id}', [ExamQuesionController::class, 'index'])->name('exams.questions');
-    Route::post('/exams/{exam_id}/questions', [ExamQuesionController::class, 'store'])->name('exams.questions.store');
-    Route::patch('/exams/{exam_id}/questions/{question_id}', [ExamQuesionController::class, 'update'])->name('exams.questions.update');
-    Route::delete('/exams/{exam_id}/questions/{question_id}', [ExamQuesionController::class, 'destroy'])->name('exams.questions.destroy');
-
-    Route::get('/web-setting', [WebSettingController::class, 'index'])->name('web-setting');
-    Route::patch('/web-setting/backup', [WebSettingController::class, 'backup'])->name('web-setting.backup');
-    Route::patch('/web-setting', [WebSettingController::class, 'update'])->name('web-setting.update');
+        Route::get('/exams/{exam_id}', [ExamQuesionController::class, 'index'])->name('exams.questions');
+        Route::post('/exams/{exam_id}/questions', [ExamQuesionController::class, 'store'])->name('exams.questions.store');
+        Route::patch('/exams/{exam_id}/questions/{question_id}', [ExamQuesionController::class, 'update'])->name('exams.questions.update');
+        Route::delete('/exams/{exam_id}/questions/{question_id}', [ExamQuesionController::class, 'destroy'])->name('exams.questions.destroy');
 
 
-    Route::get('/verification', [VerificationController::class, 'view'])->name('verification');
-    Route::get('/verification/{id}', [VerificationController::class, 'index'])->name('verification.user');
-    Route::patch('/verification/{id}', [VerificationController::class, 'update'])->name('verification.user.update');
+        Route::get('/verification', [VerificationController::class, 'view'])->name('verification');
+        Route::get('/verification/{id}', [VerificationController::class, 'index'])->name('verification.user');
+        Route::patch('/verification/{id}', [VerificationController::class, 'update'])->name('verification.user.update');
+    });
+
+    Route::middleware(['role:keuangan,admin'])->group(function () {
+        Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
+        Route::patch('/payment/{id}', [PaymentController::class, 'update'])->name('payment.update');
+        Route::delete('/payment/{id}', [PaymentController::class, 'destroy'])->name('payment.destroy');
+
+    });
+
+    Route::middleware(['role:admin'])->group(function () {
+        Route::get('/web-setting', [WebSettingController::class, 'index'])->name('web-setting');
+        Route::patch('/web-setting/backup', [WebSettingController::class, 'backup'])->name('web-setting.backup');
+        Route::patch('/web-setting', [WebSettingController::class, 'update'])->name('web-setting.update');
+    });
+
+
 });
 
 
