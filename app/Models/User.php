@@ -85,12 +85,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getWave()
     {
-        return Wave::where('id', $this->getForm?->wave_id)->first() ?? null;
+        return $this->hasOne(Wave::class, 'id'); //Wave::where('id', $this->getForm?->wave_id)->first() ?? null;
     }
 
     public function getProgress()
     {
-        $form = $this->hasOne(Form::class)->first();
+        $form = $this->getForm;
 
         if (!$form) {
             return null;

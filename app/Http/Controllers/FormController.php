@@ -65,11 +65,11 @@ class FormController extends Controller
     public function submission(): Response
     {
         $user = $user = User::find(auth()->user()->id);
-        $form = $user->getForm()->first();
+        $form = $user->getForm;
         return Inertia::render('Form/Submission', [
-            'wave' => $user?->getWave()?->first() ?? null,
-            'form_status' => $user->getForm()->get()->isNotEmpty(),
-            'amount' => $user?->getProdi()->biaya_registrasi ?? 0,
+            'wave' => $user?->getWave ?? null,
+            'form_status' => $form ? true : false,
+            'amount' => $user?->getProdi->biaya_registrasi ?? 0,
             'is_paid_registration' => $form->is_paid_registration ?? null,
             'code' => $form->code_registration ?? null,
             'percent' => $user->getProgress() ?? null,
