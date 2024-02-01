@@ -203,7 +203,7 @@ const save = () => {
                     >
                         <div class="col-span-1">
                             <img
-                                :src="`/` + dialogItem.image"
+                                :src="dialogItem.image"
                                 :alt="`Bukti pembayaran ${dialogItem.user_id}`"
                                 class="w-full"
                             />
