@@ -39,63 +39,58 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('welcome');
 
 Route::delete('/notification/{id}', function ($id) {
     auth()->user()->notifications()->where('id', $id)->delete();
     return;
 })->name('notifications.destroy')->middleware(['auth', 'verified']);
-
-Route::get('/dashboard', function (Request $request) {
-    $user = User::find(auth()->user()->id);
-    return Inertia::render('Dashboard', [
-        'user' => $user,
-        'isAdmin' => $request->user()->hasRole('admin'),
-        'isAlreadyForm' => !$user->getForm()->get()->isEmpty(),
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function (Request $request) {
+        $user = User::find(auth()->user()->id);
+        return Inertia::render('Dashboard', [
+            'user' => $user,
+            'isAdmin' => $request->user()->hasRole('admin'),
+            'isAlreadyForm' => !$user->getForm()->get()->isEmpty(),
+        ]);
+    })->name('dashboard');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/submission', [FormController::class, 'submission'])->name('form.submission');
     Route::post('/submission', [FormController::class, 'submissionStore'])->name('form.submission.store');
 
     Route::get('/payment', [FormController::class, 'payment'])->name('form.payment');
     Route::post('/payment', [PaymentController::class, 'store'])->name('form.payment.store');
     Route::delete('/payment/{id}', [PaymentController::class, 'userDestroy'])->name('form.payment.destroy');
+
+    Route::middleware(['payform'])->prefix('/form')->name('form.')->group(function () {
+        Route::get('/{id}', [FormController::class, 'edit'])->name('edit');
+        Route::patch('/', [FormController::class, 'update'])->name('update');
+        Route::post('/validation', [FormController::class, 'validation'])->name('validation');
+    });
+
+    Route::middleware(['payform'])->prefix('/documents')->name('documents.')->group(function () {
+        Route::get('/', [DocumentsController::class, 'index'])->name('index');
+        Route::post('/', [DocumentsController::class, 'update'])->name('update');
+    });
+
+    Route::middleware(['formapproved'])->prefix('/exams')->name('exams.')->group(function () {
+        Route::get('/health', [HealthController::class, 'index'])->name('health');
+        Route::post('/health', [HealthController::class, 'update'])->name('health.update');
+
+        Route::get('/knowledge', [KnowledgeController::class, 'index'])->name('knowledge');
+        Route::get('/knowledge/{id}', [KnowledgeController::class, 'exams'])->name('knowledge.exams');
+        Route::post('/knowledge/{id}', [KnowledgeController::class, 'start'])->name('knowledge.start');
+        Route::patch('/knowledge/{id}', [KnowledgeController::class, 'store'])->name('knowledge.store');
+
+        Route::get('/interview', [InterviewController::class, 'index'])->name('interview');
+    });
 });
 
-Route::middleware(['auth', 'verified', 'payform'])->prefix('/form')->name('form.')->group(function () {
-    Route::get('/{id}', [FormController::class, 'edit'])->name('edit');
-    Route::patch('/', [FormController::class, 'update'])->name('update');
-    Route::post('/validation', [FormController::class, 'validation'])->name('validation');
-});
-
-Route::middleware(['auth', 'verified', 'payform'])->prefix('/documents')->name('documents.')->group(function () {
-    Route::get('/', [DocumentsController::class, 'index'])->name('index');
-    Route::post('/', [DocumentsController::class, 'update'])->name('update');
-});
-
-Route::middleware(['auth', 'verified', 'formapproved'])->prefix('/exams')->name('exams.')->group(function () {
-    Route::get('/health', [HealthController::class, 'index'])->name('health');
-    Route::post('/health', [HealthController::class, 'update'])->name('health.update');
-
-    Route::get('/knowledge', [KnowledgeController::class, 'index'])->name('knowledge');
-    Route::get('/knowledge/{id}', [KnowledgeController::class, 'exams'])->name('knowledge.exams');
-    Route::post('/knowledge/{id}', [KnowledgeController::class, 'start'])->name('knowledge.start');
-    Route::patch('/knowledge/{id}', [KnowledgeController::class, 'store'])->name('knowledge.store');
-    // Route::get('/knowledge/{id}', [KnowledgeController::class, 'show'])->name('knowledge.show');
-
-    Route::get('/interview', [InterviewController::class, 'index'])->name('interview');
-});
 
 Route::middleware(['auth', 'verified'])->prefix('/admin')->name('admin.')->group(function () {
 
