@@ -143,155 +143,186 @@ const checkRole = (role = []) => {
             >
                 <div class="h-full px-3 py-4 overflow-y-auto">
                     <template v-if="checkRole(['user'])">
-                        <ul class="space-y-2 font-medium">
-                            <li>
-                                <ResponsiveSideBar
-                                    icon="fa-solid fa-house"
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
-                                >
-                                    Dashboard
-                                </ResponsiveSideBar>
-                            </li>
-                            <li>
-                                <ResponsiveSideBar
-                                    icon="fa-solid fa-file-invoice"
-                                    :href="route('form.submission')"
-                                    :active="route().current('form.submission')"
-                                >
-                                    Pendaftaran
-                                </ResponsiveSideBar>
-                            </li>
-                            <li>
-                                <button
-                                    type="button"
-                                    @click="showingListForm = !showingListForm"
-                                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                >
-                                    <i class="fa-solid fa-address-card" />
-                                    <span
-                                        class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap capitalize"
-                                        >Data diri</span
+                        <div class="mb-8">
+                            <header
+                                class="px-3 mb-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400"
+                            >
+                                Menu
+                            </header>
+                            <ul class="space-y-2 font-medium">
+                                <li>
+                                    <ResponsiveSideBar
+                                        icon="fa-solid fa-house"
+                                        :href="route('dashboard')"
+                                        :active="route().current('dashboard')"
                                     >
-                                    <i
-                                        class="fa-solid"
+                                        Dashboard
+                                    </ResponsiveSideBar>
+                                </li>
+                                <li>
+                                    <ResponsiveSideBar
+                                        icon="fa-solid fa-file-invoice"
+                                        :href="route('form.submission')"
+                                        :active="
+                                            route().current('form.submission')
+                                        "
+                                    >
+                                        Pendaftaran
+                                    </ResponsiveSideBar>
+                                </li>
+                                <li>
+                                    <button
+                                        type="button"
+                                        @click="
+                                            showingListForm = !showingListForm
+                                        "
+                                        class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                    >
+                                        <i class="fa-solid fa-address-card" />
+                                        <span
+                                            class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap capitalize"
+                                            >Data diri</span
+                                        >
+                                        <i
+                                            class="fa-solid"
+                                            :class="{
+                                                'fa-chevron-up':
+                                                    showingListForm,
+                                                'fa-chevron-down':
+                                                    !showingListForm,
+                                            }"
+                                        />
+                                    </button>
+                                    <ul
+                                        class="py-2 space-y-2"
                                         :class="{
-                                            'fa-chevron-up': showingListForm,
-                                            'fa-chevron-down': !showingListForm,
+                                            block: showingListForm,
+                                            hidden: !showingListForm,
                                         }"
-                                    />
-                                </button>
-                                <ul
-                                    class="py-2 space-y-2"
-                                    :class="{
-                                        block: showingListForm,
-                                        hidden: !showingListForm,
-                                    }"
-                                >
-                                    <li>
-                                        <ResponsiveSideBar
-                                            :href="
-                                                route('form.edit', {
-                                                    id: 'personal',
-                                                })
-                                            "
-                                            :active="
-                                                route().current('form.edit', {
-                                                    id: 'personal',
-                                                })
-                                            "
-                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                            >Personal</ResponsiveSideBar
-                                        >
-                                    </li>
-                                    <li>
-                                        <ResponsiveSideBar
-                                            :href="
-                                                route('form.edit', {
-                                                    id: 'address',
-                                                })
-                                            "
-                                            :active="
-                                                route().current('form.edit', {
-                                                    id: 'address',
-                                                })
-                                            "
-                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                            >Alamat</ResponsiveSideBar
-                                        >
-                                    </li>
-                                    <li>
-                                        <ResponsiveSideBar
-                                            :href="
-                                                route('form.edit', {
-                                                    id: 'disability',
-                                                })
-                                            "
-                                            :active="
-                                                route().current('form.edit', {
-                                                    id: 'disability',
-                                                })
-                                            "
-                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                            >Disabilitas</ResponsiveSideBar
-                                        >
-                                    </li>
-                                    <li>
-                                        <ResponsiveSideBar
-                                            :href="
-                                                route('form.edit', {
-                                                    id: 'education',
-                                                })
-                                            "
-                                            :active="
-                                                route().current('form.edit', {
-                                                    id: 'education',
-                                                })
-                                            "
-                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                            >Pendidikan</ResponsiveSideBar
-                                        >
-                                    </li>
-                                    <li>
-                                        <ResponsiveSideBar
-                                            :href="
-                                                route('form.edit', {
-                                                    id: 'parent',
-                                                })
-                                            "
-                                            :active="
-                                                route().current('form.edit', {
-                                                    id: 'parent',
-                                                })
-                                            "
-                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                            >Orang tua / wali</ResponsiveSideBar
-                                        >
-                                    </li>
-                                    <li>
-                                        <ResponsiveSideBar
-                                            :href="route('documents.index')"
-                                            :active="
-                                                route().current(
-                                                    'documents.index'
-                                                )
-                                            "
-                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                            >Dokumen</ResponsiveSideBar
-                                        >
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <ResponsiveSideBar
-                                    icon="fa-solid fa-money-bill"
-                                    :href="route('form.payment')"
-                                    :active="route().current('form.payment')"
-                                >
-                                    Pembayaran
-                                </ResponsiveSideBar>
-                            </li>
-                        </ul>
+                                    >
+                                        <li>
+                                            <ResponsiveSideBar
+                                                :href="
+                                                    route('form.edit', {
+                                                        id: 'personal',
+                                                    })
+                                                "
+                                                :active="
+                                                    route().current(
+                                                        'form.edit',
+                                                        {
+                                                            id: 'personal',
+                                                        }
+                                                    )
+                                                "
+                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                                >Personal</ResponsiveSideBar
+                                            >
+                                        </li>
+                                        <li>
+                                            <ResponsiveSideBar
+                                                :href="
+                                                    route('form.edit', {
+                                                        id: 'address',
+                                                    })
+                                                "
+                                                :active="
+                                                    route().current(
+                                                        'form.edit',
+                                                        {
+                                                            id: 'address',
+                                                        }
+                                                    )
+                                                "
+                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                                >Alamat</ResponsiveSideBar
+                                            >
+                                        </li>
+                                        <li>
+                                            <ResponsiveSideBar
+                                                :href="
+                                                    route('form.edit', {
+                                                        id: 'disability',
+                                                    })
+                                                "
+                                                :active="
+                                                    route().current(
+                                                        'form.edit',
+                                                        {
+                                                            id: 'disability',
+                                                        }
+                                                    )
+                                                "
+                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                                >Disabilitas</ResponsiveSideBar
+                                            >
+                                        </li>
+                                        <li>
+                                            <ResponsiveSideBar
+                                                :href="
+                                                    route('form.edit', {
+                                                        id: 'education',
+                                                    })
+                                                "
+                                                :active="
+                                                    route().current(
+                                                        'form.edit',
+                                                        {
+                                                            id: 'education',
+                                                        }
+                                                    )
+                                                "
+                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                                >Pendidikan</ResponsiveSideBar
+                                            >
+                                        </li>
+                                        <li>
+                                            <ResponsiveSideBar
+                                                :href="
+                                                    route('form.edit', {
+                                                        id: 'parent',
+                                                    })
+                                                "
+                                                :active="
+                                                    route().current(
+                                                        'form.edit',
+                                                        {
+                                                            id: 'parent',
+                                                        }
+                                                    )
+                                                "
+                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                                >Orang tua /
+                                                wali</ResponsiveSideBar
+                                            >
+                                        </li>
+                                        <li>
+                                            <ResponsiveSideBar
+                                                :href="route('documents.index')"
+                                                :active="
+                                                    route().current(
+                                                        'documents.index'
+                                                    )
+                                                "
+                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                                >Dokumen</ResponsiveSideBar
+                                            >
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <ResponsiveSideBar
+                                        icon="fa-solid fa-money-bill"
+                                        :href="route('form.payment')"
+                                        :active="
+                                            route().current('form.payment')
+                                        "
+                                    >
+                                        Pembayaran
+                                    </ResponsiveSideBar>
+                                </li>
+                            </ul>
+                        </div>
                     </template>
 
                     <template
@@ -300,7 +331,7 @@ const checkRole = (role = []) => {
                             checkRole(['user'])
                         "
                     >
-                        <div class="mt-8">
+                        <div class="mb-8">
                             <header
                                 class="px-3 mb-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400"
                             >
@@ -347,7 +378,7 @@ const checkRole = (role = []) => {
                     </template>
 
                     <template v-if="checkRole(['admin', 'panitia'])">
-                        <div class="mt-8">
+                        <div class="mb-8">
                             <header
                                 class="px-3 mb-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400"
                             >
@@ -411,7 +442,7 @@ const checkRole = (role = []) => {
                     </template>
 
                     <template v-if="checkRole(['admin', 'keuangan'])">
-                        <div class="mt-8">
+                        <div class="mb-8">
                             <header
                                 class="px-3 mb-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400"
                             >
@@ -436,7 +467,7 @@ const checkRole = (role = []) => {
                     </template>
 
                     <template v-if="checkRole(['admin'])">
-                        <div class="mt-8">
+                        <div class="mb-8">
                             <header
                                 class="px-3 mb-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400"
                             >
