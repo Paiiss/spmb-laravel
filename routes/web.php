@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FormController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\WaveController;
 use App\Http\Controllers\PaymentController;
@@ -100,8 +100,6 @@ Route::middleware(['auth', 'verified', 'formapproved'])->prefix('/exams')->name(
 Route::middleware(['auth', 'verified'])->prefix('/admin')->name('admin.')->group(function () {
 
     Route::middleware(['role:admin,panitia'])->group(function () {
-        Route::get('/user', [AdminController::class, 'allUser'])->name('user');
-
         Route::get('/program-studi', [ProdiController::class, 'index'])->name('prodi');
         Route::post('/program-studi', [ProdiController::class, 'store'])->name('prodi.store');
         Route::patch('/program-studi/{id}', [ProdiController::class, 'update'])->name('prodi.update');
@@ -132,10 +130,14 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->name('admin.')->group
         Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
         Route::patch('/payment/{id}', [PaymentController::class, 'update'])->name('payment.update');
         Route::delete('/payment/{id}', [PaymentController::class, 'destroy'])->name('payment.destroy');
-
     });
 
     Route::middleware(['role:admin'])->group(function () {
+        Route::get('/user', [UsersController::class, 'view'])->name('user');
+        Route::get('/user/search/{search}', [UsersController::class, 'search'])->name('user.search');
+        Route::patch('/user/{id}', [UsersController::class, 'update'])->name('user.update');
+        Route::delete('/user/{id}', [UsersController::class, 'destroy'])->name('user.destroy');
+
         Route::get('/web-setting', [WebSettingController::class, 'index'])->name('web-setting');
         Route::patch('/web-setting/backup', [WebSettingController::class, 'backup'])->name('web-setting.backup');
         Route::patch('/web-setting', [WebSettingController::class, 'update'])->name('web-setting.update');
