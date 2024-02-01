@@ -123,7 +123,12 @@ class FormController extends Controller
         return Inertia::render(
             'Form/Payment',
             [
-                'payment' => $request->user()->payments()->get(),
+                'payment' => $request->user()->payments->map(function ($payment) {
+                    return [
+                        ...$payment->toArray(),
+                        'image' => $payment->getFirstMediaUrl('image'),
+                    ];
+                }),
             ]
         );
     }
