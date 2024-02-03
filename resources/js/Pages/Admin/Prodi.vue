@@ -33,7 +33,7 @@ const form = useForm({
 }).transform((x) => ({
     ...x,
     tes_ujian: x.tes_ujian == "true" ? true : false,
-    ujian: x.ujian?.join(",") || null,
+    ujian: x.tes_ujian == "true" ? x.ujian?.join(",") : null,
     tes_wawancara: x.tes_wawancara == "true" ? true : false,
     tes_kesehatan: x.tes_kesehatan == "true" ? true : false,
     biaya_registrasi: parseInt(x.biaya_registrasi),
@@ -332,7 +332,7 @@ const closeModal = () => {
                             />
                         </div>
 
-                        <div>
+                        <div v-if="form.tes_ujian == 'true'">
                             <InputLabel for="ujian" value="Ujian" />
                             <Multiselect
                                 id="ujian"
