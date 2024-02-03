@@ -5,17 +5,26 @@
             v-for="x in notification"
             :key="x.id"
         >
-            <div class="flex p-4">
+            <div
+                class="flex p-4"
+                :class="{
+                    'bg-white': x.read_at,
+                    'bg-gray-100': !x.read_at,
+                }"
+            >
                 {{ x.data.message }}
 
                 <div class="ms-auto">
                     <button
                         type="button"
-                        @click="removeNotif(x.id)"
+                        @click="readNotif(x.id)"
                         class="inline-flex flex-shrink-0 justify-center items-center h-5 w-5 rounded-lg text-yellow-800 opacity-50 hover:opacity-100 focus:outline-none focus:opacity-100 dark:text-yellow-200"
                     >
-                        <span class="sr-only">Close</span>
-                        <i class="fas fa-times flex-shrink-0 w-4 h-4"></i>
+                        <span class="sr-only" v-if="!x.read_at">Check</span>
+                        <i
+                            class="fas fa-check flex-shrink-0 w-4 h-4"
+                            v-if="!x.read_at"
+                        ></i>
                     </button>
                 </div>
             </div>
@@ -33,7 +42,7 @@ import { computed, watch, onMounted } from "vue";
 import { usePage } from "@inertiajs/vue3";
 import useNotifs from "@/Composables/useNotifs.js";
 
-const { addNotif, notification, removeNotif } = useNotifs();
+const { addNotif, notification, removeNotif, readNotif } = useNotifs();
 const notif = computed(() => usePage().props.notifications);
 onMounted(() => {
     if (notif.value) {

@@ -42,10 +42,6 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
-Route::delete('/notification/{id}', function ($id) {
-    auth()->user()->notifications()->where('id', $id)->delete();
-    return;
-})->name('notifications.destroy')->middleware(['auth', 'verified']);
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function (Request $request) {
         $user = User::find(auth()->user()->id);
@@ -55,6 +51,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'isAlreadyForm' => !$user->getForm()->get()->isEmpty(),
         ]);
     })->name('dashboard');
+
+    Route::patch('/notification/{id}', function ($id) {
+        auth()->user()->notifications()->where('id', $id)->update(['read_at' => now()]);
+        return;
+    })->name('notifications.read');
+
+    Route::delete('/notification/{id}', function ($id) {
+        auth()->user()->notifications()->where('id', $id)->delete();
+        return;
+    })->name('notifications.destroy');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

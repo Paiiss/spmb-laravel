@@ -4,19 +4,28 @@ const notification = ref([]);
 
 export default function useNotif() {
     const addNotif = (notif) => {
-        notification.value.push({
-            ...notif,
-        });
+        notification.value.push(notif);
         if (notification.value.length > 5) {
             notification.value = notification.value.slice(1);
         }
+
+        notification.value = notification.value.sort((a, b) => {
+            return new Date(b.created_at) - new Date(a.created_at);
+        });
     };
 
     const removeNotif = async (id) => {
-        await axios.delete(route("notifications.destroy", id));
-        notification.value = notification.value.filter(
-            (notif) => notif.id !== id
-        );
+        await axios.patch(route("notifications.destroy", id));
+    };
+
+    const readNotif = async (id) => {
+        await axios.patch(route("notifications.read", id));
+        notification.value = notification.value.map((notif) => {
+            if (notif.id === id) {
+                notif.read_at = new Date().toISOString();
+            }
+            return notif;
+        });
     };
 
     const unreadNotif = () => {
@@ -28,5 +37,6 @@ export default function useNotif() {
         addNotif,
         removeNotif,
         unreadNotif,
+        readNotif,
     };
 }
