@@ -20,7 +20,7 @@ class UsersController extends Controller
 
     public function search(string $search)
     {
-        $users = User::where("name", "LIKE", "%{$search}%")->paginate(10);
+        $users = User::where("name", "LIKE", "%{$search}%")->orWhere('email', 'LIKE', "%{$search}%")->orWhere('phone', 'LIKE', "%{$search}%")->paginate(10);
         return response()->json($users);
     }
 
