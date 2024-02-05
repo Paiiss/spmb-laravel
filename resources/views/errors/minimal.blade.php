@@ -30,7 +30,7 @@
 
                 </div>
                 <div class="flex items-center justify-center mt-4">
-                    <a href="{{ route('welcome') }}" class="ml-4 text-sm text-gray-700 underline">Dashboard</a>
+                    <a href="{{ route('welcome') }}" class="ml-4 text-sm text-gray-700 underline">Home</a>
                 </div>
             </div>
         </div>
