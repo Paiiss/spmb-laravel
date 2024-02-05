@@ -37,12 +37,10 @@ const programStudi = [
 <template>
     <Head title="Welcome" />
     <HomeLayout>
-        <section
-            class="p-6 md:p-16 lg:p-12 xl:p-16 from-teal-500 to-teal-200 bg-gradient-to-br"
-        >
+        <section class="p-6 md:p-16 lg:p-12 xl:p-16">
             <div class="container max-w-7xl px-6 lg:px-8 mx-auto">
                 <div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-3">
-                    <div class="w-full text-white">
+                    <div class="w-full text-gray-900">
                         <header class="text-2xl md:text-3xl font-bold pb-3">
                             Penerimaan Mahasiwa Baru
                         </header>
@@ -60,12 +58,6 @@ const programStudi = [
                                 ><i class="fa-solid fa-user-graduate pr-2" />
                                 Daftar sekarang
                             </Link>
-                            <!-- <Link
-                                class="inline-flex items-center px-3 py-2 text-white bg-gray-800 rounded-lg capitalize"
-                            >
-                                <i class="fa-solid fa-book-bookmark pr-2" />
-                                Panduan PMB</Link
-                            > -->
                         </div>
                     </div>
                     <div class="w-full hidden lg:block">
@@ -102,16 +94,14 @@ const programStudi = [
             </div>
         </section>
 
-        <section
-            class="p-6 md:p-16 lg:p-12 xl:p-16 from-teal-500 to-teal-200 bg-gradient-to-"
-        >
+        <section class="p-6 md:p-16 lg:p-12 xl:p-16">
             <div class="container mx-auto p-6">
                 <header
                     class="text-2xl text-center pb-5 mb-10 text-black font-bold capitalize"
                 >
                     Sekilas tentang kami
                 </header>
-                <p class="text-wrap text-left">
+                <p class="text-wrap text-ellipsis">
                     UHT Pekanbaru sebagai lembaga pendidikan tinggi
                     menyelenggarakan kegiatan pendidikan, penelitian dan
                     pengabdian kepada masyarakat, yang bertujuan untuk mengisi
@@ -137,7 +127,7 @@ const programStudi = [
                             Punya pertanyaan seputar PMB
                             <span class="animate-pulse">?</span>
                         </header>
-                        <p class="text-left font-semibold">
+                        <p class="text-left font-normal">
                             Jika anda memiliki sebuah pertanyaan atau kendala
                             silahkan hubungi kami atau dapat membaca panduan
                             pendaftaran
