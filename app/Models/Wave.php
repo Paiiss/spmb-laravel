@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Wave extends Model
 {
@@ -28,14 +29,13 @@ class Wave extends Model
 
     public static function getActiveData()
     {
-        return static::where('active', true) ?: null;
+        $today = Carbon::now()->toDateString();
+        return static::where('active', true)->whereDate('awal_daftar', '<=', $today)
+            ->whereDate('akhir_daftar', '>=', $today)->get();
     }
 
-    // bagiamana bikin function validasi untuk mengecek wave yang aktif dengan id
     public static function getActiveDataById($id)
     {
-        // return static::where('active', true, 'id', $id)->first() ?: null;
-
         return static::where('active', true)->where('id', $id)->first() ?: null;
     }
 }
