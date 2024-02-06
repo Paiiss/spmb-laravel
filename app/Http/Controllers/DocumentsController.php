@@ -12,9 +12,9 @@ use App\Models\User;
 
 class DocumentsController extends Controller
 {
-    public function index(): Response | RedirectResponse
+    public function index(): Response|RedirectResponse
     {
-        $form = User::find(auth()->user()->id)->getForm()->first();
+        $form = auth()->user()->getForm;
         return Inertia::render('Documents/Index', [
             'ktp' => $form->getFirstMedia('ktp')?->getUrl() ?? null,
             'foto' => $form->getFirstMedia('foto')?->getUrl() ?? null,
@@ -25,7 +25,7 @@ class DocumentsController extends Controller
 
     public function update(DocumentRequest $request): RedirectResponse
     {
-        $form = User::find(auth()->user()->id)->getForm()->first();
+        $form = auth()->user()->getForm;
         if ($request->hasFile('ktp') && $request->file('ktp')->isValid()) {
             $form->addMedia($request->file('ktp'))->toMediaCollection('ktp');
         }
@@ -47,11 +47,11 @@ class DocumentsController extends Controller
 
     public function destroy(Request $request): RedirectResponse
     {
-        $user = User::find(auth()->user()->id);
-        if (!$user->getForm()->get()->isNotEmpty() || !$user->getForm()->first()->is_paid_registration) {
+        $user = auth()->user();
+        if (!$user->getForm || !$user->getForm->is_paid_registration) {
             return Redirect::route('form.submission');
         }
-        $documents = $user->getForm()->first()->documents();
+        $documents = $user->getForm->documents;
         $documents->update([
             $request->name => null
         ]);
