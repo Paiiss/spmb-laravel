@@ -11,6 +11,8 @@ import Combobox from "@/Components/Combobox.vue";
 import TextareaInput from "@/Components/TextareaInput.vue";
 import Editor from "@tinymce/tinymce-vue";
 
+const APIKEY = import.meta.env.VITE_API_TINYMCE;
+
 defineProps({
     questions: Object,
     exam: Object,
@@ -265,7 +267,7 @@ const option = {
                                     Pertanyaan
                                 </InputLabel>
                                 <Editor
-                                    api-key="9o5ez5636r8vtoi9uoc9prwx2yu172mxja76bfcx8vknfiox"
+                                    :api-key="APIKEY"
                                     v-model="form.question"
                                     :init="{
                                         height: 500,
