@@ -27,5 +27,5 @@ Route::get('/program-studi', function () {
 });
 
 Route::get('/gelombang', function () {
-    return new ApiResource(200, 'LIST_GELOMBANG', Wave::all());
+    return new ApiResource(200, 'LIST_GELOMBANG', Wave::getActiveData());
 });
