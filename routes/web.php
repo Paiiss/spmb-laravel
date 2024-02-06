@@ -85,15 +85,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::middleware(['formapproved'])->prefix('/exams')->name('exams.')->group(function () {
-        Route::get('/health', [HealthController::class, 'index'])->name('health');
-        Route::post('/health', [HealthController::class, 'update'])->name('health.update');
+        Route::middleware(['examaccess:tes_kesehatan'])->group(function () {
+            Route::get('/health', [HealthController::class, 'index'])->name('health');
+            Route::post('/health', [HealthController::class, 'update'])->name('health.update');
+        });
 
-        Route::get('/knowledge', [KnowledgeController::class, 'index'])->name('knowledge');
-        Route::get('/knowledge/{id}', [KnowledgeController::class, 'exams'])->name('knowledge.exams');
-        Route::post('/knowledge/{id}', [KnowledgeController::class, 'start'])->name('knowledge.start');
-        Route::patch('/knowledge/{id}', [KnowledgeController::class, 'store'])->name('knowledge.store');
+        Route::middleware(['examaccess:tes_ujian'])->group(function () {
+            Route::get('/knowledge', [KnowledgeController::class, 'index'])->name('knowledge');
+            Route::get('/knowledge/{id}', [KnowledgeController::class, 'exams'])->name('knowledge.exams');
+            Route::post('/knowledge/{id}', [KnowledgeController::class, 'start'])->name('knowledge.start');
+            Route::patch('/knowledge/{id}', [KnowledgeController::class, 'store'])->name('knowledge.store');
+        });
 
-        Route::get('/interview', [InterviewController::class, 'index'])->name('interview');
+        Route::middleware(['examaccess:tes_wawancara'])->group(function () {
+            Route::get('/interview', [InterviewController::class, 'index'])->name('interview');
+        });
+
     });
 });
 
