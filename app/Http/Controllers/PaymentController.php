@@ -30,6 +30,33 @@ class PaymentController extends Controller
         );
     }
 
+    public function store(PaymentRequest $request): RedirectResponse
+    {
+        $request->validated();
+        $payment = User::find(auth()->user()->id)->payments()->create(
+            [
+                'bank' => $request->bank,
+                'account_name' => $request->account_name,
+                'account_number' => $request->account_number,
+                'amount' => $request->amount,
+                'date' => $request->date,
+                // 'image' => $imagePath,
+                'type_payment' => $request->type_payment,
+                'code' => $request->code,
+            ]
+        );
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $payment->addMedia($request->file('image'))->toMediaCollection('image');
+        }
+
+        session()->flash('alert', [
+            'type' => 'success',
+            'message' => 'Pembayaran berhasil diupload'
+        ]);
+        return Redirect::back();
+    }
+
     public function userDestroy(string $id): RedirectResponse
     {
         // $payment = Payment::find($id);
