@@ -165,7 +165,7 @@ const form = useForm({
 
                     <TextInput
                         id="education_postal_code"
-                        type="text"
+                        type="number"
                         class="mt-1 block w-full"
                         v-model="form.education_postal_code"
                     />

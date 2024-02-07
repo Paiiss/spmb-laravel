@@ -247,7 +247,6 @@ onBeforeUnmount(() => {
                             <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
-                    {{ answer }}
                 </div>
             </div>
             <Modal :show="modalSubmit" @close="modalSubmit = false">
