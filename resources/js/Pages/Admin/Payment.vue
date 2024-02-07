@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import Modal from "@/Components/Modal.vue";
-import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
+import { Head, Link, useForm, usePage, router } from "@inertiajs/vue3";
 import { nextTick, ref } from "vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
@@ -84,6 +84,7 @@ const save = () => {
                             </h2>
                         </header>
                     </div>
+
                     <div class="relative overflow-x-auto">
                         <table
                             class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
@@ -117,7 +118,7 @@ const save = () => {
                             <tbody>
                                 <tr
                                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                                    v-for="item in payment"
+                                    v-for="item in payment.data"
                                     :key="item.id"
                                 >
                                     <th
@@ -180,6 +181,26 @@ const save = () => {
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+
+                    <div class="py-1 px-4">
+                        <nav class="flex items-center space-x-1">
+                            <button
+                                class="min-w-[40px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2.5 text-sm rounded-full disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10"
+                                :class="{
+                                    'cursor-not-allowed opacity-50':
+                                        link.active || !link.url,
+                                }"
+                                v-for="link in payment.links"
+                                :key="link.label"
+                                :href="link.url || ''"
+                                :disabled="link.active"
+                                @click.prevent="router.visit(link.url)"
+                            >
+                                <span v-html="link.label" class="truncate">
+                                </span>
+                            </button>
+                        </nav>
                     </div>
                 </div>
             </div>
