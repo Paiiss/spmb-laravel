@@ -34,11 +34,11 @@ class HandleInertiaRequests extends Middleware
         $webSettings = WebSettings::first();
         $user = $request->user();
         $form = $user?->getForm ?? null;
-        $prodi = $user?->getProdi ?? null;
+        $prodi = $form?->prodi ?? null;
         $exams = [
-            'knowledge' => $prodi?->tes_ujian ?? null,
-            'health' => $prodi?->tes_kesehatan ?? null,
-            'interview' => $prodi?->tes_wawancara ?? null,
+            'knowledge' => $form->prodi?->tes_ujian ?? null,
+            'health' => $form->prodi?->tes_kesehatan ?? null,
+            'interview' => $form->prodi?->tes_wawancara ?? null,
         ];
         return [
             ...parent::share($request),
