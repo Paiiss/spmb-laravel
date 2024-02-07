@@ -5,9 +5,6 @@ const notification = ref([]);
 export default function useNotif() {
     const addNotif = (notif) => {
         notification.value.push(notif);
-        if (notification.value.length > 5) {
-            notification.value = notification.value.slice(1);
-        }
 
         notification.value = notification.value.sort((a, b) => {
             return new Date(b.created_at) - new Date(a.created_at);
