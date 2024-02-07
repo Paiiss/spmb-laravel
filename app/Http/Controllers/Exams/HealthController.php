@@ -29,6 +29,13 @@ class HealthController extends Controller
     {
         $user = auth()->user()->health;
 
+        if ($user->status == 'submitted') {
+            session()->flash('alert', [
+                'type' => 'danger',
+                'message' => 'Anda sudah mengumpulkan!'
+            ]);
+            return redirect()->back();
+        }
         $request->validated();
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -52,6 +59,6 @@ class HealthController extends Controller
             'type' => 'success',
             'message' => 'Berhasil menyimpan data'
         ]);
-        return Redirect::back();
+        return redirect()->route('exams.health');
     }
 }
