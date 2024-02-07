@@ -170,7 +170,12 @@ const checkRole = (role = []) => {
                                         Pendaftaran
                                     </ResponsiveSideBar>
                                 </li>
-                                <li>
+                                <li
+                                    v-if="
+                                        $page.props.auth.form
+                                            .is_paid_registration
+                                    "
+                                >
                                     <button
                                         type="button"
                                         @click="
@@ -424,6 +429,20 @@ const checkRole = (role = []) => {
                                         Soal
                                     </ResponsiveSideBar>
                                 </li>
+                            </ul>
+                        </div>
+                    </template>
+
+                    <template v-if="checkRole(['admin', 'panitia'])">
+                        <div class="mb-8">
+                            <header
+                                class="px-3 mb-4 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400"
+                            >
+                                Verifikasi
+                            </header>
+                            <ul
+                                class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700"
+                            >
                                 <li>
                                     <ResponsiveSideBar
                                         :href="route('admin.verification')"
@@ -432,9 +451,24 @@ const checkRole = (role = []) => {
                                                 'admin.verification'
                                             )
                                         "
-                                        icon="fa-solid fa-check-circle"
+                                        icon="fa-solid fa-book-open"
                                     >
-                                        Verifikasi
+                                        Formulir
+                                    </ResponsiveSideBar>
+                                </li>
+                                <li>
+                                    <ResponsiveSideBar
+                                        :href="
+                                            route('admin.health-verification')
+                                        "
+                                        :active="
+                                            route().current(
+                                                'admin.health-verification'
+                                            )
+                                        "
+                                        icon="fa-solid fa-kit-medical"
+                                    >
+                                        Kesehatan
                                     </ResponsiveSideBar>
                                 </li>
                             </ul>
