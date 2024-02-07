@@ -79,16 +79,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Prodi::class, 'id');
     }
 
-    public function getProdi2()
-    {
-        return $this->hasOne(Prodi::class, 'id', 'option_2_id');
-    }
-
-    public function getWave()
-    {
-        return $this->hasOne(Wave::class, 'id'); //Wave::where('id', $this->getForm?->wave_id)->first() ?? null;
-    }
-
     public function getProgress()
     {
         $form = $this->getForm;
