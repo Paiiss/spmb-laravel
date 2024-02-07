@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, watch } from 'vue';
+import { computed, onMounted, onUnmounted, watch } from "vue";
 
 const props = defineProps({
     show: {
@@ -8,7 +8,7 @@ const props = defineProps({
     },
     maxWidth: {
         type: String,
-        default: '2xl',
+        default: "2xl",
     },
     closeable: {
         type: Boolean,
@@ -16,13 +16,13 @@ const props = defineProps({
     },
 });
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(["close"]);
 
 watch(
     () => props.show,
     () => {
         if (props.show) {
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = "hidden";
         } else {
             document.body.style.overflow = null;
         }
@@ -31,30 +31,34 @@ watch(
 
 const close = () => {
     if (props.closeable) {
-        emit('close');
+        emit("close");
     }
 };
 
 const closeOnEscape = (e) => {
-    if (e.key === 'Escape' && props.show) {
+    if (e.key === "Escape" && props.show) {
         close();
     }
 };
 
-onMounted(() => document.addEventListener('keydown', closeOnEscape));
+onMounted(() => document.addEventListener("keydown", closeOnEscape));
 
 onUnmounted(() => {
-    document.removeEventListener('keydown', closeOnEscape);
+    document.removeEventListener("keydown", closeOnEscape);
     document.body.style.overflow = null;
 });
 
 const maxWidthClass = computed(() => {
     return {
-        sm: 'sm:max-w-sm',
-        md: 'sm:max-w-md',
-        lg: 'sm:max-w-lg',
-        xl: 'sm:max-w-xl',
-        '2xl': 'sm:max-w-2xl',
+        sm: "sm:max-w-sm",
+        md: "sm:max-w-md",
+        lg: "sm:max-w-lg",
+        xl: "sm:max-w-xl",
+        "2xl": "sm:max-w-2xl",
+        "3xl": "sm:max-w-3xl",
+        "4xl": "sm:max-w-4xl",
+        "5xl": "sm:max-w-5xl",
+        "6xl": "sm:max-w-6xl",
     }[props.maxWidth];
 });
 </script>
@@ -62,7 +66,11 @@ const maxWidthClass = computed(() => {
 <template>
     <Teleport to="body">
         <Transition leave-active-class="duration-200">
-            <div v-show="show" class="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50" scroll-region>
+            <div
+                v-show="show"
+                class="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50"
+                scroll-region
+            >
                 <Transition
                     enter-active-class="ease-out duration-300"
                     enter-from-class="opacity-0"
@@ -71,8 +79,14 @@ const maxWidthClass = computed(() => {
                     leave-from-class="opacity-100"
                     leave-to-class="opacity-0"
                 >
-                    <div v-show="show" class="fixed inset-0 transform transition-all" @click="close">
-                        <div class="absolute inset-0 bg-gray-500 dark:bg-gray-900 opacity-75" />
+                    <div
+                        v-show="show"
+                        class="fixed inset-0 transform transition-all"
+                        @click="close"
+                    >
+                        <div
+                            class="absolute inset-0 bg-gray-500 dark:bg-gray-900 opacity-75"
+                        />
                     </div>
                 </Transition>
 
