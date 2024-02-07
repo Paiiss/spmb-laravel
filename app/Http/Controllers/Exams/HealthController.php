@@ -19,7 +19,6 @@ class HealthController extends Controller
         if (!$user) {
             $user = auth()->user()->health()->create();
         }
-        // dd($user->getFirstMediaUrl('image') ?? null);
         return Inertia::render('Exams/Health/Index', [
             'user' => $user,
             'image' => $user->getFirstMediaUrl('image') ?? null
@@ -29,6 +28,8 @@ class HealthController extends Controller
     public function update(HealthRequest $request): RedirectResponse
     {
         $user = auth()->user()->health;
+
+        $request->validated();
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $user->addMedia($request->file('image'))->toMediaCollection('image');
