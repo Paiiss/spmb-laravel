@@ -3,14 +3,16 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\Admin\UsersController;
-use App\Http\Controllers\ProdiController;
-use App\Http\Controllers\WaveController;
+use App\Http\Controllers\Admin\AdminPaymentController;
+use App\Http\Controllers\Admin\VerificationController;
+use App\Http\Controllers\Admin\ProdiController;
+use App\Http\Controllers\Admin\WaveController;
+use App\Http\Controllers\Admin\ExamsController;
+use App\Http\Controllers\Admin\ExamQuesionController;
+use App\Http\Controllers\Admin\WebSettingController;
+use App\Http\Controllers\Admin\HealthVerificationController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\ExamsController;
-use App\Http\Controllers\ExamQuesionController;
 use App\Http\Controllers\DocumentsController;
-use App\Http\Controllers\WebSettingController;
-use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\Exams\HealthController;
 use App\Http\Controllers\Exams\KnowledgeController;
 use App\Http\Controllers\Exams\InterviewController;
@@ -69,7 +71,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/submission', [FormController::class, 'submission'])->name('form.submission');
     Route::post('/submission', [FormController::class, 'submissionStore'])->name('form.submission.store');
 
-    Route::get('/payment', [FormController::class, 'payment'])->name('form.payment');
+    Route::get('/payment', [PaymentController::class, 'index'])->name('form.payment');
     Route::post('/payment', [PaymentController::class, 'store'])->name('form.payment.store');
     Route::delete('/payment/{id}', [PaymentController::class, 'userDestroy'])->name('form.payment.destroy');
 
@@ -132,12 +134,14 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->name('admin.')->group
         Route::get('/verification', [VerificationController::class, 'view'])->name('verification');
         Route::get('/verification/{id}', [VerificationController::class, 'index'])->name('verification.user');
         Route::patch('/verification/{id}', [VerificationController::class, 'update'])->name('verification.user.update');
+
+        Route::get('/health-verification', [HealthVerificationController::class, 'index'])->name('health-verification');
     });
 
     Route::middleware(['role:keuangan,admin'])->group(function () {
-        Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
-        Route::patch('/payment/{id}', [PaymentController::class, 'update'])->name('payment.update');
-        Route::delete('/payment/{id}', [PaymentController::class, 'destroy'])->name('payment.destroy');
+        Route::get('/payment', [AdminPaymentController::class, 'index'])->name('payment');
+        Route::patch('/payment/{id}', [AdminPaymentController::class, 'update'])->name('payment.update');
+        Route::delete('/payment/{id}', [AdminPaymentController::class, 'destroy'])->name('payment.destroy');
     });
 
     Route::middleware(['role:admin'])->group(function () {
