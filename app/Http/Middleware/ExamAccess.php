@@ -16,7 +16,7 @@ class ExamAccess
      */
     public function handle(Request $request, Closure $next, string $id): Response|RedirectResponse
     {
-        $prodi = $request->user()->getProdi;
+        $prodi = $request->user()->getForm->prodi;
         if ($prodi[$id] === 1) {
             return $next($request);
         }
