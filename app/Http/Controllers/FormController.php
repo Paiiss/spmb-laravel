@@ -23,11 +23,11 @@ class FormController extends Controller
                 'type' => 'danger',
                 'message' => 'Halaman tidak tersedia'
             ]);
-            return Redirect::route('form.submission');
+            return redirect()->route('form.submission');
         }
 
-        $user = $user = User::find(auth()->user()->id);
-        if (!$user->getForm()->get()->isNotEmpty() || !$user->getForm()->first()->is_paid_registration) {
+        $user = $user = auth()->user();
+        if (!$user->getForm || !$user->getForm->is_paid_registration) {
             return Redirect::route('form.submission');
         }
         return Inertia::render('Form/Edit', [
@@ -40,13 +40,13 @@ class FormController extends Controller
 
     public function update(FormUpdateRequest $request): RedirectResponse
     {
-        $user = User::find(auth()->user()->id);
-        if (!$user->getForm()->get()->isNotEmpty() || !$user->getForm()->first()->is_paid_registration) {
+        $user = auth()->user();
+        if (!$user->getForm || !$user->getForm->is_paid_registration) {
             return Redirect::route('form.submission');
         }
-        $form = $user->getForm();
+        $form = $user->getForm;
 
-        if ($form->first()->is_lock) {
+        if ($form->is_lock) {
             session()->flash('alert', [
                 'type' => 'danger',
                 'message' => 'Gagal menyimpan data, form anda sudah terkunci'
@@ -54,7 +54,7 @@ class FormController extends Controller
             return Redirect::back();
         }
 
-        $form->update($request->validated());
+        $user->getForm()->update($request->validated());
         session()->flash('alert', [
             'type' => 'success',
             'message' => 'Berhasil menyimpan data'
@@ -67,9 +67,9 @@ class FormController extends Controller
         $user = $user = auth()->user();
         $form = $user->getForm;
         return Inertia::render('Form/Submission', [
-            'wave' => $user?->getWave ?? null,
+            'wave' => $form?->wave ?? null,
             'form_status' => $form ? true : false,
-            'amount' => $user?->getProdi->biaya_registrasi ?? 0,
+            'amount' => $form?->prodi->biaya_registrasi ?? 0,
             'is_paid_registration' => $form->is_paid_registration ?? null,
             'code' => $form->code_registration ?? null,
             'percent' => $user->getProgress() ?? null,
@@ -86,9 +86,9 @@ class FormController extends Controller
             'option_2' => 'numeric|nullable',
         ]);
 
-        $user = User::find(auth()->user()->id);
+        $user = auth()->user();
 
-        if ($user->getForm()->get()->isNotEmpty()) {
+        if ($user->getForm) {
             return Redirect::back()->withErrors(['form' => 'Anda sudah mengisi form']);
         }
 
@@ -104,7 +104,7 @@ class FormController extends Controller
             return Redirect::back()->withErrors(['option_2' => 'Pilihan prodi tidak tersedia']);
         }
 
-        if (!$user->getForm()->get()->isNotEmpty()) {
+        if (!$user->getForm) {
             $user->getForm()->create();
         }
 
@@ -118,25 +118,10 @@ class FormController extends Controller
         return Redirect::route('form.submission');
     }
 
-    public function payment(Request $request): Response
-    {
-        return Inertia::render(
-            'Form/Payment',
-            [
-                'payment' => $request->user()->payments->map(function ($payment) {
-                    return [
-                        ...$payment->toArray(),
-                        'image' => $payment->getFirstMediaUrl('image'),
-                    ];
-                }),
-            ]
-        );
-    }
-
     public function validation(Request $request): RedirectResponse
     {
 
-        $user = User::find(auth()->user()->id);
+        $user = auth()->user();
         $form = $user->getForm();
 
         if (!$form->get()->isNotEmpty()) {
