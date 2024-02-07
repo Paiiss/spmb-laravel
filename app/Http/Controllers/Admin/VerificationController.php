@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
@@ -75,10 +76,10 @@ class VerificationController extends Controller
             'is_submitted' => ['required', 'boolean'],
         ]);
 
-        $form = Form::where('id', $id)->first();
-        $user = User::where('id', $form->user_id)->first();
-        $prodi = Prodi::find($form->option_id)->first();
-        $wave = Wave::where('id', $form->wave_id)->first();
+        $form = Form::find($id);
+        $user = User::find($form->user_id);
+        $prodi = Prodi::find($form->option_id);
+        $wave = Wave::find($form->wave_id);
 
         if ($request->status == 'approved' && !$form->no_exam) {
             $form->no_exam = $wave->code . '-' . $prodi->id . '-' . $form->id;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -27,7 +28,7 @@ class ExamQuesionController extends Controller
         ]);
     }
 
-    public function store(ExamQuestionsRequest $request, String $exam_id): RedirectResponse
+    public function store(ExamQuestionsRequest $request, string $exam_id): RedirectResponse
     {
         $exam = Exams::find($exam_id);
         if (!$exam) {
@@ -39,7 +40,7 @@ class ExamQuesionController extends Controller
         return Redirect::back();
     }
 
-    public function update(ExamQuestionsRequest $request, String $exam_id, String $question_id): RedirectResponse
+    public function update(ExamQuestionsRequest $request, string $exam_id, string $question_id): RedirectResponse
     {
         $question = ExamQuestion::find($question_id);
         if (!$question) {
@@ -50,7 +51,7 @@ class ExamQuesionController extends Controller
         return Redirect::back();
     }
 
-    public function destroy(String $exam_id, String $question_id): RedirectResponse
+    public function destroy(string $exam_id, string $question_id): RedirectResponse
     {
         $question = ExamQuestion::find($question_id);
         if (!$question) {
