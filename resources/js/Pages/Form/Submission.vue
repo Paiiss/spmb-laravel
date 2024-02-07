@@ -493,7 +493,7 @@ const progressName = {
                                     </h3>
                                     <span
                                         class="text-sm text-gray-800 dark:text-white"
-                                        >{{ value }}%</span
+                                        >{{ value.toFixed(0) }}%</span
                                     >
                                 </div>
                                 <div
