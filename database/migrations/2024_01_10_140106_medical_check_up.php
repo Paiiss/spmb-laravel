@@ -14,11 +14,11 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
 
-            $table->integer('height')->nullable();
-            $table->integer('weight')->nullable();
+            $table->string('height')->nullable();
+            $table->string('weight')->nullable();
             $table->string('blood_type')->nullable();
-            $table->integer('blood_pressure')->nullable();
-            $table->integer('blood_sugar')->nullable();
+            $table->string('blood_pressure')->nullable();
+            $table->string('blood_sugar')->nullable();
             $table->boolean('is_smoking')->default(false);
             $table->boolean('color_blind')->default(false);
             $table->boolean('is_disability')->default(false);
