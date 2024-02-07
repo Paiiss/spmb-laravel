@@ -15,7 +15,7 @@ class KnowledgeController extends Controller
     public function index(): Response|RedirectResponse
     {
         $user = auth()->user();
-        $programstudi = $user->getProdi;
+        $programstudi = $user->getForm->prodi;
         if (!$programstudi->tes_ujian)
             return redirect()->route('dashboard');
 
@@ -47,7 +47,7 @@ class KnowledgeController extends Controller
         try {
 
             $user = auth()->user();
-            $programstudi = $user->getProdi;
+            $programstudi = $user->getForm->prodi;
             if (!$programstudi->tes_ujian)
                 throw new \Exception('Ujian tidak tersedia');
             if (!in_array($id, explode(',', $programstudi->ujian)))
@@ -185,7 +185,6 @@ class KnowledgeController extends Controller
                 return;
             return redirect()->route('exams.knowledge');
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             session()->flash('alert', [
                 'type' => 'danger',
                 'message' => $th->getMessage() ?? 'Terjadi kesalahan saat memulai ujian',
