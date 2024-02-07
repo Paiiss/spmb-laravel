@@ -41,14 +41,6 @@ class HealthVerificationController extends Controller
         ]);
     }
 
-    public function view(string $id): Response
-    {
-        $health = Health::with('user')->find($id);
-        return Inertia::render('Admin/Verification/Health/User', [
-            'health' => $health,
-        ]);
-    }
-
     public function update(Request $request, string $id): RedirectResponse
     {
         $health = Health::with('user')->find($id);

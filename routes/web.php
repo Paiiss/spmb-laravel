@@ -136,7 +136,6 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->name('admin.')->group
         Route::patch('/verification/{id}', [VerificationController::class, 'update'])->name('verification.user.update');
 
         Route::get('/health-verification', [HealthVerificationController::class, 'index'])->name('health-verification');
-        Route::get('/health-verification/{id}', [HealthVerificationController::class, 'view'])->name('health-verification.user');
         Route::post('/health-verification/{id}', [HealthVerificationController::class, 'update'])->name('health-verification.update');
     });
 
