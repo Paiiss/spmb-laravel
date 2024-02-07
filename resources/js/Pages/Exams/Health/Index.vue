@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link, usePage, useForm } from "@inertiajs/vue3";
+import { Head, Link, usePage, useForm, router } from "@inertiajs/vue3";
 import { ref, computed } from "vue";
 import TextInput from "@/Components/TextInput.vue";
 import NumberInput from "@/Components/NumberInput.vue";
@@ -56,6 +56,9 @@ const save = () => {
         onFinish: () => {
             close();
         },
+        onSuccess: () => {
+            close();
+        },
     });
 };
 
@@ -93,7 +96,31 @@ const onFileChange = (e) => {
                             </p>
                         </header>
                     </div>
-                    <template v-if="form_data.status !== 'submitted'">
+                    <template
+                        v-if="
+                            user.status !== 'submitted' &&
+                            user.status !== 'approved'
+                        "
+                    >
+                        <div
+                            v-if="user.status === 'rejected' && user.admin_note"
+                            class="bg-yellow-50 dark:bg-yellow-800 border-l-4 border-yellow-400 p-4 rounded-lg"
+                        >
+                            <h4
+                                class="flex items-center text-lg font-semibold text-yellow-600 dark:text-yellow-400"
+                            >
+                                <i
+                                    class="fa-solid fa-exclamation-triangle text-yellow-400"
+                                ></i>
+                                <span class="ml-2">Perhatian</span>
+                            </h4>
+
+                            <p
+                                class="mt-2 text-sm text-gray-500 dark:text-gray-400"
+                            >
+                                {{ user.admin_note }}
+                            </p>
+                        </div>
                         <form
                             @submit.prevent="open()"
                             class="mt-6 grid grid-cols-1 gap-y-6 md:grid-cols-4 md:gap-x-8"
@@ -304,7 +331,7 @@ const onFileChange = (e) => {
                                             <img
                                                 :src="url || image"
                                                 alt="Bukti tes kesehatan"
-                                                class="object-contain w-full h-full"
+                                                class="object-contain w-full max-h-40"
                                             />
                                         </div>
                                         <input
@@ -331,11 +358,19 @@ const onFileChange = (e) => {
                             </div>
                         </form>
                     </template>
-                    <template v-else>
+                    <template v-else-if="user.status !== 'approved'">
                         <div class="mt-6">
                             <p>
                                 Anda sudah mengirimkan data pemeriksaan
                                 kesehatan. Data akan di verifikasi oleh admin.
+                            </p>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <div class="mt-6">
+                            <p>
+                                Data pemeriksaan kesehatan anda sudah di
+                                verifikasi oleh admin.
                             </p>
                         </div>
                     </template>
