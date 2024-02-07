@@ -58,9 +58,9 @@ defineProps({
                                 }}</span>
                             </div>
 
-                            <div class="capitalize">
+                            <div>
                                 Email Peserta :
-                                <span class="font-bold text-baase">{{
+                                <span class="font-bold text-base">{{
                                     auth.user.email
                                 }}</span>
                             </div>
