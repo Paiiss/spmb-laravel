@@ -1,18 +1,22 @@
 <template>
-    <div v-if="notification.length" class="">
-        <div
-            class="w-full text-sm rounded-lg"
-            v-for="x in notification"
-            :key="x.id"
-        >
+    <div
+        v-if="notification.length"
+        class="max-h-96 overflow-y-auto shadow-md sm:rounded-lg"
+    >
+        <div class="w-full text-sm" v-for="x in notification" :key="x.id">
             <div
-                class="flex p-4"
+                class="flex p-4 border-b"
                 :class="{
                     'bg-white': x.read_at,
                     'bg-gray-100': !x.read_at,
                 }"
             >
-                {{ x.data.message }}
+                <div>
+                    <div class="font-semibold">{{ x.data.subject }}</div>
+                    <div class="text-sm text-gray-500">
+                        {{ x.data.message }}
+                    </div>
+                </div>
 
                 <div class="ms-auto">
                     <button
