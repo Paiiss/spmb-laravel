@@ -12,7 +12,7 @@ use App\Models\Form;
 use App\Models\User;
 use App\Models\Prodi;
 use App\Models\Wave;
-
+use App\Helper\StatusHelper;
 use App\Notifications\Candidate;
 
 class VerificationController extends Controller
@@ -20,7 +20,7 @@ class VerificationController extends Controller
     public function view(): Response
     {
 
-        $form = Form::where('is_submitted', true)->paginate(10)->through(function ($form) {
+        $form = Form::where('status', 'submitted')->paginate(10)->through(function ($form) {
             // if ($form->is_submitted) 
             return [
                 'id' => $form->id,
@@ -69,7 +69,7 @@ class VerificationController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate([
-            'status' => ['required', 'string', 'in:waitting,pending,approved,rejected'],
+            'status' => ['required', 'string', 'in:waiting,submitted,pending,approved,rejected'],
             'note' => ['nullable', 'string'],
             'is_via_online' => ['required', 'boolean'],
             'is_lock' => ['required', 'boolean'],
@@ -94,7 +94,7 @@ class VerificationController extends Controller
         $user->notify(
             new Candidate(
                 'Pendaftaran',
-                'Pendaftaran anda telah di ' . $request->status . ' oleh admin'
+                'Pendaftaran anda telah di ' . StatusHelper::getStatus($request->status) . ' oleh admin'
             )
         );
 
