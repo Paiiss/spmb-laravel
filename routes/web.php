@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ExamsController;
 use App\Http\Controllers\Admin\ExamQuesionController;
 use App\Http\Controllers\Admin\WebSettingController;
 use App\Http\Controllers\Admin\HealthVerificationController;
+use App\Http\Controllers\Admin\AdminInterviewController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\Exams\HealthController;
@@ -137,6 +138,10 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->name('admin.')->group
 
         Route::get('/health-verification', [HealthVerificationController::class, 'index'])->name('health-verification');
         Route::post('/health-verification/{id}', [HealthVerificationController::class, 'update'])->name('health-verification.update');
+
+        Route::get('/interview', [AdminInterviewController::class, 'index'])->name('interview');
+        Route::post('/interview/{id}', [AdminInterviewController::class, 'update'])->name('interview.update');
+        Route::get('/interview/search/{search}', [AdminInterviewController::class, 'search'])->name('interview.search');
     });
 
     Route::middleware(['role:keuangan,admin'])->group(function () {
