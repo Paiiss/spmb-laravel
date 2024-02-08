@@ -69,6 +69,8 @@ class FormController extends Controller
         return Inertia::render('Form/Submission', [
             'wave' => $form?->wave ?? null,
             'form_status' => $form ? true : false,
+            'status' => $form?->status ?? null,
+            'note' => $form?->note ?? null,
             'amount' => $form?->prodi->biaya_registrasi ?? 0,
             'is_paid_registration' => $form->is_paid_registration ?? null,
             'code' => $form->code_registration ?? null,
@@ -122,9 +124,9 @@ class FormController extends Controller
     {
 
         $user = auth()->user();
-        $form = $user->getForm();
+        $form = $user->getForm;
 
-        if (!$form->get()->isNotEmpty()) {
+        if (!$form) {
             session()->flash('alert', [
                 'type' => 'danger',
                 'message' => 'Anda belum memiliki form'
@@ -132,7 +134,7 @@ class FormController extends Controller
             return Redirect::back();
         }
 
-        if ($form->first()->is_lock) {
+        if ($form->status == 'submitted' || $form->status == 'approved' || $form->status == 'pending') {
             session()->flash('alert', [
                 'type' => 'danger',
                 'message' => 'Form anda sudah terkunci'
@@ -161,10 +163,8 @@ class FormController extends Controller
             }
         }
 
-        $form->update([
-            'is_lock' => true,
-            'is_submitted' => true,
-            'status' => 'pending',
+        $user->getForm()->update([
+            'status' => 'submitted'
         ]);
 
         session()->flash('alert', [
