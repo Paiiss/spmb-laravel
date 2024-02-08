@@ -471,6 +471,17 @@ const checkRole = (role = []) => {
                                         Kesehatan
                                     </ResponsiveSideBar>
                                 </li>
+                                <li>
+                                    <ResponsiveSideBar
+                                        :href="route('admin.interview')"
+                                        :active="
+                                            route().current('admin.interview')
+                                        "
+                                        icon="fa-solid fa-microphone"
+                                    >
+                                        Wawancara
+                                    </ResponsiveSideBar>
+                                </li>
                             </ul>
                         </div>
                     </template>
