@@ -139,6 +139,14 @@ const save = () => {
                                 </tr>
                             </tbody>
                         </table>
+                        <div
+                            v-if="health.data.length === 0"
+                            class="flex items-center justify-center p-4"
+                        >
+                            <p class="text-gray-500 dark:text-gray-400">
+                                Tidak ada yang perlu divalidasi
+                            </p>
+                        </div>
                     </div>
                     <div class="py-1 px-4">
                         <nav class="flex items-center space-x-1">
