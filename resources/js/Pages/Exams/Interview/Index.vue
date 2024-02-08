@@ -78,7 +78,7 @@ defineProps({
                                         'text-red-500':
                                             interview.status === 'rejected',
                                     }"
-                                    class="font-bold text-lg"
+                                    class="font-bold text-lg uppercase"
                                     >{{ interview.status }}</span
                                 >
                             </div>
@@ -93,16 +93,44 @@ defineProps({
 
                                 <div class="capitalize">
                                     Di wawancara oleh :
-                                    <span class="font-bold text-baase">{{
-                                        interview.interviewed_by || ''
-                                    }}</span>
+                                    <span
+                                        class="font-bold text-base capitalize"
+                                        >{{
+                                            JSON.parse(interview.verified_by)
+                                                .name || ""
+                                        }}</span
+                                    >
                                 </div>
                             </template>
                         </div>
-                        <div>
+                        <template
+                            v-if="
+                                interview.status == 'rejected' && interview.note
+                            "
+                        >
+                            <div
+                                class="bg-yellow-50 dark:bg-yellow-800 border-l-4 border-yellow-400 p-4 rounded-lg"
+                            >
+                                <h4
+                                    class="flex items-center text-lg font-semibold text-yellow-600 dark:text-yellow-400"
+                                >
+                                    <i
+                                        class="fa-solid fa-exclamation-triangle text-yellow-400"
+                                    ></i>
+                                    <span class="ml-2">Perhatian</span>
+                                </h4>
+
+                                <p
+                                    class="mt-2 text-sm text-gray-500 dark:text-gray-400"
+                                >
+                                    {{ interview.note }}
+                                </p>
+                            </div>
+                        </template>
+                        <div v-if="interview.status == 'pending'">
                             <header>
                                 <h2
-                                    class="text-lg font-bold text-gray-500   capitalize"
+                                    class="text-lg font-bold text-gray-500 capitalize"
                                 >
                                     Panduan Wawancara
                                 </h2>
@@ -113,7 +141,7 @@ defineProps({
                             </header>
 
                             <div class="mt-4">
-                                <p class="text-sm text-gray-400">
+                                <div class="text-sm text-gray-400">
                                     <ul
                                         class="list-disc list-inside text-gray-400"
                                     >
@@ -131,7 +159,7 @@ defineProps({
                                             dengan penuh kejujuran.
                                         </li>
                                     </ul>
-                                </p>
+                                </div>
                             </div>
                         </div>
                     </div>
