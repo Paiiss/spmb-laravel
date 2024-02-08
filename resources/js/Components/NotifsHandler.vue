@@ -13,12 +13,15 @@
             >
                 <div>
                     <div class="font-semibold">{{ x.data.subject }}</div>
-                    <div class="text-sm text-gray-500">
+                    <div class="text-sm text-gray-500 lowercase">
                         {{ x.data.message }}
+                    </div>
+                    <div class="text-xs text-gray-400">
+                        {{ x.created_at.split("T")[0] }}
                     </div>
                 </div>
 
-                <div class="ms-auto">
+                <div class="ms-auto flex items-center">
                     <button
                         type="button"
                         @click="readNotif(x.id)"
