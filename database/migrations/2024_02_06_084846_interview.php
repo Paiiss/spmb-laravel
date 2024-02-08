@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->dateTime('interview_date')->nullable();
             $table->text('note')->nullable();
             $table->foreignId('verificator_id')->nullable()->constrained('users')->cascadeOnDelete();
-            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }

@@ -72,7 +72,7 @@ defineProps({
                                 <span
                                     :class="{
                                         'text-green-500':
-                                            interview.status === 'accepted',
+                                            interview.status === 'approved',
                                         'text-yellow-500':
                                             interview.status === 'pending',
                                         'text-red-500':
