@@ -872,8 +872,8 @@ const save = () => {
                                         placeholder="Pilih status"
                                         :option-value="[
                                             {
-                                                value: 'waitting',
-                                                text: 'Waitting',
+                                                value: 'submitted',
+                                                text: 'Submitted',
                                             },
                                             {
                                                 value: 'pending',
@@ -1011,7 +1011,7 @@ const save = () => {
                     <h2
                         class="text-lg font-semibold text-gray-900 dark:text-gray-100 capitalize"
                     >
-                        View {{ modalType }}
+                        View {{ modalType.replace("_", " ") }}
                     </h2>
 
                     <img
