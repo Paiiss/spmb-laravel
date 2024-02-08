@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -102,7 +101,7 @@ return new class extends Migration
             $table->boolean('is_via_online')->default(true);
             $table->boolean('is_lock')->default(false);
             $table->boolean('is_submitted')->default(false);
-            $table->string('status')->enum(['waitting', 'pending', 'approved', 'rejected'])->default('waitting');
+            $table->enum('status', ['waiting', 'submitted', 'pending', 'approved', 'rejected'])->default('waiting');
             $table->text('note')->nullable();
             $table->timestamp('is_paid_registration')->nullable();
             $table->boolean('is_paid_tuition')->default(false);
