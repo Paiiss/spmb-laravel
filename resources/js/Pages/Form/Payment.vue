@@ -395,17 +395,21 @@ const close = () => {
                                 class="grid grid-cols-1"
                                 v-else-if="dialogType !== 2"
                             >
-                                <div>
-                                    <img :src="dialogItem.image" alt="" />
+                                <div class="flex items-center justify-center">
+                                    <img
+                                        :src="dialogItem.image"
+                                        alt=""
+                                        class="max-h-60"
+                                    />
                                 </div>
-                                <div>
+                                <div class="grid grid-cols-2 gap-4">
                                     <p class="text-gray-500">
                                         <span class="font-semibold"
                                             >Status:</span
                                         >
                                         {{
                                             dialogItem.status == "approved"
-                                                ? "Diterima"
+                                                ? "Disetujui"
                                                 : dialogItem.status == "pending"
                                                 ? "Menunggu"
                                                 : "Ditolak"
@@ -415,7 +419,10 @@ const close = () => {
                                         <span class="font-semibold">Kode:</span>
                                         {{ dialogItem.code }}
                                     </p>
-                                    <p class="text-gray-500">
+                                    <p
+                                        class="text-gray-500"
+                                        v-if="dialogItem.note"
+                                    >
                                         <span class="font-semibold"
                                             >Catatan:</span
                                         >
