@@ -27,6 +27,11 @@ const formUpdate = useForm({
     is_via_online: form_data.is_via_online == 1 ? true : false,
     is_lock: form_data.is_lock == 1 ? true : false,
     is_submitted: form_data.is_submitted == 1 ? true : false,
+}).transform((data) => {
+    if (data.status === "approved") {
+        data.note = null;
+    }
+    return data;
 });
 
 const navigateTo = (url) => {
@@ -979,7 +984,10 @@ const save = () => {
                                         class="mt-2"
                                     />
                                 </div>
-                                <div class="col-span-4 md:col-span-4">
+                                <div
+                                    class="col-span-4 md:col-span-4"
+                                    v-if="formUpdate.status !== 'approved'"
+                                >
                                     <InputLabel for="note" value="Catatan" />
                                     <TextareaInput
                                         type="text"
