@@ -21,8 +21,13 @@ const navigateTo = (url) => {
                 <div
                     class="bg-white p-4 sm:p-8 shadow-md sm:shadow-lg rounded-lg"
                 >
+                    <div class="flex justify-between items-center">
+                        <h1 class="text-2xl font-semibold">
+                            Validasi Formulir
+                        </h1>
+                    </div>
                     <div
-                        class="relative overflow-x-auto shadow-md sm:rounded-lg"
+                        class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4"
                     >
                         <table
                             class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
@@ -141,6 +146,15 @@ const navigateTo = (url) => {
                                 </tr>
                             </tbody>
                         </table>
+
+                        <div
+                            v-if="forms.data.length === 0"
+                            class="flex items-center justify-center p-4"
+                        >
+                            <p class="text-gray-500 dark:text-gray-400">
+                                Tidak ada yang perlu divalidasi
+                            </p>
+                        </div>
                     </div>
                     <div class="py-1 px-4">
                         <nav class="flex items-center space-x-1">
@@ -150,7 +164,7 @@ const navigateTo = (url) => {
                                 aria-current="page"
                                 v-for="link in forms.links"
                                 :key="link.label"
-                                :disabled="link.active"
+                                :disabled="link.active || link.url === null"
                                 @click.prevent="navigateTo(link.url)"
                             >
                                 <span v-html="link.label" class="truncate">
