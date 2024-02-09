@@ -42,19 +42,15 @@ class VerificationController extends Controller
 
     public function index(string $id): Response|RedirectResponse
     {
-        $form = Form::where('id', $id)->first();
+        $form = Form::with('user')->with('prodi')->with('wave')->find($id);
         if (!$form) {
             return redirect()->route('admin.verification');
         }
-        $user = User::where('id', $form->user_id)->first();
-        $prodi = Prodi::where('id', $form->option_id)->first();
-        $wave = Wave::where('id', $form->wave_id)->first();
-
         return Inertia::render('Admin/Verification/User', [
             'form' => $form,
-            'user' => $user,
-            'prodi' => $prodi,
-            'wave' => $wave,
+            'user' => $form->user,
+            'prodi' => $form->prodi,
+            'wave' => $form->wave,
             'image' => [
                 'ktp' => $form->getFirstMedia('ktp')?->getUrl() ?? null,
                 'foto' => $form->getFirstMedia('foto')?->getUrl() ?? null,
