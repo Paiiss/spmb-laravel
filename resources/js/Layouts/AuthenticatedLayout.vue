@@ -394,16 +394,6 @@ const checkRole = (role = []) => {
                             >
                                 <li>
                                     <ResponsiveSideBar
-                                        :href="route('admin.user')"
-                                        :active="route().current('admin.user')"
-                                        icon="fa-solid fa-users"
-                                    >
-                                        User
-                                    </ResponsiveSideBar>
-                                </li>
-
-                                <li>
-                                    <ResponsiveSideBar
                                         :href="route('admin.prodi')"
                                         :active="route().current('admin.prodi')"
                                         icon="fa-solid fa-university"
@@ -521,6 +511,15 @@ const checkRole = (role = []) => {
                             <ul
                                 class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700"
                             >
+                                <li>
+                                    <ResponsiveSideBar
+                                        :href="route('admin.user')"
+                                        :active="route().current('admin.user')"
+                                        icon="fa-solid fa-users"
+                                    >
+                                        User
+                                    </ResponsiveSideBar>
+                                </li>
                                 <li>
                                     <ResponsiveSideBar
                                         :href="route('admin.web-setting')"
