@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Exams;
-use App\models\Prodi;
+use App\Models\Prodi;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\Request;
@@ -33,9 +33,10 @@ class ExamsController extends Controller
                 'is_active' => $exam->is_active,
             ];
         });
+        $prodi = Prodi::all();
         return Inertia::render('Admin/Exams/Index', [
             'exams' => $exams,
-            'prodis' => Prodi::all(),
+            'prodis' => $prodi,
         ]);
     }
     public function store(ExamsRequest $request): RedirectResponse
