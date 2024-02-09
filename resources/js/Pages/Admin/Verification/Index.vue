@@ -93,7 +93,7 @@ const navigateTo = (url) => {
                                     <td
                                         class="px-6 py-4 capitalize truncate text-center"
                                     >
-                                        {{ form.option }}
+                                        {{ form.option.nama_prodi }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
                                         {{

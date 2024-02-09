@@ -19,16 +19,14 @@ class VerificationController extends Controller
 {
     public function view(): Response
     {
-
-        $form = Form::where('status', 'submitted')->paginate(10)->through(function ($form) {
-            // if ($form->is_submitted) 
+        $form = Form::orderBy('created_at', 'desc')->with('user', 'prodi')->paginate(10)->through(function ($form) {
             return [
                 'id' => $form->id,
-                'user' => User::where('id', $form->user_id)->first(),
+                'user' => $form->user,
                 'no_exam' => $form->no_exam,
                 'code_registration' => $form->code_registration,
                 'wave_id' => $form->wave_id,
-                'option' => Prodi::find($form->option_id)->first()->nama_prodi,
+                'option' => $form->prodi,
                 'is_submitted' => $form->is_submitted,
                 'is_paid_registration' => $form->is_paid_registration,
                 'status' => $form->status,
