@@ -15,7 +15,7 @@ class HealthVerificationController extends Controller
 {
     public function index(Request $request): Response
     {
-        $health = Health::where('status', 'submitted')->with('user')->paginate(10)->through(function ($health) {
+        $health = Health::orderBy('created_at', 'desc')->with('user')->paginate(10)->through(function ($health) {
             return [
                 'id' => $health->id,
                 'user' => $health->user->name,
