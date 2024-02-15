@@ -70,13 +70,10 @@ class VerificationController extends Controller
             'is_submitted' => ['required', 'boolean'],
         ]);
 
-        $form = Form::find($id);
-        $user = User::find($form->user_id);
-        $prodi = Prodi::find($form->option_id);
-        $wave = Wave::find($form->wave_id);
+        $form = Form::with('user')->with('prodi')->with('wave')->find($id);
 
         if ($request->status == 'approved' && !$form->no_exam) {
-            $form->no_exam = $wave->code . '-' . $prodi->id . '-' . $form->id;
+            $form->no_exam = $form->wave->code . '-' . $form->prodi->id . '-' . $form->id;
         }
         $form->status = $request->status;
         $form->note = $request->note;
@@ -85,7 +82,7 @@ class VerificationController extends Controller
         $form->is_submitted = $request->is_submitted;
         $form->save();
 
-        $user->notify(
+        $form->user->notify(
             new Candidate(
                 'Pendaftaran',
                 'Pendaftaran anda telah di ' . StatusHelper::getStatus($request->status) . ' oleh admin'
