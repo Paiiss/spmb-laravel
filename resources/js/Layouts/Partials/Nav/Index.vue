@@ -1,5 +1,6 @@
 <script setup>
 import { Link, usePage } from "@inertiajs/vue3";
+import { watch } from "vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import NotifsHandler from "@/Components/NotifsHandler.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
@@ -8,8 +9,10 @@ import useNotifs from "@/Composables/useNotifs.js";
 const { unreadNotif } = useNotifs();
 
 defineProps({
-    isSideBarOpen: Boolean,
+    modelValue: Boolean,
 });
+
+defineEmits(["update:modelValue"]);
 </script>
 
 <template>
@@ -24,7 +27,7 @@ defineProps({
                         class="shrink-0 flex items-center text-black dark:text-white text-2xl font-bold leading-7"
                     >
                         <button
-                            @click="isSideBarOpen = !isSideBarOpen"
+                            @click="$emit('update:modelValue', !modelValue)"
                             type="button"
                             class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                         >

@@ -32,14 +32,14 @@ const checkRole = (role = []) => {
 <template>
     <div>
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <NavBar :isSideBarOpen="isSideBarOpen" />
+            <NavBar v-model="isSideBarOpen" />
 
             <aside
                 class="fixed top-0 left-0 z-40 w-64 pt-20 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-white dark:bg-gray-800"
                 :class="{ 'translate-x-0': isSideBarOpen }"
             >
                 <div class="h-full px-3 py-4 overflow-y-auto">
-                    <MenuUser v-if="checkRole(['user'])"> </MenuUser>
+                    <MenuUser v-if="checkRole(['user'])" />
                     <MenuPanitia v-if="checkRole(['admin', 'panitia'])" />
                     <MenuVerifikasi v-if="checkRole(['admin', 'panitia'])" />
                     <MenuKeuangan v-if="checkRole(['admin', 'keuangan'])" />
