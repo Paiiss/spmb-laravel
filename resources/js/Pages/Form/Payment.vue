@@ -15,19 +15,6 @@ import Combobox from "@/Components/Combobox.vue";
 defineProps({
     payment: Object,
 });
-if (usePage().props.payment.length == 0) {
-    usePage().props.payment.push({
-        bank: "-",
-        account_name: "-",
-        account_number: "-",
-        amount: "-",
-        created_at: "-",
-        date: "-",
-        type_payment: "-",
-        status: "-",
-        code: "-",
-    });
-}
 
 const dialog = ref(false);
 const dialogType = ref(null); // 0 = add, 1 = edit, 2 = delete
@@ -208,6 +195,16 @@ const close = () => {
                             </tr>
                         </tbody>
                     </table>
+                    <div
+                        v-if="payment.length === 0"
+                        class="flex items-center justify-center p-4"
+                    >
+                        <p
+                            class="text-gray-500 dark:text-gray-400 text-xs md:text-base"
+                        >
+                            Kamu belum mengupload bukti pembayaran
+                        </p>
+                    </div>
                 </div>
                 <Modal :show="dialog" @close="close">
                     <div class="p-6">
