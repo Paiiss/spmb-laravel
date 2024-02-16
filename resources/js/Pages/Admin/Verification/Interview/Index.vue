@@ -159,6 +159,13 @@ const find = async () => {
                                         scope="col"
                                         class="px-6 py-3 text-center"
                                     >
+                                        Tanggal
+                                    </th>
+
+                                    <th
+                                        scope="col"
+                                        class="px-6 py-3 text-center"
+                                    >
                                         Status
                                     </th>
                                     <th
@@ -200,6 +207,16 @@ const find = async () => {
 
                                     <td class="px-6 py-4 text-center">
                                         {{ item.no_exam }}
+                                    </td>
+
+                                    <td class="px-6 py-4 text-center">
+                                        {{
+                                            item.interview_date
+                                                ? new Date(
+                                                      item.interview_date
+                                                  ).toLocaleDateString()
+                                                : "-"
+                                        }}
                                     </td>
 
                                     <td
