@@ -31,6 +31,12 @@ return new class extends Migration {
             $table->string('contact_twitter')->nullable();
             $table->string('contact_youtube')->nullable();
 
+            // Payment
+            $table->string('payment_bank')->nullable();
+            $table->string('payment_account')->nullable();
+            $table->string('payment_name')->nullable();
+
+
             $table->timestamps();
         });
 
@@ -51,6 +57,9 @@ return new class extends Migration {
             'contact_twitter' => '',
             'contact_youtube' => '',
             'link_univ' => 'https://www.hangtuah.ac.id',
+            'payment_bank' => 'Bank BTN',
+            'payment_account' => '00323-01-30-000028-7',
+            'payment_name' => 'Universitas Hang Tuah Pekanbaru',
         ]);
     }
 
