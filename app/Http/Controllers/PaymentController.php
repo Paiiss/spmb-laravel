@@ -48,12 +48,14 @@ class PaymentController extends Controller
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $payment->addMedia($request->file('image'))->toMediaCollection('image');
+            // mengapa gagal mengupload
         }
 
         session()->flash('alert', [
             'type' => 'success',
             'message' => 'Pembayaran berhasil diupload'
         ]);
+
         return Redirect::back();
     }
 

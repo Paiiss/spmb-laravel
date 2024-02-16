@@ -26,7 +26,7 @@ class FormController extends Controller
             return redirect()->route('form.submission');
         }
 
-        $user = $user = auth()->user();
+        $user = auth()->user();
         if (!$user->getForm || !$user->getForm->is_paid_registration) {
             return Redirect::route('form.submission');
         }
@@ -64,7 +64,7 @@ class FormController extends Controller
 
     public function submission(): Response
     {
-        $user = $user = auth()->user();
+        $user = auth()->user();
         $form = $user->getForm;
         return Inertia::render('Submission/Index', [
             'wave' => $form?->wave ?? null,

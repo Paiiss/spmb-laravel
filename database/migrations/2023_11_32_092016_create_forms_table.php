@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->date('birth_date')->nullable();
             $table->string('birth_place_city')->nullable();
             $table->string('birth_place_province')->nullable();
-            $table->string('birth_place_country')->nullable();
+            $table->string('birth_place_country')->default('Indonesia');
             $table->string('national_id')->nullable();
 
             // Disabilitas
@@ -33,7 +33,7 @@ return new class extends Migration {
             $table->string('city')->nullable();
             $table->string('province')->nullable();
             $table->string('subdistrict')->nullable();
-            $table->string('country')->nullable();
+            $table->string('country')->default('Indonesia');
             $table->string('postal_code')->nullable();
             $table->string('rt')->nullable();
             $table->string('rw')->nullable();
@@ -51,7 +51,7 @@ return new class extends Migration {
             $table->string('education_city')->nullable();
             $table->string('education_province')->nullable();
             $table->string('education_subdistrict')->nullable();
-            $table->string('education_country')->nullable();
+            $table->string('education_country')->default('Indonesia');
             $table->integer('education_postal_code')->nullable();
             $table->string('education_graduation_year')->nullable();
             $table->string('education_major')->nullable();
