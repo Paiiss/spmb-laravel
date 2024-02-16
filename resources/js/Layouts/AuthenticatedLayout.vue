@@ -472,6 +472,19 @@ const checkRole = (role = []) => {
                                         Wawancara
                                     </ResponsiveSideBar>
                                 </li>
+                                <li>
+                                    <ResponsiveSideBar
+                                        :href="route('admin.end-validation')"
+                                        :active="
+                                            route().current(
+                                                'admin.end-validation'
+                                            )
+                                        "
+                                        icon="fa-solid fa-check"
+                                    >
+                                        Penentuan
+                                    </ResponsiveSideBar>
+                                </li>
                             </ul>
                         </div>
                     </template>
