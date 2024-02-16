@@ -6,6 +6,7 @@ import { nextTick, ref } from "vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
+import NumberInput from "@/Components/NumberInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import Combobox from "@/Components/Combobox.vue";
@@ -30,6 +31,7 @@ const form = useForm({
     tes_wawancara: false,
     tes_kesehatan: false,
     biaya_registrasi: 0,
+    nilai_dibawah: 0,
 }).transform((x) => ({
     ...x,
     tes_ujian: x.tes_ujian == "true" ? true : false,
@@ -37,6 +39,7 @@ const form = useForm({
     tes_wawancara: x.tes_wawancara == "true" ? true : false,
     tes_kesehatan: x.tes_kesehatan == "true" ? true : false,
     biaya_registrasi: parseInt(x.biaya_registrasi),
+    nilai_dibawah: parseInt(x.nilai_dibawah) || 0,
 }));
 
 const dialogCreateProdi = ref(false);
@@ -81,6 +84,7 @@ const editProdi = (item = null) => {
         form.ujian = findProdi.ujian?.split(",") || [];
         form.tes_wawancara = findProdi.tes_wawancara == 1 ? "true" : "false";
         form.biaya_registrasi = findProdi.biaya_registrasi;
+        form.nilai_dibawah = findProdi.nilai_dibawah || 0;
     }
 };
 
@@ -352,6 +356,24 @@ const closeModal = () => {
                             />
                             <InputError
                                 :message="form.errors.ujian"
+                                class="mt-2"
+                            />
+                        </div>
+
+                        <div v-if="form.tes_ujian == 'true'">
+                            <InputLabel
+                                for="nilai_dibawah"
+                                value="Nilai Dibawah"
+                            />
+                            <NumberInput
+                                id="nilai_dibawah"
+                                ref="nilai_dibawahInput"
+                                v-model="form.nilai_dibawah"
+                                class="mt-1 block w-full"
+                                placeholder="Nilai Dibawah"
+                            />
+                            <InputError
+                                :message="form.errors.nilai_dibawah"
                                 class="mt-2"
                             />
                         </div>
