@@ -17,7 +17,7 @@ class AdminPaymentController extends Controller
 {
     public function index(): Response
     {
-        $payment = Payment::orderBy('created_at', 'desc')->paginate(10)->through(function ($item) {
+        $payment = Payment::with('user', 'media')->orderBy('created_at', 'desc')->paginate(10)->through(function ($item) {
             return [
                 'id' => $item->id,
                 'bank' => $item->bank,
