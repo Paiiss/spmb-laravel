@@ -208,6 +208,14 @@ const close = () => {
                                 </tr>
                             </tbody>
                         </table>
+                        <div
+                            v-if="ujian.length === 0"
+                            class="flex items-center justify-center p-4"
+                        >
+                            <p class="text-gray-500 dark:text-gray-400">
+                                Tidak ada ujian
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

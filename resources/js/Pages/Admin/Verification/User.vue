@@ -1025,10 +1025,11 @@ const save = () => {
                     <img
                         :src="modalItem"
                         :alt="`Bukti pembayaran ${modalType}`"
+                        class="mt-4 w-full h-full rounded-lg object-cover overflow-hidden"
                     />
                     <div class="mt-6">
                         <SecondaryButton @click="close" class="ml-2">
-                            Cancel
+                            Close
                         </SecondaryButton>
                     </div>
                 </div>
