@@ -28,6 +28,7 @@ class FormsSeeder extends Seeder
                 'option_id' => 1,
                 'is_submitted' => true,
                 'is_paid_registration' => $faker->dateTime,
+                'status' => 'submitted',
                 'created_at' => $faker->dateTime,
                 'updated_at' => $faker->dateTime,
             ]);
