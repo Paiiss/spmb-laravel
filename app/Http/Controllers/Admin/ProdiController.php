@@ -34,7 +34,8 @@ class ProdiController extends Controller
             'tes_wawancara' => 'required|boolean',
             'tes_kesehatan' => 'required|boolean',
             'biaya_registrasi' => 'required|integer',
-            'status' => 'boolean'
+            'status' => 'boolean',
+            'nilai_dibawah' => 'nullable|integer|min:0|max:100'
         ]);
 
         Prodi::create([
@@ -47,7 +48,8 @@ class ProdiController extends Controller
             'tes_wawancara' => $request->tes_wawancara,
             'tes_kesehatan' => $request->tes_kesehatan,
             'biaya_registrasi' => $request->biaya_registrasi,
-            'status' => $request->status ?? false
+            'status' => $request->status ?? false,
+            'nilai_dibawah' => $request->nilai_dibawah ?? 0
         ]);
 
         return Redirect::back();
@@ -65,7 +67,8 @@ class ProdiController extends Controller
             'tes_wawancara' => 'required|boolean',
             'tes_kesehatan' => 'required|boolean',
             'biaya_registrasi' => 'required|integer',
-            'status' => 'boolean'
+            'status' => 'boolean',
+            'nilai_dibawah' => 'nullable|integer|min:0|max:100'
         ]);
 
         Prodi::where('id', $id)->update([
@@ -78,7 +81,8 @@ class ProdiController extends Controller
             'tes_wawancara' => $request->tes_wawancara,
             'tes_kesehatan' => $request->tes_kesehatan,
             'biaya_registrasi' => $request->biaya_registrasi,
-            'status' => $request->status ?? false
+            'status' => $request->status ?? false,
+            'nilai_dibawah' => $request->nilai_dibawah ?? 0
         ]);
 
         return Redirect::back();

@@ -21,7 +21,7 @@ class Prodi extends Model
         'tes_wawancara',
         'tes_kesehatan',
         'biaya_registrasi',
-
+        'nilai_dibawah',
     ];
 
     protected $hidden = [
