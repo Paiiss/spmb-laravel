@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ExamQuesionController;
 use App\Http\Controllers\Admin\WebSettingController;
 use App\Http\Controllers\Admin\HealthVerificationController;
 use App\Http\Controllers\Admin\AdminInterviewController;
+use App\Http\Controllers\Admin\AdminEndValidation;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\Exams\HealthController;
@@ -107,9 +108,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-
 Route::middleware(['auth', 'verified'])->prefix('/admin')->name('admin.')->group(function () {
-
     Route::middleware(['role:admin,panitia'])->group(function () {
         Route::get('/program-studi', [ProdiController::class, 'index'])->name('prodi');
         Route::post('/program-studi', [ProdiController::class, 'store'])->name('prodi.store');
@@ -142,6 +141,8 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->name('admin.')->group
         Route::get('/interview', [AdminInterviewController::class, 'index'])->name('interview');
         Route::post('/interview/{id}', [AdminInterviewController::class, 'update'])->name('interview.update');
         Route::get('/interview/search/{search}', [AdminInterviewController::class, 'search'])->name('interview.search');
+
+        Route::get('/end-validation', [AdminEndValidation::class, 'index'])->name('end-validation');
     });
 
     Route::middleware(['role:keuangan,admin'])->group(function () {
