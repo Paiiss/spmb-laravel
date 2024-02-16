@@ -16,7 +16,7 @@ class KnowledgeController extends Controller
     {
         $user = auth()->user();
         $programstudi = $user->getForm->prodi;
-        if (!$programstudi->tes_ujian)
+        if (!$programstudi->tes_ujian || $user->getForm->education_grade > $programstudi->nilai_dibawah)
             return redirect()->route('dashboard');
 
         $ujian = Exams::whereIn('id', explode(',', $programstudi->ujian))->where('is_active', 1)->withCount('questions')->get()->map(function ($item) {

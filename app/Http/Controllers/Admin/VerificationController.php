@@ -42,7 +42,7 @@ class VerificationController extends Controller
 
     public function index(string $id): Response|RedirectResponse
     {
-        $form = Form::with('user')->with('prodi')->with('wave')->find($id);
+        $form = Form::with('user', 'prodi', 'wave', 'media')->find($id);
         if (!$form) {
             return redirect()->route('admin.verification');
         }
@@ -85,7 +85,7 @@ class VerificationController extends Controller
         $form->user->notify(
             new Candidate(
                 'Pendaftaran',
-                'Pendaftaran anda telah di ' . StatusHelper::getStatus($request->status) . ' oleh admin'
+                'Pendaftaran anda telah ' . StatusHelper::getStatus($request->status) . ' oleh admin'
             )
         );
 
