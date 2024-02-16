@@ -66,7 +66,7 @@ class FormController extends Controller
     {
         $user = $user = auth()->user();
         $form = $user->getForm;
-        return Inertia::render('Form/Submission', [
+        return Inertia::render('Submission/Index', [
             'wave' => $form?->wave ?? null,
             'form_status' => $form ? true : false,
             'status' => $form?->status ?? null,
