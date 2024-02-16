@@ -17,21 +17,14 @@ defineProps({
 const scrollY = ref(0);
 
 const handleHeader = () => {
-    // console.log(window.scrollY, window.scrollY > 0);
-    /* const nav = document.querySelector("nav");
-    if (nav) {
-        nav.classList.toggle("sticky", window.scrollY > 0);
-    } */
     scrollY.value = window.scrollY || 0;
 };
 
 onMounted(() => {
-    console.log("HomeLayout.vue mounted");
     window.addEventListener("scroll", handleHeader);
 });
 
 onBeforeUnmount(() => {
-    console.log("HomeLayout.vue unmounted");
     window.removeEventListener("scroll", handleHeader);
 });
 

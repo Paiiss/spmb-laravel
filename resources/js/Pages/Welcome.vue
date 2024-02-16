@@ -37,34 +37,44 @@ const programStudi = [
 <template>
     <Head title="Welcome" />
     <HomeLayout>
-        <section class="p-6 md:p-16 lg:p-12 xl:p-16">
-            <div class="container max-w-7xl px-6 lg:px-8 mx-auto">
+        <section
+            class="min-h-screen p-6 md:p-16 lg:p-12 xl:p-16 flex items-center"
+        >
+            <div class="container px-6 lg:px-8 mx-auto">
                 <div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-3">
                     <div class="w-full text-gray-900">
-                        <header class="text-2xl md:text-3xl font-bold pb-3">
+                        <h1 class="text-2xl md:text-5xl font-bold pb-3">
                             Penerimaan Mahasiwa Baru
-                        </header>
-                        <p class="leading-relaxed">
-                            UHT Pekanbaru mempunyai tata nilai budaya akademik
-                            yang khas yaitu
-                            <span class="font-semibold">BERTUAH</span> mempunyai
-                            makna bahwa setiap lulusan Universitas Hang Tuah
-                            Pekanbaru harus memiliki kualifikasi
-                        </p>
-                        <div class="flex gap-3 pt-4">
-                            <Link
-                                :href="route('register')"
-                                class="inline-flex items-center px-3 py-2 text-white bg-gray-800 rounded-lg capitalize hover:bg-gray-700 focus:outline focus:outline-2 focus:rounded-;g focus:outline-teal-950 font-semibold"
-                                ><i class="fa-solid fa-user-graduate pr-2" />
-                                Daftar sekarang
-                            </Link>
+                        </h1>
+                        <div class="pb-3">
+                            <h2 class="text-xl md:text-3xl font-semibold">
+                                Universitas Hang Tuah Pekanbaru
+                            </h2>
+                            <p class="leading-relaxed">
+                                UHT Pekanbaru mempunyai tata nilai budaya
+                                akademik yang khas yaitu
+                                <span class="font-semibold">BERTUAH</span>
+                                mempunyai makna bahwa setiap lulusan Universitas
+                                Hang Tuah Pekanbaru harus memiliki kualifikasi
+                            </p>
+                            <div class="flex gap-3 pt-4">
+                                <Link
+                                    :href="route('register')"
+                                    class="relative -top-1 -left-1 bg-gray-800 py-2.5 px-5 font-medium uppercase text-white transition-all before:absolute before:top-1 before:left-1 before:-z-[1] before:h-full before:w-full before:border-2 before:border-gray-700 before:transition-all before:content-[''] hover:top-0 hover:left-0 before:hover:top-0 before:hover:left-0"
+                                    ><i
+                                        class="fa-solid fa-user-graduate pr-2"
+                                    />
+                                    Daftar sekarang
+                                </Link>
+                            </div>
                         </div>
                     </div>
                     <div class="w-full hidden lg:block">
                         <img
-                            class="rounded-xl mx-auto"
+                            class="mx-auto"
                             src="/images/pmbcover.png"
-                            alt="Cover Pmb Hang Tuah Pekanbaru"
+                            alt="Cover Pmb Hang Tuah
+                        Pekanbaru"
                         />
                     </div>
                 </div>
@@ -72,16 +82,22 @@ const programStudi = [
         </section>
         <section class="p-6 md:p-16 lg:p-12 xl:p-16">
             <div class="container mx-auto">
-                <header
+                <h2
                     class="text-2xl md:text-3xl text-black text-center font-bold pb-5 mb-10 capitalize"
                 >
-                    pilihan program studi
-                </header>
+                    pilihan
+                    <span class="relative inline-block">
+                        <span
+                            class="absolute inline-block w-full h-2 bg-teal-300 bottom-1.5"
+                        ></span>
+                        <span class="relative"> program studi</span>
+                    </span>
+                </h2>
                 <div class="owl-carousel owl-theme">
                     <div
                         v-for="(program, index) in programStudi"
                         :key="index"
-                        class="item p-5 bg-gray-100 rounded-xl shadow-lg"
+                        class="item p-5 bg-gray-200 rounded-xl shadow-lg"
                     >
                         <header class="font-bold text-center">
                             {{ program[0] }}
