@@ -48,12 +48,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function (Request $request) {
-        $user = User::find(auth()->user()->id);
-        return Inertia::render('Dashboard', [
-            'user' => $user,
-            'isAdmin' => $request->user()->hasRole('admin'),
-            'isAlreadyForm' => !$user->getForm()->get()->isEmpty(),
-        ]);
+        return Inertia::render('Dashboard');
     })->name('dashboard');
 
     Route::patch('/notification/{id}', function ($id) {
@@ -143,6 +138,7 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->name('admin.')->group
         Route::get('/interview/search/{search}', [AdminInterviewController::class, 'search'])->name('interview.search');
 
         Route::get('/end-validation', [AdminEndValidation::class, 'index'])->name('end-validation');
+        Route::patch('/end-validation/{id}', [AdminEndValidation::class, 'update'])->name('end-validation.update');
     });
 
     Route::middleware(['role:keuangan,admin'])->group(function () {

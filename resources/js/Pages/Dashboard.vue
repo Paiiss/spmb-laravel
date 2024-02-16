@@ -2,17 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-defineProps({
-    user: {
-        type: Object,
-    },
-    isAdmin: {
-        type: Boolean,
-    },
-    isAlreadyForm: {
-        type: Boolean,
-    },
-});
+defineProps({});
 
 const goToForm = () => {
     return route("form.edit", { id: "personal" });
@@ -40,9 +30,9 @@ const goToForm = () => {
                         <h1 class="font-bold text-2xl">
                             Selamat Datang di Sistem Pendaftaran Mahasiswa Baru
                             <br />
-                            {{ $page.props.user.name }} 👋
+                            {{ $page.props.auth.user.name }} 👋
                         </h1>
-                        <p v-if="!isAlreadyForm">
+                        <p v-if="!$page.props.auth.form.already">
                             Apakah anda akan mendaftar sebagai mahasiswa baru?
                             silahkan klik tombol dibawah ini.
                         </p>
@@ -54,7 +44,7 @@ const goToForm = () => {
                                         route('form.edit', { id: 'personal' })
                                     "
                                     >{{
-                                        isAlreadyForm
+                                        $page.props.auth.form.already
                                             ? "Lanjut"
                                             : "Bikin formulir"
                                     }}</Link
