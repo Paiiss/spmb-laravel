@@ -31,7 +31,7 @@ class HealthRequest extends FormRequest
             'color_blind' => ['required', 'boolean'],
             'is_disability' => ['required', 'boolean'],
             'note' => ['nullable', 'string', 'max:255'],
-            'image' => ['nullable', 'image', 'extensions:jpg,png'],
+            'image' => ['required', 'image', 'extensions:jpg,png'],
         ];
     }
 
