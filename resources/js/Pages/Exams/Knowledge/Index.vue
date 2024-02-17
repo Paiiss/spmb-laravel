@@ -14,7 +14,10 @@ import Modal from "@/Components/Modal.vue";
 
 defineProps({
     ujian: Array,
-    user: Object,
+    perlu_ujian: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const confirmStartExam = ref(false);
@@ -208,12 +211,19 @@ const close = () => {
                                 </tr>
                             </tbody>
                         </table>
+
                         <div
                             v-if="ujian.length === 0"
                             class="flex items-center justify-center p-4"
                         >
-                            <p class="text-gray-500 dark:text-gray-400">
+                            <p
+                                class="text-gray-500 dark:text-gray-400"
+                                v-if="perlu_ujian"
+                            >
                                 Tidak ada ujian
+                            </p>
+                            <p class="text-gray-500 dark:text-gray-400" v-else>
+                                Tidak ada ujian yang perlu dikerjakan
                             </p>
                         </div>
                     </div>

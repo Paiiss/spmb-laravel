@@ -16,30 +16,35 @@ class KnowledgeController extends Controller
     {
         $user = auth()->user();
         $programstudi = $user->getForm->prodi;
-        if (!$programstudi->tes_ujian || $user->getForm->education_grade > $programstudi->nilai_dibawah)
+        if (!$programstudi->tes_ujian)
             return redirect()->route('dashboard');
 
-        $ujian = Exams::whereIn('id', explode(',', $programstudi->ujian))->where('is_active', 1)->withCount('questions')->get()->map(function ($item) {
-            $history = $item->getHistoryByUser(auth()->user()->id);
-            return [
-                'id' => $item['id'],
-                'name' => $item['name'],
-                'description' => $item['description'],
-                'duration' => $item['duration'],
-                'access_start_time' => $item['access_start_time'],
-                'access_end_time' => $item['access_end_time'],
-                'questions_count' => $item['questions_count'],
-                'can_start' => $item->canStartExams() && !$history?->is_submitted,
-                'is_active' => $history?->is_active,
-                'is_end' => $history?->is_finished || $history?->is_submitted,
-                'score' => $item['show_result'] ? $history?->score : null,
-            ];
-        });
+        $ujian = [];
+        $perlu_ujian = ($user->getForm->education_grade ?? 0) < $programstudi->nilai_dibawah;
+
+        if ($perlu_ujian) {
+            $ujian = Exams::whereIn('id', explode(',', $programstudi->ujian))->where('is_active', 1)->withCount('questions')->get()->map(function ($item) {
+                $history = $item->getHistoryByUser(auth()->user()->id);
+                return [
+                    'id' => $item['id'],
+                    'name' => $item['name'],
+                    'description' => $item['description'],
+                    'duration' => $item['duration'],
+                    'access_start_time' => $item['access_start_time'],
+                    'access_end_time' => $item['access_end_time'],
+                    'questions_count' => $item['questions_count'],
+                    'can_start' => $item->canStartExams() && !$history?->is_submitted,
+                    'is_active' => $history?->is_active,
+                    'is_end' => $history?->is_finished || $history?->is_submitted,
+                    'score' => $item['show_result'] ? $history?->score : null,
+                ];
+            });
+        }
+        ;
+
         return Inertia::render('Exams/Knowledge/Index', [
             'ujian' => $ujian,
-            'user' => [
-                'name' => $user->name,
-            ],
+            'perlu_ujian' => $perlu_ujian
         ]);
     }
     public function start(string $id): RedirectResponse|Response
