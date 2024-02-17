@@ -358,19 +358,20 @@ const onFileChange = (e) => {
                             </div>
                         </form>
                     </template>
-                    <template v-else-if="user.status !== 'approved'">
+                    <template v-else-if="user.status == 'submitted'">
                         <div class="mt-6">
                             <p>
                                 Anda sudah mengirimkan data pemeriksaan
-                                kesehatan. Data akan di verifikasi oleh admin.
+                                kesehatan. mohon tunggu hingga data di
+                                verifikasi
                             </p>
                         </div>
                     </template>
-                    <template v-else>
+                    <template v-else-if="user.status == 'approved'">
                         <div class="mt-6">
                             <p>
-                                Data pemeriksaan kesehatan anda sudah di
-                                verifikasi oleh admin.
+                                Selamat data pemeriksaan kesehatan anda sudah di
+                                verifikasi oleh admin dan diterima
                             </p>
                         </div>
                     </template>
