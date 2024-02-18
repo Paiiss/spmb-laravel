@@ -349,6 +349,18 @@ const onFileChange = (e) => {
                                 />
                             </div>
 
+                            <div
+                                class="mt-6 text-sm text-gray-400 col-span-1 md:col-span-4"
+                            >
+                                <p>
+                                    <span class="font-semibold">Catatan:</span>
+                                    Data yang di inputkan akan di verifikasi
+                                    oleh admin. Jika data yang di inputkan tidak
+                                    sesuai dengan kriteria yang di tentukan maka
+                                    data akan di tolak.
+                                </p>
+                            </div>
+
                             <div class="col-span-1 md:col-span-4">
                                 <div class="flex justify-end">
                                     <PrimaryButton type="submit">
