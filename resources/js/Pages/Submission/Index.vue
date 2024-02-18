@@ -18,34 +18,11 @@ import Submitted from "./Partials/Submitted.vue";
 import ApprovedForm from "./Partials/ApprovedForm.vue";
 
 defineProps({
-    wave: {
+    form: {
         default: null,
-    },
-    form_status: {
-        type: Boolean,
-        default: false,
-    },
-    amount: {
-        type: Number,
-        default: 0,
-    },
-    is_paid_registration: {
-        default: null,
-    },
-    code: {
-        default: null,
+        type: Object,
     },
     percent: Object,
-    is_lock: null,
-    is_submitted: null,
-    status: {
-        default: null,
-        type: String,
-    },
-    note: {
-        default: null,
-        type: String,
-    },
 });
 </script>
 
@@ -54,26 +31,31 @@ defineProps({
 
     <AuthenticatedLayout>
         <div class="flex flex-col gap-3">
-            <template v-if="status == 'approved'">
-                <ApprovedForm :wave="wave" />
+            <template v-if="form.status == 'approved'">
+                <ApprovedForm :wave="form.wave" :foto="form.foto" />
             </template>
-            <template v-else-if="status == 'submitted'">
+            <template v-else-if="form.status == 'submitted'">
                 <Submitted :wave="wave" />
             </template>
             <template
                 v-else-if="
-                    (form_status || status == 'waiting') && is_paid_registration
+                    (form.status || form.status == 'waiting') &&
+                    form.is_paid_registration
                 "
             >
                 <Guide
-                    :wave="wave"
+                    :wave="form.wave"
                     :percent="percent"
-                    :status="status"
-                    :note="note"
+                    :status="form.status"
+                    :note="form.note"
                 />
             </template>
-            <template v-else-if="form_status && !is_paid_registration">
-                <MakePayment :amount="amount" :wave="wave" :code="code" />
+            <template v-else-if="form.status && !form.is_paid_registration">
+                <MakePayment
+                    :amount="form.amount"
+                    :wave="form.wave"
+                    :code="form.code"
+                />
             </template>
             <template v-else>
                 <ChooseStudyProgram />

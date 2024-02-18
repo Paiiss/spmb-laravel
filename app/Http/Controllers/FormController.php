@@ -67,16 +67,17 @@ class FormController extends Controller
         $user = auth()->user();
         $form = $user->getForm;
         return Inertia::render('Submission/Index', [
-            'wave' => $form?->wave ?? null,
-            'form_status' => $form ? true : false,
-            'status' => $form?->status ?? null,
-            'note' => $form?->note ?? null,
-            'amount' => $form?->prodi->biaya_registrasi ?? 0,
-            'is_paid_registration' => $form->is_paid_registration ?? null,
-            'code' => $form->code_registration ?? null,
+            'form' => [
+                'wave' => $form?->wave ?? null,
+                'status' => $form?->status ?? null,
+                'is_paid_registration' => $form->is_paid_registration ?? null,
+                'code' => $form->code_registration ?? null,
+                'is_lock' => $form->is_lock ?? false,
+                'is_submitted' => $form->is_submitted ?? false,
+                'amount' => $form?->prodi->biaya_registrasi ?? 0,
+                'foto' => $form->getFirstMedia('foto')?->getUrl() ?? null
+            ],
             'percent' => $user->getProgress() ?? null,
-            'is_lock' => $form->is_lock ?? false,
-            'is_submitted' => $form->is_submitted ?? false,
         ]);
     }
 
