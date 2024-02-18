@@ -32,6 +32,11 @@ class Form extends Model implements HasMedia
         return $this->belongsTo(Prodi::class, 'option_id', 'id');
     }
 
+    public function health()
+    {
+        return $this->belongsTo(Health::class);
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('ktp')->singleFile();
