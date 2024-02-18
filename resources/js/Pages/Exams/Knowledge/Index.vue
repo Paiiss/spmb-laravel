@@ -211,21 +211,21 @@ const close = () => {
                                 </tr>
                             </tbody>
                         </table>
-
-                        <div
-                            v-if="ujian.length === 0"
-                            class="flex items-center justify-center p-4"
+                    </div>
+                    <div
+                        v-if="ujian.length === 0"
+                        class="flex items-center justify-center p-4"
+                    >
+                        <p
+                            class="text-gray-500 dark:text-gray-400"
+                            v-if="!perlu_ujian"
                         >
-                            <p
-                                class="text-gray-500 dark:text-gray-400"
-                                v-if="perlu_ujian"
-                            >
-                                Tidak ada ujian
-                            </p>
-                            <p class="text-gray-500 dark:text-gray-400" v-else>
-                                Tidak ada ujian yang perlu dikerjakan
-                            </p>
-                        </div>
+                            Anda merupakan siswa berprestasi, tidak perlu
+                            mengerjakan ujian
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400" v-else>
+                            Tidak ada ujian yang perlu dikerjakan
+                        </p>
                     </div>
                 </div>
             </div>
