@@ -32,7 +32,7 @@ defineProps({
     <AuthenticatedLayout>
         <div class="flex flex-col gap-3">
             <template v-if="form.status == 'approved'">
-                <ApprovedForm :wave="form.wave" :foto="form.foto" />
+                <ApprovedForm :form="form" />
             </template>
             <template v-else-if="form.status == 'submitted'">
                 <Submitted :wave="wave" />

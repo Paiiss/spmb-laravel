@@ -68,6 +68,12 @@ class FormController extends Controller
         $form = $user->getForm;
         return Inertia::render('Submission/Index', [
             'form' => [
+                'name' => $user?->name ?? null,
+                'email' => $user?->email ?? null,
+                'prodi' => $form?->prodi?->nama_prodi ?? null,
+                'education_number' => $form?->education_number ?? null,
+                'birth_date' => $form?->birth_date ?? null,
+                'birth_place_city' => $form?->birth_place_city ?? null,
                 'wave' => $form?->wave ?? null,
                 'status' => $form?->status ?? null,
                 'is_paid_registration' => $form->is_paid_registration ?? null,
@@ -75,7 +81,8 @@ class FormController extends Controller
                 'is_lock' => $form->is_lock ?? false,
                 'is_submitted' => $form->is_submitted ?? false,
                 'amount' => $form?->prodi->biaya_registrasi ?? 0,
-                'foto' => $form->getFirstMedia('foto')?->getUrl() ?? null
+                'foto' => $form->getFirstMedia('foto')?->getUrl() ?? null,
+                'no_exam' => $form->no_exam ?? null,
             ],
             'percent' => $user->getProgress() ?? null,
         ]);
