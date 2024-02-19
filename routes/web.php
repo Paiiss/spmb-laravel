@@ -138,6 +138,7 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->name('admin.')->group
         Route::get('/interview/search/{search}', [AdminInterviewController::class, 'search'])->name('interview.search');
 
         Route::get('/end-validation', [AdminEndValidation::class, 'index'])->name('end-validation');
+        Route::get('/end-validation/{id}', [AdminEndValidation::class, 'show'])->name('end-validation.show');
         Route::patch('/end-validation/{id}', [AdminEndValidation::class, 'update'])->name('end-validation.update');
     });
 
