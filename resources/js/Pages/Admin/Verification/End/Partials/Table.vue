@@ -1,13 +1,57 @@
 <script setup>
 import Pagination from "@/Components/Pagination.vue";
 import IconButton from "@/Components/IconButton.vue";
-
+import Modal from "@/Components/Modal.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
+import TextareaInput from "@/Components/TextareaInput.vue";
+import InputLabel from "@/Components/InputLabel.vue";
 import { ref } from "vue";
+import { useForm } from "@inertiajs/vue3";
 
 defineProps({
     forms: Object,
     open: Function,
 });
+
+const modal = ref(false);
+const type = ref(null);
+
+const form = useForm({
+    id: "",
+    status: "",
+    reason: "",
+}).transform((fields) => {
+    return {
+        ...fields,
+        reason: fields.reason || null,
+    };
+});
+
+const openModal = (f, t) => {
+    modal.value = true;
+    type.value = t;
+    form.status = t;
+    form.id = f.id;
+};
+
+const closeModal = () => {
+    modal.value = false;
+    type.value = null;
+    form.reset();
+};
+
+const save = () => {
+    console.log("save");
+    form.patch(route("admin.end-validation.update", form.id), {
+        onSuccess: () => {
+            closeModal();
+        },
+        onFinish: () => {
+            closeModal();
+        },
+    });
+};
 </script>
 
 <template>
@@ -71,11 +115,27 @@ defineProps({
 
                     <td class="px-6 py-4">
                         <div class="flex justify-center">
-                            <IconButton
-                                icon="fas fa-eye"
-                                color="yellow"
-                                @click="open(form)"
-                            />
+                            <div>
+                                <IconButton
+                                    icon="fas fa-check"
+                                    color="green"
+                                    @click="openModal(form, 'approved')"
+                                />
+                            </div>
+                            <div>
+                                <IconButton
+                                    icon="fas fa-eye"
+                                    color="yellow"
+                                    @click="open(form)"
+                                />
+                            </div>
+                            <div>
+                                <IconButton
+                                    icon="fas fa-times"
+                                    color="red"
+                                    @click="openModal(form, 'rejected')"
+                                />
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -90,5 +150,39 @@ defineProps({
                 Tidak ada yang mengajukan pendaftaran
             </p>
         </div>
+        <Modal :show="modal" @close="closeModal">
+            <div class="p-4">
+                <h2 class="text-xl font-semibold text-gray-700 dark:text-white">
+                    Konfirmasi
+                </h2>
+                <p class="text-gray-500 dark:text-gray-400">
+                    Apakah anda yakin ingin
+                    {{ type === "approved" ? "menerima" : "menolak" }}
+                    pendaftaran ini?, data yang sudah diinput tidak dapat
+                    dikembalikan
+                </p>
+                <div
+                    v-if="form.status == 'rejected'"
+                    class="mt-4 w-full dark:text-white"
+                >
+                    <InputLabel> Alasan Penolakan </InputLabel>
+                    <TextareaInput
+                        v-model="form.reason"
+                        label="Alasan Penolakan"
+                    />
+                </div>
+                <div class="mt-4 flex gap-2 justify-end">
+                    <SecondaryButton @click="closeModal">
+                        Tidak
+                    </SecondaryButton>
+                    <PrimaryButton
+                        @click="save"
+                        :disabled="form.status == 'rejected' && !form.reason"
+                    >
+                        Ya
+                    </PrimaryButton>
+                </div>
+            </div>
+        </Modal>
     </div>
 </template>

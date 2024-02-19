@@ -10,6 +10,7 @@ use App\Models\Form;
 use App\Models\Health;
 use App\Models\ExamHistory;
 use App\Http\Resources\ApiResource;
+use Illuminate\Http\RedirectResponse;
 
 class AdminEndValidation extends Controller
 {
@@ -63,10 +64,11 @@ class AdminEndValidation extends Controller
         return new ApiResource(200, 'OK', $data);
     }
 
-    public function update(Request $request, string $id): Response
+    public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate([
             'status' => ['required', 'in:approved,rejected'],
+            'reason' => ['required_if:status,rejected', 'nullable']
         ]);
 
         $form = Form::find($id);
@@ -74,6 +76,7 @@ class AdminEndValidation extends Controller
             return redirect()->back();
         }
         $form->end_status = $request->status;
+        $form->reason_rejected = $request->reason;
         $form->save();
 
         return redirect()->back();
