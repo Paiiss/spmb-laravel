@@ -6,14 +6,15 @@ defineProps({
     },
     value: {
         type: String,
-        required: true,
+        required: false,
     },
 });
 </script>
 
 <template>
     <label class="text-gray-500">{{ label }}</label>
-    <p class="font-semibold">
-        {{ value }}
+    <p v-if="value" class="font-semibold">
+        <span v-if="value">{{ value }}</span>
+        <span v-else><slot /></span>
     </p>
 </template>
