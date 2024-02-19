@@ -15,10 +15,10 @@ class AdminEndValidation extends Controller
 {
     public function index(): Response
     {
-        $data = Form::where('end_status', 'pending')->orderBy('created_at', 'desc')->with('user', 'prodi', 'wave')->paginate(10)->through(function ($form) {
+        $data = Form::where('end_status', 'submitted')->orderBy('created_at', 'desc')->with('user', 'prodi', 'wave')->paginate(10)->through(function ($form) {
             return [
                 'id' => $form->id,
-                'user' => $form->user->name,
+                'name' => $form->user->name,
                 'email' => $form->user->email,
                 'phone' => $form->user->phone,
                 'status' => $form->status,
@@ -37,13 +37,12 @@ class AdminEndValidation extends Controller
         );
     }
 
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
-        $form = Form::find($id)->with('user', 'prodi', 'wave')->first();
+        $form = Form::where('id', $id)->with('user', 'prodi', 'wave')->first();
         $health = Health::where('user_id', $form->user->id)->first();
-        $exam = ExamHistory::where('user_id', $form->user->id)->get()->toArray();
+        $exam = ExamHistory::where('user_id', $form->user->id)->with('exam')->get()->toArray();
         $interview = $form->user->getInterviews;
-        // dd($exam);
         $data = [
             'health' => $health,
             'exam' => $exam,
@@ -54,10 +53,11 @@ class AdminEndValidation extends Controller
                 'name' => $form->user->name,
                 'email' => $form->user->email,
                 'phone' => $form->user->phone,
-                'status' => $form->status,
-                'no_exam' => $form->no_exam,
-                'end_status' => $form->end_status,
-                'wave' => $form->wave->code,
+                'status' => $form?->status ?? null,
+                'no_exam' => $form?->no_exam ?? null,
+                'end_status' => $form?->end_status ?? null,
+                'wave' => $form->wave?->code ?? null,
+                'grade' => $form->education_grade ?? 0,
             ],
         ];
         return new ApiResource(200, 'OK', $data);
