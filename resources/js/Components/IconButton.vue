@@ -4,10 +4,6 @@ defineProps({
         type: String,
         default: "fas fa-plus",
     },
-    action: {
-        type: Function,
-        default: () => {},
-    },
     color: {
         type: String,
         default: "blue",
@@ -17,10 +13,9 @@ defineProps({
 
 <template>
     <button
-        @click="action"
         class="flex items-center justify-center w-8 h-8 rounded-full"
         :class="`text-${color}-500 dark:bg-${color}-500/10 dark:text-${color}-400`"
     >
-        <i :class="icon"></i>
+        <i :class="`${icon}`"></i>
     </button>
 </template>
