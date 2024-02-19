@@ -2,6 +2,8 @@
 import Card from "@/Components/Card.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Container from "@/Components/Container.vue";
+
+import { Link } from "@inertiajs/vue3";
 defineProps({
     form: {
         default: null,
@@ -69,6 +71,83 @@ defineProps({
                         <PrimaryButton> Cetak Kartu Ujian </PrimaryButton>
                     </div>
                 </div>
+            </div>
+        </Card>
+        <Card
+            title="Tahap Selanjutnya"
+            description="Silahkan melanjutkan ke tahap selanjutnya."
+        >
+            <ol class="relative border-s border-gray-200 dark:border-gray-700">
+                <li v-if="$page.props.auth.exams.knowledge" class="mb-10 ms-4">
+                    <div
+                        class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
+                    />
+                    <h3
+                        class="text-lg font-semibold text-gray-900 dark:text-white"
+                    >
+                        Tes Pengetahuan
+                    </h3>
+                    <p
+                        class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400"
+                    >
+                        Tes pengetahuan akan dilaksanakan secara online dengan
+                        waktu yang telah ditentukan. Silahkan melanjutkan ke
+                        menu
+                        <Link
+                            :href="route('exams.knowledge')"
+                            class="text-blue-600 hover:underline"
+                            >Tes Pengetahuan</Link
+                        >.
+                    </p>
+                </li>
+                <li v-if="$page.props.auth.exams.health" class="mb-10 ms-4">
+                    <div
+                        class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
+                    />
+
+                    <h3
+                        class="text-lg font-semibold text-gray-900 dark:text-white"
+                    >
+                        Tes Kesehatan
+                    </h3>
+                    <p
+                        class="text-base font-normal text-gray-500 dark:text-gray-400"
+                    >
+                        Tes kesehatan akan dilaksanakan secara online, isi semua
+                        form yang ada di menu
+                        <Link
+                            class="text-blue-600 hover:underline"
+                            :href="route('exams.health')"
+                        >
+                            Tes Kesehatan
+                        </Link>
+                    </p>
+                </li>
+                <li v-if="$page.props.auth.exams.interview" class="ms-4">
+                    <div
+                        class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
+                    />
+                    <h3
+                        class="text-lg font-semibold text-gray-900 dark:text-white"
+                    >
+                        Wawancara
+                    </h3>
+                    <p
+                        class="text-base font-normal text-gray-500 dark:text-gray-800"
+                    >
+                        Wawancara akan dilaksanakan secara online, silahkan
+                        melanjutkan ke menu
+                        <Link
+                            class="text-blue-600 hover:underline"
+                            :href="route('exams.interview')"
+                            >wawancara</Link
+                        >.
+                    </p>
+                </li>
+            </ol>
+
+            <div class="flex justify-end mt-4">
+                <PrimaryButton> ajukan pengumpulan </PrimaryButton>
             </div>
         </Card>
     </Container>

@@ -62,39 +62,6 @@ const goToForm = () => {
                 >
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <h1 class="font-bold text-2xl">Panduan pengisian</h1>
-                        <!-- <ul
-                            class="list-decimal list-inside text-gray-500 dark:text-gray-400"
-                        >
-                            <li>
-                                Isi data dengan benar dan sesuai dengan
-                                identitas diri anda di
-                                <Link
-                                    class="font-bold text-blue-500 hover:text-blue-400"
-                                    :href="
-                                        route('form.edit', { id: 'personal' })
-                                    "
-                                    >sini</Link
-                                >.
-                            </li>
-                            <li>
-                                Ajukan pendaftaran untuk gelombang sekarang di
-                                menu
-                                <Link
-                                    class="font-bold text-blue-500 hover:text-blue-400"
-                                    :href="route('form.submission')"
-                                    >Pendaftaran</Link
-                                >.
-                            </li>
-                            <li>
-                                Jika data diri anda sudah lengkap dan benar
-                                silahkan lakukan pembayaran pendaftaran di menu
-                                <Link
-                                    class="font-bold text-blue-500 hover:text-blue-400"
-                                    :href="route('form.payment')"
-                                    >Pembayaran</Link
-                                >, dan upload bukti pembayaran.
-                            </li>
-                        </ul> -->
                         <ol
                             class="relative border-s border-gray-200 dark:border-gray-700"
                         >
