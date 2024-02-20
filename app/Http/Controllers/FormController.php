@@ -11,6 +11,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\User;
 use App\Models\Prodi;
 use App\Models\Wave;
+use App\Models\Health;
+use App\Models\ExamHistory;
 use App\Http\Requests\FormUpdateRequest;
 use Illuminate\Support\Facades\Redirect;
 
@@ -76,6 +78,7 @@ class FormController extends Controller
                 'birth_place_city' => $form?->birth_place_city ?? null,
                 'wave' => $form?->wave ?? null,
                 'status' => $form?->status ?? null,
+                'end_status' => $form?->end_status ?? null,
                 'is_paid_registration' => $form->is_paid_registration ?? null,
                 'code' => $form->code_registration ?? null,
                 'is_lock' => $form->is_lock ?? false,
@@ -181,5 +184,61 @@ class FormController extends Controller
         ]);
 
         return Redirect::back();
+    }
+
+    public function submitFinalValidation(): RedirectResponse
+    {
+        try {
+            $user = auth()->user();
+            $form = $user->getForm->load('prodi', 'wave');
+
+            if (!$form)
+                throw new \Exception('Anda belum memiliki form');
+            if ($form->end_status != 'pending')
+                throw new \Exception('Anda tidak dapat lagi mengajukan');
+
+            $prodi = $form->prodi;
+
+            if ($prodi->tes_ujian && ($prodi->nilai_dibawah ?? 0) > $form->education_grade) {
+                $result_knowledge = ExamHistory::where('user_id', $user->id)->with('exam')->get()->toArray();
+                if (count($result_knowledge) < count(explode(',', $prodi->tes_ujian)))
+                    throw new \Exception('Ada ujian yang belum diikuti');
+            }
+
+            if ($prodi->tes_kesehatan) {
+                $result_health = Health::where('user_id', $user->id)->first();
+                if (!$result_health)
+                    throw new \Exception('Anda belum mengisi data kesehatan');
+                if ($result_health->status != 'approved')
+                    throw new \Exception('Data kesehatan anda tidak disetujui');
+            }
+
+            if ($prodi->tes_wawancara) {
+                $result_interview = $user->getInterviews;
+
+                if (!$result_interview)
+                    throw new \Exception('Anda belum mengikuti wawancara');
+                if ($result_interview->status != 'approved')
+                    throw new \Exception('Anda tidak lulus wawancara');
+            }
+
+
+            $user->getForm()->update([
+                'end_status' => 'submitted'
+            ]);
+
+            session()->flash('alert', [
+                'type' => 'success',
+                'message' => 'Berhasil mengajukan, tunggu verifikasi panitia'
+            ]);
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            session()->flash('alert', [
+                'type' => 'danger',
+                'message' => $th->getMessage() ?? 'Terjadi kesalahan saat memulai ujian',
+            ]);
+
+            return redirect()->back();
+        }
     }
 }
