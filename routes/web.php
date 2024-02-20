@@ -67,6 +67,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/submission', [FormController::class, 'submission'])->name('form.submission');
     Route::post('/submission', [FormController::class, 'submissionStore'])->name('form.submission.store');
+    Route::post('/submission-final', [FormController::class, 'submitFinalValidation'])->name('form.submission.final');
 
     Route::get('/payment', [PaymentController::class, 'index'])->name('form.payment');
     Route::post('/payment', [PaymentController::class, 'store'])->name('form.payment.store');
