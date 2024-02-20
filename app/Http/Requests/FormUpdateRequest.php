@@ -30,7 +30,7 @@ class FormUpdateRequest extends FormRequest
             'birth_place_province' => ['string', 'max:255', 'nullable'],
             'birth_place_country' => ['string', 'max:255', 'nullable'],
             'national_id' => ['string', 'nullable'],
-            'is_color_blind' => ['boolean'], 'nullable',
+            'is_color_blind' => ['boolean', 'nullable',],
             'is_disability' => ['boolean', 'nullable'],
             'disability_note' => ['string', 'max:255', 'nullable'],
             'address' => ['string', 'max:255', 'nullable'],
@@ -76,7 +76,6 @@ class FormUpdateRequest extends FormRequest
             'guardian_email' => ['string', 'max:255', 'nullable'],
             'guardian_phone' => ['string', 'max:255', 'nullable'],
             'guardian_relation' => ['string', 'max:255', 'nullable'],
-            'affiliate_id' => ['integer', 'nullable'],
 
             // 'wave_id' => ['integer', 'required'],
             // 'option' => ['integer', 'required'],
