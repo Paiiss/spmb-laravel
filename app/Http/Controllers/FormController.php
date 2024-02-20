@@ -86,6 +86,7 @@ class FormController extends Controller
                 'amount' => $form?->prodi->biaya_registrasi ?? 0,
                 'foto' => $form->getFirstMedia('foto')?->getUrl() ?? null,
                 'no_exam' => $form->no_exam ?? null,
+                'reason_rejected' => $form->reason_rejected ?? null,
             ],
             'percent' => $user->getProgress() ?? null,
         ]);
