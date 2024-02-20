@@ -16,6 +16,7 @@ import MakePayment from "./Partials/MakePayment.vue";
 import Guide from "./Partials/Guide.vue";
 import Submitted from "./Partials/Submitted.vue";
 import ApprovedForm from "./Partials/ApprovedForm.vue";
+import Determination from "./Partials/Determination.vue";
 
 defineProps({
     form: {
@@ -31,7 +32,10 @@ defineProps({
 
     <AuthenticatedLayout>
         <div class="flex flex-col gap-3">
-            <template v-if="form.status == 'approved'">
+            <template v-if="form.end_status !== 'pending'">
+                <Determination :form="form" />
+            </template>
+            <template v-else-if="form.status == 'approved'">
                 <ApprovedForm :form="form" />
             </template>
             <template v-else-if="form.status == 'submitted'">
