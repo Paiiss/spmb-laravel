@@ -3,7 +3,7 @@ import Card from "@/Components/Card.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Container from "@/Components/Container.vue";
 
-import { Link } from "@inertiajs/vue3";
+import { Link, useForm } from "@inertiajs/vue3";
 defineProps({
     form: {
         default: null,
@@ -123,7 +123,7 @@ defineProps({
                         </Link>
                     </p>
                 </li>
-                <li v-if="$page.props.auth.exams.interview" class="ms-4">
+                <li v-if="$page.props.auth.exams.interview" class="mb-10 ms-4">
                     <div
                         class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
                     />
@@ -144,10 +144,30 @@ defineProps({
                         >.
                     </p>
                 </li>
+                <li class="mb-10 ms-4">
+                    <div
+                        class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
+                    />
+                    <h3
+                        class="text-lg font-semibold text-gray-900 dark:text-white"
+                    >
+                        Akhir
+                    </h3>
+                    <p
+                        class="text-base font-normal text-gray-500 dark:text-gray-800"
+                    >
+                        Jika sudah mengikuti semua tes, silahkan mengajukan
+                        pengumpulan formulir di tombol dibawah.
+                    </p>
+                </li>
             </ol>
 
             <div class="flex justify-end mt-4">
-                <PrimaryButton> ajukan pengumpulan </PrimaryButton>
+                <PrimaryButton
+                    @click="useForm({}).post(route('form.submission.final'))"
+                >
+                    ajukan pengumpulan
+                </PrimaryButton>
             </div>
         </Card>
     </Container>
