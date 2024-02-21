@@ -1,8 +1,11 @@
 <script setup>
 import { ref } from "vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 import { Link, useForm } from "@inertiajs/vue3";
 import Modal from "@/Components/Modal.vue";
+import Container from "@/Components/Container.vue";
+import Card from "@/Components/Card.vue";
 
 defineProps({
     wave: {
@@ -42,19 +45,11 @@ const verification = () => {
 </script>
 
 <template>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-            <h2
-                class="font-bold text-gray-900 dark:text-white capitalize text-left text-2xl"
-            >
-                Pendaftaran
-            </h2>
-            <p>
-                Anda sudah mendapatkan akses form pendaftaran tahun ajaran
-                <span class="font-semibold">{{ wave.tahun_akademik }}</span
-                >, silahkan melakukan pendaftaran dengan mengisi form
-                pendaftaran.
-            </p>
+    <Container>
+        <Card
+            title="Pendaftaran"
+            description="Anda sudah mendapatkan akses form pendaftaran tahun ajaran, silahkan melakukan pendaftaran dengan mengisi form pendaftaran."
+        >
             <div class="pt-8 flex flex-col gap-5">
                 <div
                     class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
@@ -183,81 +178,79 @@ const verification = () => {
                     </ol>
                 </div>
             </div>
-        </div>
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+        </Card>
+
+        <Card
+            title="Progres Pendaftaran"
+            description="Jika anda sudah mengisi semua data yang dibutuhkan untuk pendaftaran, silahkan mengajukan verifikasi dengan mengklik tombol dibawah ini."
+        >
             <div
-                class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                v-if="status == 'rejected' && note"
+                class="bg-yellow-50 dark:bg-yellow-800 border-l-4 border-yellow-400 p-4 rounded-lg my-4"
             >
-                <h3
-                    class="font-semibold text-gray-900 dark:text-white capitalize text-left text-xl"
+                <h4
+                    class="flex items-center text-lg font-semibold text-yellow-600 dark:text-yellow-400"
                 >
-                    Progres Pendaftaran
-                </h3>
+                    <i
+                        class="fa-solid fa-exclamation-triangle text-yellow-400"
+                    ></i>
+                    <span class="ml-2">Perhatian</span>
+                </h4>
 
-                <p>
-                    Jika anda sudah mengisi semua data yang dibutuhkan untuk
-                    pendaftaran, silahkan mengajukan verifikasi dengan mengklik
-                    tombol dibawah ini.
+                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                    {{ note }}
                 </p>
+            </div>
 
-                <div
-                    v-if="status == 'rejected' && note"
-                    class="bg-yellow-50 dark:bg-yellow-800 border-l-4 border-yellow-400 p-4 rounded-lg my-4"
-                >
-                    <h4
-                        class="flex items-center text-lg font-semibold text-yellow-600 dark:text-yellow-400"
-                    >
-                        <i
-                            class="fa-solid fa-exclamation-triangle text-yellow-400"
-                        ></i>
-                        <span class="ml-2">Perhatian</span>
-                    </h4>
-
-                    <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                        {{ note }}
-                    </p>
-                </div>
-
-                <div class="pt-8 flex flex-col gap-3">
-                    <div v-for="(value, key) in percent" :key="key">
-                        <div class="mb-2 flex justify-between items-center">
-                            <h3
-                                class="text-sm font-semibold text-gray-800 dark:text-white capitalize"
-                            >
-                                {{ progressName[key] }}
-                            </h3>
-                            <span class="text-sm text-gray-800 dark:text-white"
-                                >{{ value.toFixed(0) }}%</span
-                            >
-                        </div>
-                        <div
-                            class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700"
-                            role="progressbar"
+            <div class="pt-8 flex flex-col gap-3">
+                <div v-for="(value, key) in percent" :key="key">
+                    <div class="mb-2 flex justify-between items-center">
+                        <h3
+                            class="text-sm font-semibold text-gray-800 dark:text-white capitalize"
                         >
-                            <div
-                                class="flex flex-col justify-center rounded-full overflow-hidden bg-teal-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-teal-500"
-                                :style="`width: ${value}%`"
-                            ></div>
-                        </div>
+                            {{ progressName[key] }}
+                        </h3>
+                        <span class="text-sm text-gray-800 dark:text-white"
+                            >{{ value.toFixed(0) }}%</span
+                        >
+                    </div>
+                    <div
+                        class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700"
+                        role="progressbar"
+                    >
+                        <div
+                            class="flex flex-col justify-center rounded-full overflow-hidden bg-teal-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-teal-500"
+                            :style="`width: ${value}%`"
+                        ></div>
                     </div>
                 </div>
-
-                <div class="flex justify-end gap-4 mt-8">
-                    <PrimaryButton @click="modal = true"
-                        >Ajukan Verifikasi</PrimaryButton
-                    >
-                </div>
             </div>
-        </div>
+
+            <div class="flex justify-end gap-4 mt-8">
+                <PrimaryButton @click="modal = true"
+                    >Ajukan Verifikasi</PrimaryButton
+                >
+            </div>
+        </Card>
+
         <Modal :show="modal" @close="modal = false">
             <div class="p-6">
                 <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">
                     Ajukan Verifikasi
                 </h3>
                 <p class="text-gray-600 dark:text-gray-400">
-                    Sebelum mengajukan verifikasi, pastikan data yang anda isi
-                    sudah benar dan sesuai dengan data diri anda.
+                    Sebelum mengajukan verifikasi, pastikan bahwa data yang Anda
+                    isi sudah benar dan sesuai dengan data diri Anda. Jika sudah
+                    yakin, silakan klik tombol di bawah ini.
                 </p>
+
+                <p
+                    class="mt-4 text-red-500 dark:text-red-400 text-sm font-semibold"
+                >
+                    Harap dicatat bahwa setelah Anda mengumpulkan, Anda tidak
+                    akan dapat mengganti data yang sudah diserahkan.
+                </p>
+
                 <div class="flex justify-end gap-4">
                     <SecondaryButton @click="modal = false" class="ml-2">
                         tutup
@@ -268,5 +261,5 @@ const verification = () => {
                 </div>
             </div>
         </Modal>
-    </div>
+    </Container>
 </template>

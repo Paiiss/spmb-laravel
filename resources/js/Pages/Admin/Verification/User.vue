@@ -25,7 +25,6 @@ const formUpdate = useForm({
     status: form_data.status || "",
     note: form_data.note || "",
     is_via_online: form_data.is_via_online == 1 ? true : false,
-    is_lock: form_data.is_lock == 1 ? true : false,
     is_submitted: form_data.is_submitted == 1 ? true : false,
 }).transform((data) => {
     if (data.status === "approved") {
@@ -877,14 +876,6 @@ const save = () => {
                                         placeholder="Pilih status"
                                         :option-value="[
                                             {
-                                                value: 'submitted',
-                                                text: 'Submitted',
-                                            },
-                                            {
-                                                value: 'pending',
-                                                text: 'Pending',
-                                            },
-                                            {
                                                 value: 'approved',
                                                 text: 'Approved',
                                             },
@@ -925,33 +916,6 @@ const save = () => {
                                         :message="
                                             formUpdate.errors.is_via_online
                                         "
-                                        class="mt-2"
-                                    />
-                                </div>
-                                <div class="col-span-2 md:col-span-1">
-                                    <InputLabel
-                                        for="is_lock"
-                                        value="Di kunci"
-                                    />
-                                    <Combobox
-                                        id="is_lock"
-                                        ref="is_lock"
-                                        v-model="formUpdate.is_lock"
-                                        class="mt-1 block w-full"
-                                        placeholder="Pilih status"
-                                        :option-value="[
-                                            {
-                                                value: true,
-                                                text: 'Ya',
-                                            },
-                                            {
-                                                value: false,
-                                                text: 'Tidak',
-                                            },
-                                        ]"
-                                    />
-                                    <InputError
-                                        :message="formUpdate.errors.is_lock"
                                         class="mt-2"
                                     />
                                 </div>

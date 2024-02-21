@@ -22,7 +22,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Profile" />
+    <Head title="Personal Data" />
 
     <AuthenticatedLayout>
         <template #header>

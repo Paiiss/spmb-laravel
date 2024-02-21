@@ -140,9 +140,9 @@ const save = () => {
             <Modal :show="dialog" @close="close()">
                 <div class="p-6">
                     <h2
-                        class="text-lg font-semibold text-gray-900 dark:text-gray-100"
+                        class="text-lg font-semibold text-gray-900 dark:text-gray-100 capitalize"
                     >
-                        Edit {{ dialogItem }}
+                        Edit {{ dialogItem.replace("_", " ") }}
                     </h2>
                     <div class="mt-6 grid grid-cols-1 gap-4">
                         <div>

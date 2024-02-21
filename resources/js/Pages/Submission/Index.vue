@@ -32,38 +32,38 @@ defineProps({
 
     <AuthenticatedLayout>
         <div class="flex flex-col gap-3">
-            <template v-if="form.end_status !== 'pending'">
-                <Determination :form="form" />
-            </template>
-            <template v-else-if="form.status == 'approved'">
-                <ApprovedForm :form="form" />
-            </template>
-            <template v-else-if="form.status == 'submitted'">
-                <Submitted :wave="wave" />
-            </template>
-            <template
+            <ChooseStudyProgram v-if="!form.prodi && !form.wave" />
+            <MakePayment
+                v-else-if="form.status && !form.is_paid_registration"
+                :amount="form.amount"
+                :wave="form.wave"
+                :code="form.code"
+            />
+            <Guide
                 v-else-if="
-                    (form.status || form.status == 'waiting') &&
+                    form.status &&
+                    (form.status == 'waiting' || form.status == 'rejected') &&
                     form.is_paid_registration
                 "
-            >
-                <Guide
-                    :wave="form.wave"
-                    :percent="percent"
-                    :status="form.status"
-                    :note="form.note"
-                />
-            </template>
-            <template v-else-if="form.status && !form.is_paid_registration">
-                <MakePayment
-                    :amount="form.amount"
-                    :wave="form.wave"
-                    :code="form.code"
-                />
-            </template>
-            <template v-else>
-                <ChooseStudyProgram />
-            </template>
+                :wave="form.wave"
+                :percent="percent"
+                :status="form.status"
+                :note="form.note"
+            />
+            <Submitted
+                v-else-if="form.status == 'submitted'"
+                :wave="form.wave"
+            />
+            <ApprovedForm
+                v-else-if="
+                    form.status == 'approved' && form.end_status == 'pending'
+                "
+                :form="form"
+            />
+            <Determination
+                v-else-if="form.end_status !== 'pending'"
+                :form="form"
+            />
         </div>
     </AuthenticatedLayout>
 </template>

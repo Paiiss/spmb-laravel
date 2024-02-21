@@ -15,7 +15,7 @@ defineProps({
     <div>
         <Container>
             <Card>
-                <div class="p-8 relative">
+                <div class="p-0 md:p-8 relative">
                     <div class="bg-white p-14 rounded-lg shadow-md">
                         <h2 class="text-2xl font-bold text-center">
                             Panitia Penerimaan Mahasiswa Baru

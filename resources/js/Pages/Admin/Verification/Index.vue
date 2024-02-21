@@ -36,7 +36,7 @@ const navigateTo = (url) => {
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                             >
                                 <tr>
-                                    <th scope="col" class="px-3 py-3">id</th>
+                                    <th scope="col" class="px-3 py-3">No</th>
                                     <th scope="col" class="px-6 py-3">Name</th>
                                     <th
                                         scope="col"
@@ -48,9 +48,6 @@ const navigateTo = (url) => {
                                         scope="col"
                                         class="px-6 py-3 text-center"
                                     >
-                                        Membayar
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
                                         Mengajukan
                                     </th>
                                     <th scope="col" class="px-6 py-3">
@@ -67,11 +64,16 @@ const navigateTo = (url) => {
                             <tbody>
                                 <tr
                                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                                    v-for="form in forms.data"
+                                    v-for="(form, index) in forms.data"
                                     :key="form.id"
                                 >
                                     <td class="w-4 p-4">
-                                        {{ form.id }}
+                                        {{
+                                            index +
+                                            1 +
+                                            (forms.current_page - 1) *
+                                                forms.per_page
+                                        }}
                                     </td>
                                     <th
                                         scope="row"
@@ -94,13 +96,6 @@ const navigateTo = (url) => {
                                         class="px-6 py-4 capitalize truncate text-center"
                                     >
                                         {{ form.option.nama_prodi }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{
-                                            form.is_paid_registration
-                                                ? "Sudah"
-                                                : "Belum"
-                                        }}
                                     </td>
                                     <td class="px-6 py-4">
                                         <div
