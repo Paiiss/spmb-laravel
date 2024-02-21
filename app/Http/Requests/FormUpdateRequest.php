@@ -53,7 +53,7 @@ class FormUpdateRequest extends FormRequest
             'education_postal_code' => ['string', 'nullable'],
             'education_graduation_year' => ['string', 'max:255', 'nullable'],
             'education_major' => ['string', 'max:255', 'nullable'],
-            'education_grade' => ['string', 'max:255', 'nullable'],
+            'education_grade' => ['numeric', 'min:1', 'max:100', 'nullable'],
             'father_name' => ['string', 'max:255', 'nullable'],
             'father_birth_date' => ['date', 'nullable'],
             'father_place' => ['string', 'max:255', 'nullable'],
@@ -93,7 +93,10 @@ class FormUpdateRequest extends FormRequest
 
     public function messages(): array
     {
-        return [];
+        return [
+            'min' => 'Nilai :attribute minimal :min',
+            'max' => 'Nilai :attribute maksimal :max',
+        ];
     }
 
     /**
