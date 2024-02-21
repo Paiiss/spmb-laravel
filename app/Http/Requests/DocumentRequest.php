@@ -22,10 +22,10 @@ class DocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ktp' => ['extensions:jpg,png', 'image', 'nullable'],
-            'foto' => ['nullable', 'image', 'extensions:jpg,png'],
-            'ijazah' => ['nullable', 'image', 'extensions:jpg,png'],
-            'transkrip_nilai' => ['nullable', 'image', 'extensions:jpg,png'],
+            'ktp' => ['extensions:jpeg,png,gif,bmp,tiff,webp|max:8192', 'image', 'nullable'],
+            'foto' => ['nullable', 'image', 'extensions:jpeg,png,gif,bmp,tiff,webp|max:8192'],
+            'ijazah' => ['nullable', 'image', 'extensions:jpeg,png,gif,bmp,tiff,webp|max:8192'],
+            'transkrip_nilai' => ['nullable', 'image', 'extensions:jpeg,png,gif,bmp,tiff,webp|max:8192'],
 
         ];
     }
@@ -39,8 +39,8 @@ class DocumentRequest extends FormRequest
         return [
             'ktp.extensions' => 'KTP harus berupa file jpg atau png',
             'foto.extensions' => 'Foto harus berupa file jpg atau png',
-            'ijazah.extensions' => 'Ijazah harus berupa file pdf',
-            'transkrip_nilai.extensions' => 'Transkrip nilai harus berupa file pdf',
+            'ijazah.extensions' => 'Ijazah harus berupa file jpg atau png',
+            'transkrip_nilai.extensions' => 'Transkrip nilai harus berupa file jpg atau png',
         ];
     }
 }
