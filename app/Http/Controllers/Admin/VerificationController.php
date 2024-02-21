@@ -19,7 +19,7 @@ class VerificationController extends Controller
 {
     public function view(): Response
     {
-        $form = Form::orderBy('created_at', 'desc')->with('user', 'prodi')->paginate(10)->through(function ($form) {
+        $form = Form::where('status', 'submitted')->orderBy('created_at', 'desc')->with('user', 'prodi')->paginate(10)->through(function ($form) {
             return [
                 'id' => $form->id,
                 'user' => $form->user,
@@ -63,10 +63,9 @@ class VerificationController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate([
-            'status' => ['required', 'string', 'in:waiting,submitted,pending,approved,rejected'],
+            'status' => ['required', 'string', 'in:approved,rejected'],
             'note' => ['nullable', 'string'],
             'is_via_online' => ['required', 'boolean'],
-            'is_lock' => ['required', 'boolean'],
             'is_submitted' => ['required', 'boolean'],
         ]);
 
@@ -78,7 +77,8 @@ class VerificationController extends Controller
         $form->status = $request->status;
         $form->note = $request->note;
         $form->is_via_online = $request->is_via_online;
-        $form->is_lock = $request->is_lock;
+        if ($request->status !== 'approved')
+            $form->is_lock = false;
         $form->is_submitted = $request->is_submitted;
         $form->save();
 
