@@ -11,6 +11,8 @@ use App\Models\Health;
 use App\Models\ExamHistory;
 use App\Http\Resources\ApiResource;
 use Illuminate\Http\RedirectResponse;
+use App\Notifications\Candidate;
+
 
 class AdminEndValidation extends Controller
 {
@@ -78,6 +80,14 @@ class AdminEndValidation extends Controller
         $form->end_status = $request->status;
         $form->reason_rejected = $request->reason;
         $form->save();
+
+        $form->user->notify(
+            new Candidate(
+                'Pendaftaran',
+                'Hasil akhir anda telah keluar, silahkan cek status pendaftaran anda.'
+            )
+        );
+
 
         return redirect()->back();
     }
