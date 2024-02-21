@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\RedirectResponse;
@@ -84,8 +83,9 @@ class FormController extends Controller
                 'is_lock' => $form->is_lock ?? false,
                 'is_submitted' => $form->is_submitted ?? false,
                 'amount' => $form?->prodi->biaya_registrasi ?? 0,
-                'foto' => $form->getFirstMedia('foto')?->getUrl() ?? null,
+                'foto' => $form?->getFirstMedia('foto')?->getUrl() ?? null,
                 'no_exam' => $form->no_exam ?? null,
+                'note' => $form->note ?? null,
                 'reason_rejected' => $form->reason_rejected ?? null,
             ],
             'percent' => $user->getProgress() ?? null,
@@ -176,7 +176,8 @@ class FormController extends Controller
         }
 
         $user->getForm()->update([
-            'status' => 'submitted'
+            'status' => 'submitted',
+            'is_lock' => true
         ]);
 
         session()->flash('alert', [
@@ -194,7 +195,7 @@ class FormController extends Controller
             $form = $user->getForm->load('prodi', 'wave');
 
             if (!$form)
-                throw new \Exception('Anda belum memiliki form');
+                throw new \Exception('Anda tidak memiliki form');
             if ($form->end_status != 'pending')
                 throw new \Exception('Anda tidak dapat lagi mengajukan');
 
@@ -209,7 +210,7 @@ class FormController extends Controller
             if ($prodi->tes_kesehatan) {
                 $result_health = Health::where('user_id', $user->id)->first();
                 if (!$result_health)
-                    throw new \Exception('Anda belum mengisi data kesehatan');
+                    throw new \Exception('Anda belum melaksanakan tes kesehatan');
                 if ($result_health->status != 'approved')
                     throw new \Exception('Data kesehatan anda tidak disetujui');
             }
