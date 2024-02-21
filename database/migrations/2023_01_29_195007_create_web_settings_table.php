@@ -13,6 +13,9 @@ return new class extends Migration {
         Schema::create('web_settings', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->string('site_name')->nullable();
+            $table->string('short_name')->nullable();
+            $table->string('institution_name')->nullable();
             $table->string('title_home')->nullable();
             $table->string('title_dashboard')->nullable();
             $table->string('title_exam')->nullable();
@@ -42,6 +45,9 @@ return new class extends Migration {
 
         DB::table('web_settings')->insert([
             'name' => 'Spmb Hangtuah',
+            'site_name' => 'PMB Hang Tuah',
+            'short_name' => 'PMB HTP',
+            'institution_name' => 'Universitas Hang Tuah Pekanbaru',
             'title_home' => 'PMB 2024/2025',
             'title_dashboard' => 'PMB',
             'title_exam' => 'CBT',
