@@ -35,9 +35,11 @@ const showingNavigationDropdown = ref(false);
     <div>
         <div class="flex flex-col min-h-screen">
             <nav
-                class="fixed w-full z-20 h-20 top-0 start-0 bg-gray-100"
+                class="fixed w-full z-20 top-0 start-0 bg-gray-100 transition-all duration-500"
                 :class="{
-                    'bg-opacity-90 border-b shadow-md': scrollY > 270,
+                    'bg-opacity-90 border-b shadow-md -top-0 h-20':
+                        scrollY >= 270,
+                    'h-24': scrollY <= 270,
                 }"
             >
                 <div
