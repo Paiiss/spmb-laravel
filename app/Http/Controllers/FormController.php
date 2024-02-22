@@ -14,6 +14,8 @@ use App\Models\Health;
 use App\Models\ExamHistory;
 use App\Http\Requests\FormUpdateRequest;
 use Illuminate\Support\Facades\Redirect;
+use App\Helper\MyPdf;
+use App\Models\WebSettings;
 
 class FormController extends Controller
 {
@@ -241,6 +243,98 @@ class FormController extends Controller
             ]);
 
             return redirect()->back();
+        }
+    }
+
+    public function pdf()
+    {
+        try {
+            $user = auth()->user();
+            $form = $user->getForm;
+            $wave = $form->wave;
+            $core = WebSettings::first();
+            // dd($form->toArray());
+            if ($form->end_status != 'approved')
+                throw new \Exception('Form anda belum disetujui');
+
+            $pdf = new MyPdf('P', 'mm', 'A4');
+
+            $pdf->skipFooter = true;
+            $pdf->SetTitle('Pengumuman Hasil');
+            $pdf->AddPage();
+            $pdf->SetMargins(20, 10, 20);
+
+            $pdf->SetFont('Times', 'BU', '14');
+            $pdf->Cell(0, 20, strtoupper('Pengumuman Kelulusan'), 0, 1, 'C');
+            $pdf->ln(5);
+
+            $x = $pdf->GetX() + 10;
+            $beetwen = 7;
+
+            $pdf->SetFont('Times', '', '10');
+
+            $pdf->SetX($x);
+            $pdf->Cell(40, 10, 'Nama', 0, 0, 'L');
+            $pdf->Cell(60, 10, ': ' . strtoupper($user->name), 0, 0, 'L');
+            $pdf->ln($beetwen);
+
+            $pdf->SetX($x);
+            $pdf->Cell(40, 10, 'Program Studi', 0, 0, 'L');
+            $pdf->Cell(60, 10, ': ' . strtoupper($form->prodi->jenjang . ' - ' . $form->prodi->nama_prodi), 0, 0, 'L');
+            $pdf->ln($beetwen);
+
+            $pdf->SetX($x);
+            $pdf->Cell(40, 10, 'Gelombang', 0, 0, 'L');
+            $pdf->Cell(60, 10, ': ' . strtoupper($wave->code . ' - ' . $wave->tahun_akademik), 0, 0, 'L');
+            $pdf->ln($beetwen);
+
+            $pdf->SetX($x);
+            $pdf->Cell(40, 10, 'Nomor Pendaftaran', 0, 0, 'L');
+            $pdf->Cell(60, 10, ': ' . $form->no_exam, 0, 0, 'L');
+
+            $pdf->ln(25);
+
+            $pdf->SetFont('Times', '', '10');
+            $pdf->Cell(0, 10, 'Dengan ini diberitahukan bahwa peserta seleksi penerimaan mahasiswa baru telah dinyatakan ', 0, 1, 'C');
+
+
+            $pdf->ln(5);
+            $pdf->SetX(25);
+            $pdf->SetFillColor(255);
+            $pdf->SetFont('Arial', 'B', '20');
+            $pdf->SetTextColor(0, 128, 0);
+            $pdf->Cell(0, 20, 'LULUS', 1, 0, 'C', true);
+
+
+            $pdf->ln(30);
+
+            $beetwen_note = 5;
+            $pdf->SetFont('Times', '', '10');
+            $pdf->SetTextColor(0);
+            $pdf->Cell(0, 10, 'Peserta yang dinyatakan lulus seleksi penerimaan mahasiswa baru diharapkan untuk segera melakukan ', 0, 0, 'L');
+            $pdf->ln($beetwen_note);
+            $pdf->Cell(0, 10, '1. Pembayaran registrasi mahasiswa baru yang dinyatakan lulus', 0, 0, 'L');
+            $pdf->ln($beetwen_note);
+            $pdf->Cell(0, 10, '2. Lakukan pembayaran mahasiwa baru ke ' . $core->payment_bank . ' - ' . $core->payment_name, 0, 0, 'L');
+            $pdf->ln($beetwen_note);
+            $pdf->Cell(0, 10, '3. Bagi mahasiswa baru yang telah melakukan pembayaran agar menyerahkan bukti pembayaran ke bagian keuangan ', 0, 0, 'L');
+            $pdf->ln($beetwen_note);
+            $pdf->SetX(23);
+            $pdf->Cell(0, 10, $core->institution_name, 0, 0, 'L');
+            $pdf->ln($beetwen_note);
+            $pdf->Cell(0, 10, '4. Bagi mahasiswa baru yang tidak melakukan registrasi pada tanggal yang telah ditentukan dianggap mengundurkan diri ', 0, 0, 'L');
+
+
+            $pdf->Output('hasil.pdf', "I");
+
+            exit;
+        } catch (\Throwable $th) {
+            session()->flash('alert', [
+                'type' => 'danger',
+                'message' => $th->getMessage() ?? 'Terjadi kesalahan saat membuat pdf',
+            ]);
+
+            return redirect()->route('form.submission');
         }
     }
 }
