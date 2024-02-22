@@ -31,7 +31,7 @@ const form = useForm({
             </h2>
 
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                Update your account's profile information and email address.
+                Update informasi profile, Nomor HP, dan Email.
             </p>
         </header>
 
@@ -40,7 +40,7 @@ const form = useForm({
             class="mt-6 space-y-6"
         >
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="name" value="Nama" />
 
                 <TextInput
                     id="name"
@@ -71,7 +71,7 @@ const form = useForm({
             </div>
 
             <div>
-                <InputLabel for="phone" value="Phone" />
+                <InputLabel for="phone" value="No. HP" />
 
                 <TextInput
                     id="phone"
