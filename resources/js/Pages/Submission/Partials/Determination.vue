@@ -1,8 +1,10 @@
 <script setup>
 import { ref } from "vue";
+import { useForm } from "@inertiajs/vue3";
 import Container from "@/Components/Container.vue";
 import Card from "@/Components/Card.vue";
 import Display from "@/Components/Display.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 defineProps({
     form: {
@@ -10,6 +12,24 @@ defineProps({
         type: Object,
     },
 });
+
+const print = async () => {
+    try {
+        const response = await fetch(route("form.pdf-print"), {
+            method: "GET",
+        });
+
+        const pdfBlob = await response.blob();
+        const url = window.URL.createObjectURL(pdfBlob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "hasil-seleksi.pdf");
+        document.body.appendChild(link);
+        link.click();
+    } catch (error) {
+        console.log(error);
+    }
+};
 </script>
 <template>
     <div>
@@ -91,6 +111,17 @@ defineProps({
                                         </p>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div
+                                class="flex justify-start items-center gap-4 mt-8"
+                            >
+                                <PrimaryButton
+                                    v-if="form.end_status == 'approved'"
+                                    @click="print"
+                                >
+                                    Cetak Bukti Kelulusan
+                                </PrimaryButton>
                             </div>
                         </div>
                     </div>

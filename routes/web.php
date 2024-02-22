@@ -74,9 +74,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/payment/{id}', [PaymentController::class, 'userDestroy'])->name('form.payment.destroy');
 
     Route::middleware(['payform'])->prefix('/form')->name('form.')->group(function () {
+        Route::get('/print', [FormController::class, 'pdf'])->name('pdf-print');
         Route::get('/{id}', [FormController::class, 'edit'])->name('edit');
         Route::patch('/', [FormController::class, 'update'])->name('update');
         Route::post('/validation', [FormController::class, 'validation'])->name('validation');
+
     });
 
     Route::middleware(['payform'])->prefix('/documents')->name('documents.')->group(function () {
