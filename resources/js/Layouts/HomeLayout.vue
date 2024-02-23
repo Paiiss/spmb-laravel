@@ -158,69 +158,20 @@ const showingNavigationDropdown = ref(false);
                 <slot />
             </main>
 
-            <footer class="pt-16 col-end-1 bg-background-light text-white">
-                <div class="container mx-auto">
-                    <div
-                        class="grid grid-cols-1 md:grid-cols-3 p-4 gap-6 text-sm"
-                    >
-                        <div>
-                            <h3
-                                class="text-white font-bold text-lg border-b-2 border-white pb-2 mb-2"
-                            >
-                                Universitas Hang Tuah Pekanbaru
-                            </h3>
-                            <ul class="list-disc list-inside text-white">
-                                <li>Perguruan Tinggi di Pekanbaru</li>
-                                <li>Tenaga Pengajar yang Mumpuni</li>
-                                <li>Fasilitas Lengkap</li>
-                                <li>
-                                    Lokasi Kampus Strategis di Tengah Perkotaan
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="text-white font-bold text-lg pb-2">
-                                Akademik
-                            </h3>
-                            <ul
-                                class="list-disc list-inside text-white capitalize"
-                            >
-                                <li>
-                                    <Link
-                                        class="hover:text-gray-300"
-                                        href="https://siakadm.htp.ac.id/"
-                                        >Sistem informasi Administrasi
-                                        Akademik</Link
-                                    >
-                                </li>
-                                <li>
-                                    <Link
-                                        class="hover:text-gray-300"
-                                        href="https://spmb.htp.ac.id/"
-                                        >Sistem Pendaftaran Mahasiswa Baru</Link
-                                    >
-                                </li>
-                                <li>
-                                    <Link
-                                        class="hover:text-gray-300"
-                                        href="https://tracer.htp.ac.id/"
-                                        >Tracer Study</Link
-                                    >
-                                </li>
-                                <li>
-                                    <Link
-                                        class="hover:text-gray-300"
-                                        href="https://survei.htp.ac.id/"
-                                        >Survey</Link
-                                    >
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="text-white font-bold text-lg pb-2">
-                                Kontak
-                            </h3>
-                            <ul class="list-none">
+            <footer class="py-10 px-6 md:px-16 lg:px-12 xl:px-16 bg-gray-100">
+                <div class="mx-auto max-w-full">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+                        <div
+                            class="flex flex-col gap-3 col-span-1 md:col-span-2"
+                        >
+                            <div class="flex gap-2 items-center">
+                                <ApplicationLogo class="block h-9 w-auto" />
+
+                                <h3 class="font-bold text-lg">
+                                    {{ $page.props.web_settings.title_home }}
+                                </h3>
+                            </div>
+                            <ul class="list-none list-outside">
                                 <li>
                                     <i
                                         class="fa-solid fa-location-dot pr-2"
@@ -243,14 +194,99 @@ const showingNavigationDropdown = ref(false);
                                 </li>
                             </ul>
                         </div>
+                        <div>
+                            <h3 class="font-bold text-lg pb-2">
+                                Situs Akademik
+                            </h3>
+                            <ul class="list-disc list-inside capitalize">
+                                <li>
+                                    <Link
+                                        class="hover:text-blue-500"
+                                        href="https://siakadm.htp.ac.id/"
+                                        >Sistem informasi Administrasi
+                                        Akademik</Link
+                                    >
+                                </li>
+                                <li>
+                                    <Link
+                                        class="hover:text-blue-500"
+                                        href="https://spmb.htp.ac.id/"
+                                        >Sistem Pendaftaran Mahasiswa Baru</Link
+                                    >
+                                </li>
+                                <li>
+                                    <Link
+                                        class="hover:text-blue-500"
+                                        href="https://tracer.htp.ac.id/"
+                                        >Tracer Study</Link
+                                    >
+                                </li>
+                                <li>
+                                    <Link
+                                        class="hover:text-blue-500"
+                                        href="https://survei.htp.ac.id/"
+                                        >Survey</Link
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg pb-2">Lokasi</h3>
+                            <div class="w-full h-full">
+                                <iframe
+                                    allowfullscreen
+                                    :src="
+                                        $page.props.web_settings
+                                            .contact_maps_link
+                                    "
+                                ></iframe>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div
-                    class="text-xs md:text-sm font-bold tracking-wide max-w-7xl mx-auto text-center py-6"
-                >
-                    <p>
-                        {{ $page.props.web_settings.footer }}
-                    </p>
+                    <hr class="border-t-2 border-gray-300 my-4 mt-10" />
+                    <div
+                        class="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-center md:text-left"
+                    >
+                        <p class="text-sm tracking-wide">
+                            <span v-html="$page.props.web_settings.footer" />
+                        </p>
+                        <div class="flex gap-3">
+                            <Link
+                                v-if="$page.props.web_settings.contact_facebook"
+                                :href="
+                                    $page.props.web_settings.contact_facebook
+                                "
+                                class="text-gray-500 hover:text-blue-500"
+                            >
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </Link>
+                            <Link
+                                v-if="
+                                    $page.props.web_settings.contact_instagram
+                                "
+                                :href="
+                                    $page.props.web_settings.contact_instagram
+                                "
+                                class="text-gray-500 hover:text-red-500"
+                            >
+                                <i class="fa-brands fa-instagram"></i>
+                            </Link>
+                            <Link
+                                v-if="$page.props.web_settings.contact_youtube"
+                                :href="$page.props.web_settings.contact_youtube"
+                                class="text-gray-500 hover:text-red-500"
+                            >
+                                <i class="fa-brands fa-youtube"></i>
+                            </Link>
+                            <Link
+                                v-if="$page.props.web_settings.contact_twitter"
+                                :href="$page.props.web_settings.contact_twitter"
+                                class="text-gray-500 hover:text-gray-500"
+                            >
+                                <i class="fa-brands fa-twitter"></i>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </footer>
         </div>
