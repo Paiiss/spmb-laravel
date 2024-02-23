@@ -1,6 +1,9 @@
 <script setup>
 import { Head, Link } from "@inertiajs/vue3";
 import HomeLayout from "@/Layouts/HomeLayout.vue";
+import { Carousel, Navigation, Pagination, Slide } from "vue3-carousel";
+
+import "vue3-carousel/dist/carousel.css";
 
 defineProps({
     canLogin: {
@@ -8,14 +11,6 @@ defineProps({
     },
     canRegister: {
         type: Boolean,
-    },
-    laravelVersion: {
-        type: String,
-        required: true,
-    },
-    phpVersion: {
-        type: String,
-        required: true,
     },
 });
 
@@ -33,9 +28,43 @@ const programStudi = [
     ["S1 Ilmu Hukum", "Baik"],
     ["S1 Ilmu Komunikasi", "Baik"],
 ];
+
+const cooperate = [
+    ["https://unp.ac.id/", "https://htp.ac.id/asset/kerjasama/UNP.png"],
+    ["https://umsu.ac.id/", "https://htp.ac.id/asset/kerjasama/UMSU.png"],
+    ["https://uisi.ac.id/", "https://htp.ac.id/asset/kerjasama/UISI.png"],
+    [
+        "https://lincoln.edu.my/",
+        "https://htp.ac.id/asset/kerjasama/LINCOLN.png",
+    ],
+    [
+        "https://dinkes.riau.go.id/",
+        "https://htp.ac.id/asset/kerjasama/Bakti-Husada.png",
+    ],
+    ["https://upiyptk.ac.id/", "https://htp.ac.id/asset/kerjasama/upi.png"],
+];
+
+const setting_carousel = {
+    autoplay: 3000,
+    settings: {
+        itemsToShow: 1,
+        snapAlign: "center",
+        loop: true,
+    },
+    breakpoints: {
+        700: {
+            itemsToShow: 3.5,
+            snapAlign: "center",
+        },
+        1024: {
+            itemsToShow: 5,
+            snapAlign: "start",
+        },
+    },
+};
 </script>
 <template>
-    <Head title="Welcome" />
+    <Head title="PMB" />
     <HomeLayout>
         <section
             class="min-h-screen p-6 md:p-16 lg:p-12 xl:p-16 flex items-center"
@@ -48,14 +77,13 @@ const programStudi = [
                         </h1>
                         <div class="pb-3">
                             <h2 class="text-xl md:text-3xl font-semibold">
-                                Universitas Hang Tuah Pekanbaru
+                                {{ $page.props.web_settings.institution_name }}
                             </h2>
                             <p class="leading-relaxed">
-                                UHT Pekanbaru mempunyai tata nilai budaya
-                                akademik yang khas yaitu
-                                <span class="font-semibold">BERTUAH</span>
-                                mempunyai makna bahwa setiap lulusan Universitas
-                                Hang Tuah Pekanbaru harus memiliki kualifikasi
+                                {{
+                                    $page.props.web_settings
+                                        .institution_synopsis
+                                }}
                             </p>
                             <div class="flex gap-3 pt-4">
                                 <Link
@@ -80,7 +108,7 @@ const programStudi = [
                 </div>
             </div>
         </section>
-        <section class="p-6 md:p-16 lg:p-12 xl:p-16">
+        <!--  <section class="p-6 md:p-16 lg:p-12 xl:p-16">
             <div class="container mx-auto">
                 <h2
                     class="text-2xl md:text-3xl text-black text-center font-bold pb-5 mb-10 capitalize"
@@ -108,7 +136,7 @@ const programStudi = [
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <section class="p-6 md:p-16 lg:p-12 xl:p-16">
             <div class="container mx-auto p-6">
@@ -130,43 +158,86 @@ const programStudi = [
             </div>
         </section>
         <section class="p-6 md:p-16 lg:p-12 xl:p-16">
-            <div
-                class="container mx-auto bg-background-light rounded-lg p-6 text-white"
-            >
-                <div
-                    class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-3 gap-4 items-center"
+            <div class="container mx-auto p-6">
+                <h2
+                    class="text-2xl text-center pb-5 mb-10 text-black font-bold capitalize"
                 >
-                    <div class="col-span-2">
-                        <header
+                    Bekerja sama dengan
+                </h2>
+                <Carousel
+                    :itemsToShow="3.95"
+                    :wrapAround="true"
+                    :transition="500"
+                    :autoplay="setting_carousel.autoplay"
+                    v-bind="setting_carousel.settings"
+                    :breakpoints="setting_carousel.breakpoints"
+                >
+                    <Slide v-for="(x, index) in cooperate" :key="index">
+                        <div class="flex p-5">
+                            <a
+                                :href="x[0]"
+                                target="_blank"
+                                class="flex items-center justify-center"
+                            >
+                                <img
+                                    :src="x[1]"
+                                    alt="Cooperate"
+                                    class="w-20 h-20"
+                                />
+                            </a>
+                        </div>
+                    </Slide>
+
+                    <template #addons>
+                        <Navigation />
+                        <Pagination />
+                    </template>
+                </Carousel>
+            </div>
+        </section>
+
+        <section class="p-6 md:p-16 lg:p-12 xl:p-16">
+            <div
+                class="container mx-auto bg-background-primary rounded-lg p-6 text-white"
+            >
+                <div class="flex flex-col md:flex-row justify-between">
+                    <div>
+                        <h5
                             class="text-2xl font-bold text-left pb-3 leading-relaxed"
                         >
                             Punya pertanyaan seputar PMB
                             <span class="animate-pulse">?</span>
-                        </header>
+                        </h5>
                         <p class="text-left font-normal">
                             Jika anda memiliki sebuah pertanyaan atau kendala
                             silahkan hubungi kami atau dapat membaca panduan
                             pendaftaran
                         </p>
                     </div>
-                    <div
-                        class="col-span-2 md:col-span-1 space-x-3 flex justify-center"
-                    >
-                        <Link
-                            class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600 text-xs sm:text-base"
-                            href="https://wa.me/6281360000000"
+                    <div class="flex mt-5 md:mt-0">
+                        <div
+                            class="flex flex-row gap-3 items-center sm:flex-row sm:gap-5 sm:justify-end sm:items-center"
                         >
-                            <i class="fa-brands fa-whatsapp pr-2"></i>
-                            Whatsapp</Link
-                        >
+                            <Link
+                                class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600 text-xs sm:text-base"
+                                href="https://wa.me/6281360000000"
+                            >
+                                <span class="flex items-center justify-center">
+                                    <i class="fa-brands fa-whatsapp pr-2"></i>
+                                    Whatsapp
+                                </span>
+                            </Link>
 
-                        <Link
-                            href=""
-                            class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600 text-xs sm:text-base"
-                        >
-                            <i class="fa-solid fa-book-bookmark pr-2" />
-                            Panduan</Link
-                        >
+                            <Link
+                                href=""
+                                class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600 text-xs sm:text-base"
+                            >
+                                <span class="flex items-center justify-center">
+                                    <i class="fa-solid fa-book-bookmark pr-2" />
+                                    Panduan
+                                </span>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
