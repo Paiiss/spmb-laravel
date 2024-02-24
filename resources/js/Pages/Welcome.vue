@@ -138,9 +138,15 @@ const setting_carousel = {
             </div>
         </section>
         <section class="p-6 md:p-16 lg:p-12 xl:p-16 bg-[#C3FCF2]">
-            <div class="container mx-auto">
+            <div
+                class="container mx-auto"
+                data-aos="fade-up"
+                data-aos-duration="2000"
+            >
                 <h2
-                    class="text-2xl md:text-3xl text-black text-center font-bold pb-5 mb-10 capitalize"
+                    class="text-2xl md:text-3xl text-gray-600 text-center font-bold pb-5 mb-10 capitalize"
+                    data-aos="fade-up"
+                    data-aos-duration="2500"
                 >
                     <span class="relative inline-block">
                         <span
@@ -167,9 +173,12 @@ const setting_carousel = {
                 </div>
             </div>
         </section>
-
         <section class="p-6 md:p-16 lg:p-12 xl:p-16">
-            <div class="container mx-auto p-6">
+            <div
+                class="container mx-auto p-6"
+                data-aos="fade-up"
+                data-aos-duration="2000"
+            >
                 <h2
                     class="text-2xl md:text-3xl text-black text-center font-bold pb-5 mb-10 capitalize"
                 >
@@ -212,8 +221,85 @@ const setting_carousel = {
                 </div>
             </div>
         </section>
-        <section class="p-6 md:p-16 lg:p-12 xl:p-16">
-            <div class="container mx-auto p-6">
+        <section
+            class="p-6 md:p-16 lg:p-12 xl:p-16 bg-[#C3FCF2] flex justify-center"
+            data-aos="fade-up"
+            data-aos-duration="2000"
+        >
+            <div class="container mx-auto">
+                <h2
+                    class="text-2xl md:text-3xl text-gray-600 text-center font-bold pb-5 mb-10 capitalize"
+                >
+                    Panduan Singkat Pendaftaran
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+                    <div
+                        class="flex flex-col items-center bg-white rounded-lg p-5 shadow-md"
+                    >
+                        <h3 class="text-xl font-bold pb-3 text-center">
+                            Langkah 1
+                        </h3>
+                        <p
+                            class="text-sm md:text-base font-normal text-pretty text-center"
+                        >
+                            Login atau daftar akun terlebih dahulu untuk memulai
+                            pendaftaran PMB
+                        </p>
+                    </div>
+                    <div
+                        class="flex flex-col items-center bg-white rounded-lg p-5 shadow-md"
+                    >
+                        <h3 class="text-xl font-bold pb-3 text-center">
+                            Langkah 2
+                        </h3>
+                        <p
+                            class="text-sm md:text-base font-normal text-pretty text-center"
+                        >
+                            Pilih program studi yang diinginkan dan lengkapi dan
+                            lakukan pembayaran, kemudian isi formulir
+                            pendaftaran
+                        </p>
+                    </div>
+                    <div
+                        class="flex flex-col items-center bg-white rounded-lg p-5 shadow-md"
+                    >
+                        <h3 class="text-xl font-bold pb-3 text-center">
+                            Langkah 3
+                        </h3>
+                        <p
+                            class="text-sm md:text-base font-normal text-pretty text-center"
+                        >
+                            Cek status pendaftaran dan lakukan verifikasi
+                            dokumen
+                        </p>
+                    </div>
+
+                    <div
+                        class="flex flex-col items-center bg-white rounded-lg p-5 shadow-md"
+                    >
+                        <h3 class="text-xl font-bold pb-3 text-center">
+                            Langkah 4
+                        </h3>
+                        <p
+                            class="text-sm md:text-base font-normal text-pretty text-center"
+                        >
+                            Lihat hasil seleksi dan lakukan pembayaran
+                            pendaftaran
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section
+            class="p-6 md:p-16 lg:p-12 xl:p-16"
+            data-aos="fade-up"
+            data-aos-duration="2000"
+        >
+            <div
+                class="container mx-auto p-6"
+                data-aos="fade-up"
+                data-aos-duration="2000"
+            >
                 <h2
                     class="text-2xl md:text-3xl text-black text-center font-bold pb-5 mb-10 capitalize"
                 >
@@ -254,6 +340,8 @@ const setting_carousel = {
         <section class="p-6 md:p-16 lg:p-12 xl:p-16">
             <div
                 class="container mx-auto bg-background-primary rounded-lg p-6 text-white"
+                data-aos="fade-up"
+                data-aos-duration="2000"
             >
                 <div class="flex flex-col md:flex-row justify-between">
                     <div>
