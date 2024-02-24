@@ -14,19 +14,48 @@ defineProps({
     },
 });
 
-const programStudi = [
-    ["S1 Teknik Informatika", "Baik Sekali"],
-    ["S1 Sistem Informasi", "Baik Sekali"],
-    ["S2 Ilmu Kesehatan Masyarakat", "Unggul"],
-    ["S1 Kesehatan Masyarakat", "Baik Sekali"],
-    ["S1 Ilmu Keperawatan", "Baik"],
-    ["S1 Kebidanan", "Baik"],
-    ["Profesi Ners", "Baik"],
-    ["Pendidikan Profesi Bidan", "Baik"],
-    ["D3 RMIK", "Baik"],
-    ["D3 Kebidanan", "Baik"],
-    ["S1 Ilmu Hukum", "Baik"],
-    ["S1 Ilmu Komunikasi", "Baik"],
+const primacy = [
+    {
+        title: "Kampus Nyaman",
+        description: "Kampus yang nyaman dan asri",
+    },
+    {
+        title: "Fasilitas Lengkap",
+        description: "Fasilitas yang lengkap dan modern",
+    },
+    {
+        title: "Kampus Merdeka",
+        description: "Mendukung kemandirian mahasiswa",
+    },
+    {
+        title: "Tenaga Pengajar",
+        description: "Tenaga pengajar yang mumpuni",
+    },
+    {
+        title: "Lokasi Strategis",
+        description: "Lokasi kampus yang strategis berada di pusat kota",
+    },
+    {
+        title: "Kurikulum Terkini",
+        description:
+            "Kurikulum yang terkini dan relevan dengan kebutuhan industri",
+    },
+    {
+        title: "Kerjasama Industri",
+        description: "Kerjasama dengan industri yang luas",
+    },
+    {
+        title: "Beasiswa",
+        description: "Beasiswa yang dapat diakses oleh mahasiswa",
+    },
+    {
+        title: "Kegiatan Mahasiswa",
+        description: "Kegiatan mahasiswa yang beragam",
+    },
+    {
+        title: "Kemahasiswaan",
+        description: "Kemahasiswaan yang aktif dan berprestasi",
+    },
 ];
 
 const cooperate = [
@@ -108,59 +137,85 @@ const setting_carousel = {
                 </div>
             </div>
         </section>
-        <!--  <section class="p-6 md:p-16 lg:p-12 xl:p-16">
+        <section class="p-6 md:p-16 lg:p-12 xl:p-16 bg-[#C3FCF2]">
             <div class="container mx-auto">
                 <h2
                     class="text-2xl md:text-3xl text-black text-center font-bold pb-5 mb-10 capitalize"
                 >
-                    pilihan
                     <span class="relative inline-block">
                         <span
-                            class="absolute inline-block w-full h-2 bg-teal-300 bottom-1.5"
+                            class="absolute inline-block w-full h-2 bg-yellow-300 bottom-1.5"
                         ></span>
-                        <span class="relative"> program studi</span>
+                        <span class="relative"> Keunggulan </span>
                     </span>
+                    {{ $page.props.web_settings.institution_short_name }}
                 </h2>
+
                 <div class="owl-carousel owl-theme">
                     <div
-                        v-for="(program, index) in programStudi"
+                        v-for="(x, index) in primacy"
                         :key="index"
-                        class="item p-5 bg-gray-200 rounded-xl shadow-lg"
+                        class="p-5 bg-white rounded-xl shadow-lg"
                     >
-                        <header class="font-bold text-center">
-                            {{ program[0] }}
+                        <header class="font-bold text-lg text-center">
+                            {{ x.title }}
                         </header>
-                        <p class="text-center font-semibold">
-                            {{ program[1] }}
+                        <p class="text-center font-semibold truncate">
+                            {{ x.description }}
                         </p>
                     </div>
                 </div>
             </div>
-        </section> -->
+        </section>
 
         <section class="p-6 md:p-16 lg:p-12 xl:p-16">
             <div class="container mx-auto p-6">
-                <header
-                    class="text-2xl text-center pb-5 mb-10 text-black font-bold capitalize"
+                <h2
+                    class="text-2xl md:text-3xl text-black text-center font-bold pb-5 mb-10 capitalize"
                 >
-                    Sekilas tentang kami
-                </header>
-                <p class="text-wrap text-ellipsis">
-                    UHT Pekanbaru sebagai lembaga pendidikan tinggi
-                    menyelenggarakan kegiatan pendidikan, penelitian dan
-                    pengabdian kepada masyarakat, yang bertujuan untuk mengisi
-                    kemerdekaan Negara Kesatuan Republik Indonesia sesuai dengan
-                    cita-cita nasional, untuk meningkatkan mutu kehidupan serta
-                    martabat manusia yang berkarakter mulia berlandaskan iman
-                    dan takwa. Dalam melaksanakan fungsinya UHT berdasarkan pada
-                    Pancasila sebagai falsafah bangsa dan ideologi negara.
-                </p>
+                    Sekilas Tentang
+                    <span class="relative inline-block">
+                        <span
+                            class="absolute inline-block w-full h-2 bg-yellow-300 bottom-1.5"
+                        ></span>
+                        <span class="relative">
+                            {{
+                                $page.props.web_settings.institution_short_name
+                            }}</span
+                        >
+                    </span>
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <h3 class="text-xl font-bold pb-3 text-center">
+                            Visi dan Misi
+                        </h3>
+                        <p
+                            class="text-justify text-sm md:text-base font-normal indent-8 text-pretty"
+                        >
+                            {{
+                                $page.props.web_settings
+                                    .institution_vision_mission
+                            }}
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold pb-3 text-center">
+                            Sejarah
+                        </h3>
+                        <p
+                            class="text-justify text-sm md:text-base font-normal indent-8 text-pretty"
+                        >
+                            {{ $page.props.web_settings.institution_history }}
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
         <section class="p-6 md:p-16 lg:p-12 xl:p-16">
             <div class="container mx-auto p-6">
                 <h2
-                    class="text-2xl text-center pb-5 mb-10 text-black font-bold capitalize"
+                    class="text-2xl md:text-3xl text-black text-center font-bold pb-5 mb-10 capitalize"
                 >
                     Bekerja sama dengan
                 </h2>
