@@ -160,9 +160,9 @@ const showingNavigationDropdown = ref(false);
 
             <footer class="py-10 px-6 md:px-16 lg:px-12 xl:px-16 bg-gray-100">
                 <div class="mx-auto max-w-full">
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-8 gap-4 text-sm">
                         <div
-                            class="flex flex-col gap-3 col-span-1 md:col-span-2"
+                            class="flex flex-col gap-3 col-span-1 md:col-span-3"
                         >
                             <div class="flex gap-2 items-center">
                                 <ApplicationLogo class="block h-9 w-auto" />
@@ -194,7 +194,7 @@ const showingNavigationDropdown = ref(false);
                                 </li>
                             </ul>
                         </div>
-                        <div>
+                        <div class="col-span-1 md:col-span-2">
                             <h3 class="font-bold text-lg pb-2">
                                 Situs Akademik
                             </h3>
@@ -230,17 +230,20 @@ const showingNavigationDropdown = ref(false);
                                 </li>
                             </ul>
                         </div>
-                        <div>
+                        <div class="col-span-1 md:col-span-3">
                             <h3 class="font-bold text-lg pb-2">Lokasi</h3>
-                            <div class="w-full h-full">
-                                <iframe
-                                    allowfullscreen
-                                    :src="
-                                        $page.props.web_settings
-                                            .contact_maps_link
-                                    "
-                                ></iframe>
-                            </div>
+                            <iframe
+                                allowfullscreen
+                                width="100%"
+                                height="100%"
+                                frameborder="0"
+                                scrolling="no"
+                                marginheight="0"
+                                marginwidth="0"
+                                :src="
+                                    $page.props.web_settings.contact_maps_link
+                                "
+                            ></iframe>
                         </div>
                     </div>
                     <hr class="border-t-2 border-gray-300 my-4 mt-10" />
