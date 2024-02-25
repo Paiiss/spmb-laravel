@@ -137,7 +137,7 @@ const setting_carousel = {
                 </div>
             </div>
         </section>
-        <section class="p-6 md:p-16 lg:p-12 xl:p-16 bg-[#C3FCF2]">
+        <section class="py-6 md:p-16 lg:p-12 xl:p-16 bg-[#C3FCF2]">
             <div
                 class="container mx-auto"
                 data-aos="fade-up"
@@ -145,8 +145,6 @@ const setting_carousel = {
             >
                 <h2
                     class="text-2xl md:text-3xl text-gray-600 text-center font-bold pb-5 mb-10 capitalize"
-                    data-aos="fade-up"
-                    data-aos-duration="2500"
                 >
                     <span class="relative inline-block">
                         <span
@@ -336,50 +334,106 @@ const setting_carousel = {
                 </Carousel>
             </div>
         </section>
-
         <section class="p-6 md:p-16 lg:p-12 xl:p-16">
-            <div
-                class="container mx-auto bg-background-primary rounded-lg p-6 text-white"
-                data-aos="fade-up"
-                data-aos-duration="2000"
-            >
-                <div class="flex flex-col md:flex-row justify-between">
-                    <div>
-                        <h5
-                            class="text-2xl font-bold text-left pb-3 leading-relaxed"
-                        >
-                            Punya pertanyaan seputar PMB
-                            <span class="animate-pulse">?</span>
-                        </h5>
-                        <p class="text-left font-normal">
-                            Jika anda memiliki sebuah pertanyaan atau kendala
-                            silahkan hubungi kami atau dapat membaca panduan
-                            pendaftaran
-                        </p>
-                    </div>
-                    <div class="flex mt-5 md:mt-0">
-                        <div
-                            class="flex flex-row gap-3 items-center sm:flex-row sm:gap-5 sm:justify-end sm:items-center"
-                        >
-                            <Link
-                                class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600 text-xs sm:text-base"
-                                href="https://wa.me/6281360000000"
+            <div class="text-white" data-aos="fade-up" data-aos-duration="2000">
+                <div
+                    class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4"
+                >
+                    <div
+                        class="flex flex-col md:flex-row justify-between bg-background-primary container mx-auto rounded-lg p-6"
+                    >
+                        <div>
+                            <h5
+                                class="text-2xl font-bold text-left pb-3 leading-relaxed"
                             >
-                                <span class="flex items-center justify-center">
-                                    <i class="fa-brands fa-whatsapp pr-2"></i>
-                                    Whatsapp
-                                </span>
-                            </Link>
+                                Punya pertanyaan seputar PMB
+                                <span class="animate-pulse">?</span>
+                            </h5>
+                            <p class="text-left font-normal">
+                                Jika anda memiliki sebuah pertanyaan atau
+                                kendala silahkan hubungi kami atau dapat membaca
+                                panduan pendaftaran
+                            </p>
+                        </div>
+                        <div class="flex mt-5 md:mt-0">
+                            <div
+                                class="flex flex-row gap-3 items-center sm:flex-row sm:gap-5 sm:justify-end sm:items-center"
+                            >
+                                <Link
+                                    class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600 text-xs sm:text-base"
+                                    href="https://wa.me/6281360000000"
+                                >
+                                    <span
+                                        class="flex items-center justify-center"
+                                    >
+                                        <i
+                                            class="fa-brands fa-whatsapp pr-2"
+                                        ></i>
+                                        Whatsapp
+                                    </span>
+                                </Link>
 
-                            <Link
-                                href=""
-                                class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600 text-xs sm:text-base"
+                                <Link
+                                    href=""
+                                    class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600 text-xs sm:text-base"
+                                >
+                                    <span
+                                        class="flex items-center justify-center"
+                                    >
+                                        <i
+                                            class="fa-solid fa-book-bookmark pr-2"
+                                        />
+                                        Panduan
+                                    </span>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col md:flex-row justify-between bg-background-primary container mx-auto rounded-lg p-6"
+                    >
+                        <div>
+                            <h5
+                                class="text-2xl font-bold text-left pb-3 leading-relaxed"
                             >
-                                <span class="flex items-center justify-center">
-                                    <i class="fa-solid fa-book-bookmark pr-2" />
-                                    Panduan
-                                </span>
-                            </Link>
+                                Browsur dan Rincian Biaya
+                            </h5>
+                            <p class="text-left font-normal">
+                                Kami menyediakan brosur dan rincian biaya
+                                pendaftaran, silahkan unduh brosur dan rincian
+                                biaya
+                            </p>
+                        </div>
+                        <div class="flex mt-5 md:mt-0">
+                            <div
+                                class="flex flex-row gap-3 items-center sm:flex-row sm:gap-5 sm:justify-end sm:items-center"
+                            >
+                                <Link
+                                    class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600 text-xs sm:text-base"
+                                    href="https://wa.me/6281360000000"
+                                >
+                                    <span
+                                        class="flex items-center justify-center"
+                                    >
+                                        <i class="fa-solid fa-image pr-2"></i>
+                                        Browsur
+                                    </span>
+                                </Link>
+
+                                <Link
+                                    href=""
+                                    class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600 text-xs sm:text-base"
+                                >
+                                    <span
+                                        class="flex items-center justify-center"
+                                    >
+                                        <i
+                                            class="fa-solid fa-money-bill pr-2"
+                                        />
+                                        Rincian
+                                    </span>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
