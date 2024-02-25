@@ -24,6 +24,7 @@
         "@tinymce/tinymce-vue": "^5.1.1",
         "@vueform/multiselect": "^2.6.6",
         "aos": "^2.3.4",
+        "epic-spinners": "^2.0.0",
         "jquery": "^3.7.1",
         "owl.carousel": "^2.3.4",
         "sass": "^1.69.5",
