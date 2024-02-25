@@ -7,6 +7,7 @@ import NavLinkBtn from "@/Components/NavLinkBtn.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
+import Loading from "@/Components/Loading.vue";
 
 defineProps({
     canLogin: {
@@ -33,6 +34,8 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
+        <Loading />
+
         <div class="flex flex-col min-h-screen">
             <nav
                 class="fixed w-full z-20 top-0 start-0 bg-gray-100 transition-all duration-500"
