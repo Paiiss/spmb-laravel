@@ -36,7 +36,10 @@ export default {
                 background: {
                     DEFAULT: "#21B1A1",
                     dark: "#4A9C93",
-                    light: "#21B1A1",
+                    light: "#018F80",
+                    primary: "#018f80",
+                    secondary: "#11605b",
+                    hover: "#11605b",
                 },
             },
             backgroundImage: (theme) => ({
