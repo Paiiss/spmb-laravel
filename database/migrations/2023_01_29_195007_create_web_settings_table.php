@@ -27,6 +27,8 @@ return new class extends Migration {
             $table->string('institution_synopsis')->nullable();
             $table->text('institution_vision_mission')->nullable();
             $table->text('institution_history')->nullable();
+            $table->json('institution_superioty')->nullable();
+            $table->json('institution_cooperate')->nullable();
 
             // Footer
             $table->text('footer')->nullable();
@@ -63,6 +65,8 @@ return new class extends Migration {
             'institution_synopsis' => 'UHT Pekanbaru mempunyai tata nilai budaya akademik yang khas yaitu BERTUAH mempunyai makna bahwa setiap lulusan Universitas Hang Tuah Pekanbaru harus memiliki kualifikasi',
             'institution_vision_mission' => 'Visi Universitas Hang Tuah Pekanbaru adalah mencapai keunggulan universitas yang menghasilkan lulusan kompeten bersaing di Asia Tenggara 2036. Misi meliputi pembelajaran, penelitian, pengabdian, dan kerjasama. Tujuannya menghasilkan lulusan berkualitas, karya ilmiah teruji, pengabdian yang berdampak, dan kerjasama produktif. Sasaran termasuk pendidikan, penelitian, manajemen, penjaminan mutu, dan kehidupan akademik. Motto: "Berkualitas, Teruji, Unggul".',
             'institution_history' => 'Universitas Hang Tuah Pekanbaru (UHTP) adalah perguruan tinggi swasta di Pekanbaru, Riau, Indonesia. UHTP didirikan pada tahun 2003. UHTP memiliki 3 fakultas, yaitu Fakultas Kesehatan, Ilmu Komputer, dan Komunikasi & hukum',
+            'institution_superioty' => json_encode([]),
+            'institution_cooperate' => json_encode([]),
             'title_home' => 'Hang Tuah Pekanbaru',
             'title_dashboard' => 'PMB',
             'title_exam' => 'CBT',

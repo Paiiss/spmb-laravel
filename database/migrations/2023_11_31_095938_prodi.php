@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string("akreditasi")->nullable();
             $table->boolean('tes_ujian')->default(false);
             $table->string('ujian')->nullable();
-            $table->number('nilai_dibawah')->nullable();
+            $table->integer('nilai_dibawah')->nullable();
             $table->boolean('tes_wawancara')->default(false);
             $table->boolean('tes_kesehatan')->default(false);
             $table->integer('biaya_registrasi')->default(0);
