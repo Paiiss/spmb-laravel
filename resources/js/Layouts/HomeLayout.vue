@@ -1,13 +1,16 @@
 <script setup>
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import { Link } from "@inertiajs/vue3";
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, nextTick } from "vue";
 import NavLink from "@/Components/NavLink.vue";
 import NavLinkBtn from "@/Components/NavLinkBtn.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import Loading from "@/Components/Loading.vue";
+
+const loading = ref(true);
+const remove = ref(false);
 
 defineProps({
     canLogin: {
@@ -23,6 +26,15 @@ const handleHeader = () => {
 
 onMounted(() => {
     window.addEventListener("scroll", handleHeader);
+    nextTick(() => {
+        setTimeout(() => {
+            loading.value = false;
+        }, 3500);
+
+        setTimeout(() => {
+            remove.value = true;
+        }, 4000);
+    });
 });
 
 onBeforeUnmount(() => {
@@ -34,7 +46,7 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
-        <Loading />
+        <Loading :loading="loading" :remove="remove" />
 
         <div class="flex flex-col min-h-screen">
             <nav
@@ -234,7 +246,9 @@ const showingNavigationDropdown = ref(false);
                             </ul>
                         </div>
                         <div class="col-span-1 md:col-span-3">
-                            <h3 class="font-bold text-lg pb-2">Lokasi</h3>
+                            <h3 class="font-bold text-lg pb-2">
+                                Lokasi Kampus
+                            </h3>
                             <iframe
                                 allowfullscreen
                                 width="100%"
