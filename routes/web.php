@@ -13,19 +13,16 @@ use App\Http\Controllers\Admin\WebSettingController;
 use App\Http\Controllers\Admin\HealthVerificationController;
 use App\Http\Controllers\Admin\AdminInterviewController;
 use App\Http\Controllers\Admin\AdminEndValidation;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\Exams\HealthController;
 use App\Http\Controllers\Exams\KnowledgeController;
 use App\Http\Controllers\Exams\InterviewController;
 
-use App\Models\User;
-use App\Models\Wave;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +45,9 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function (Request $request) {
+        if ($request->user()->hasAnyRole(['admin', 'panitia', 'keuangan'])) {
+            return Inertia::render('Admin/Dashboard');
+        }
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
@@ -106,7 +106,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-Route::middleware(['auth', 'verified'])->prefix('/admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified', "role:admin,panitia,keuangan"])->prefix('/admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
+    Route::get('/dashboard-chart', [DashboardController::class, 'index'])->name('dashboard.chart');
+
     Route::middleware(['role:admin,panitia'])->group(function () {
         Route::get('/program-studi', [ProdiController::class, 'index'])->name('prodi');
         Route::post('/program-studi', [ProdiController::class, 'store'])->name('prodi.store');
