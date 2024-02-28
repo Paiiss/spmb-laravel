@@ -1,21 +1,29 @@
 <script setup>
-import { AtomSpinner } from "epic-spinners";
-import { ref, onMounted } from "vue";
+import { DotLottieVue } from "@lottiefiles/dotlottie-vue";
 
-const loading = ref(true);
-
-onMounted(() => {
-    setTimeout(() => {
-        loading.value = false;
-    }, 3000);
+defineProps({
+    loading: {
+        type: Boolean,
+        default: true,
+    },
+    remove: {
+        type: Boolean,
+        default: false,
+    },
 });
 </script>
 
 <template>
     <div
-        class="fixed top-0 z-50 h-screen w-screen flex justify-center items-center bg-white transition-opacity duration-1000 ease-in-out"
+        v-if="!remove"
+        class="fixed top-0 z-50 h-screen w-screen flex justify-center items-center bg-gray-400 opacity-95 transition-all duration-1000 ease-in-out cursor-progress"
         :class="{ 'opacity-0': !loading }"
     >
-        <atom-spinner :animation-duration="1000" :size="60" color="#21B1A1" />
+        <DotLottieVue
+            style="height: 250px; width: 250px"
+            autoplay
+            loop
+            src="/assets/lottie/loading.lottie"
+        />
     </div>
 </template>
