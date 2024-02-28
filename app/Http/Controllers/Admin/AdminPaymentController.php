@@ -31,6 +31,7 @@ class AdminPaymentController extends Controller
                 'status' => $item->status,
                 'note' => $item->note,
                 'user' => $item->user->name,
+                'prodi' => $item->user->getForm->prodi->only('nama_prodi', 'biaya_registrasi', 'jenjang', 'fakultas') ?? 'Belum diisi',
             ];
         });
         return Inertia::render('Admin/Payment', [
@@ -56,6 +57,15 @@ class AdminPaymentController extends Controller
                 )
             );
         } else {
+            if ($request->status === 'rejected' && $payment->type_payment == 'form') {
+                $user->notify(
+                    new Candidate(
+                        'Pembayaran',
+                        'Maaf, pembayaran pendaftaran Anda ditolak. Silahkan upload ulang bukti pembayaran.'
+                    )
+                );
+            }
+
             $form->is_paid_registration = null;
         }
         $form->save();
