@@ -253,7 +253,7 @@ class FormController extends Controller
             $form = $user->getForm;
             $wave = $form->wave;
             $core = WebSettings::first();
-            // dd($form->toArray());
+
             if ($form->end_status != 'approved')
                 throw new \Exception('Form anda belum disetujui');
 

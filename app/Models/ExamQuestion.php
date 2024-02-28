@@ -19,12 +19,12 @@ class ExamQuestion extends Model
         'option_c',
         'option_d',
         'option_e',
+        'answer'
     ];
 
     protected $hidden = [
         'created_at',
         'updated_at',
-        'answer',
     ];
 
     public function exams()

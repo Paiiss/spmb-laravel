@@ -85,7 +85,7 @@ class VerificationController extends Controller
         $form->user->notify(
             new Candidate(
                 'Pendaftaran',
-                'Pendaftaran anda telah ' . StatusHelper::getStatus($request->status) . ' oleh admin'
+                'Formulir anda ' . StatusHelper::getStatus($request->status) . ' oleh panitia'
             )
         );
 

@@ -41,7 +41,7 @@ class ExamsController extends Controller
     }
     public function store(ExamsRequest $request): RedirectResponse
     {
-        $exam = Exams::create($request->validated());
+        Exams::create($request->validated());
         return Redirect::back();
     }
 
