@@ -35,7 +35,7 @@ const checkRole = (role = []) => {
             <NavBar v-model="isSideBarOpen" />
 
             <aside
-                class="fixed top-0 left-0 z-40 w-64 pt-20 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-white dark:bg-gray-800"
+                class="fixed top-0 left-0 z-40 w-64 pt-20 h-screen transition-transform -translate-x-full md:translate-x-0 bg-white dark:bg-gray-800"
                 :class="{ 'translate-x-0': isSideBarOpen }"
             >
                 <div class="h-full px-3 py-4 overflow-y-auto">
@@ -51,7 +51,7 @@ const checkRole = (role = []) => {
                 class="fixed inset-0 z-30 bg-gray-500 opacity-50"
                 @click="isSideBarOpen = false"
             />
-            <main class="p-4 py-20 sm:ml-64">
+            <main class="p-4 py-20 md:ml-64">
                 <slot />
             </main>
             {{ $page.props.alert }}

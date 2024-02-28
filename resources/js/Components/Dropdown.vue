@@ -29,7 +29,7 @@ const widthClass = computed(() => {
     return {
         48: "w-48",
         responsive:
-            "w-60 md:w-screen md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl",
+            "w-60 md:w-72 lg:w-96 xl:w-120 2xl:w-144 3xl:w-168 4xl:w-192",
     }[props.width.toString()];
 });
 

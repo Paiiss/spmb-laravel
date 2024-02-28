@@ -23,7 +23,7 @@ use App\Models\Wave;
  */
 
 Route::get('/program-studi', function () {
-    return new ApiResource(200, 'LIST_PRODI', Prodi::all());
+    return new ApiResource(200, 'LIST_PRODI', Prodi::where('status', 1)->get());
 });
 
 Route::get('/gelombang', function () {

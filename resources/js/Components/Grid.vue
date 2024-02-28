@@ -42,7 +42,7 @@ const className = computed(() => {
 </script>
 
 <template>
-    <div :class="className" class="w-full">
+    <div :class="className">
         <slot />
     </div>
 </template>
