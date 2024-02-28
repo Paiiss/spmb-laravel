@@ -11,6 +11,8 @@ import InputError from "@/Components/InputError.vue";
 import DateInput from "@/Components/DateInput.vue";
 import Combobox from "@/Components/Combobox.vue";
 import TextareaInput from "@/Components/TextareaInput.vue";
+import Grid from "@/Components/Grid.vue";
+import Display from "@/Components/Display.vue";
 
 defineProps({
     payment: {
@@ -229,6 +231,28 @@ const save = () => {
                                 class="w-full"
                             />
                         </div>
+
+                        <Grid col="2" class="mt-4 mb-6">
+                            <Display
+                                label="Pilihan Prodi"
+                                :value="dialogItem?.prodi.nama_prodi"
+                            />
+                            <Display
+                                label="Pilihan Fakultas"
+                                :value="dialogItem?.prodi.fakultas"
+                            />
+                            <Display
+                                label="Biaya Registrasi Prodi"
+                                :value="
+                                    new Intl.NumberFormat('id-ID', {
+                                        style: 'currency',
+                                        currency: 'IDR',
+                                    }).format(
+                                        dialogItem?.prodi.biaya_registrasi
+                                    )
+                                "
+                            />
+                        </Grid>
 
                         <div class="col-span-1">
                             <InputLabel for="status">Status</InputLabel>

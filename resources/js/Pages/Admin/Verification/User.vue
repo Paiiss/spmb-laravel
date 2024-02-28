@@ -30,6 +30,7 @@ const formUpdate = useForm({
     if (data.status === "approved") {
         data.note = null;
     }
+    data.is_submitted = data.is_submitted == "true" ? 1 : 0;
     return data;
 });
 
@@ -932,11 +933,11 @@ const save = () => {
                                         placeholder="Pilih status"
                                         :option-value="[
                                             {
-                                                value: true,
+                                                value: 'true',
                                                 text: 'Ya',
                                             },
                                             {
-                                                value: false,
+                                                value: 'false',
                                                 text: 'Tidak',
                                             },
                                         ]"

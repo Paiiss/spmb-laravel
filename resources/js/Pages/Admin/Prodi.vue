@@ -32,6 +32,7 @@ const form = useForm({
     tes_kesehatan: false,
     biaya_registrasi: 0,
     nilai_dibawah: 0,
+    status: false,
 }).transform((x) => ({
     ...x,
     tes_ujian: x.tes_ujian == "true" ? true : false,
@@ -40,6 +41,7 @@ const form = useForm({
     tes_kesehatan: x.tes_kesehatan == "true" ? true : false,
     biaya_registrasi: parseInt(x.biaya_registrasi),
     nilai_dibawah: parseInt(x.nilai_dibawah) || 0,
+    status: x.status == "true" ? true : false,
 }));
 
 const dialogCreateProdi = ref(false);
@@ -85,6 +87,7 @@ const editProdi = (item = null) => {
         form.tes_wawancara = findProdi.tes_wawancara == 1 ? "true" : "false";
         form.biaya_registrasi = findProdi.biaya_registrasi;
         form.nilai_dibawah = findProdi.nilai_dibawah || 0;
+        form.status = findProdi.status == 1 ? "true" : "false";
     }
 };
 
@@ -451,6 +454,31 @@ const closeModal = () => {
                             />
                             <InputError
                                 :message="form.errors.biaya_registrasi"
+                                class="mt-2"
+                            />
+                        </div>
+
+                        <div>
+                            <InputLabel for="status" value="Status" />
+                            <Combobox
+                                id="status"
+                                ref="statusInput"
+                                v-model="form.status"
+                                class="mt-1 block w-full"
+                                placeholder="Status"
+                                :option-value="[
+                                    {
+                                        value: 'true',
+                                        text: 'Aktif',
+                                    },
+                                    {
+                                        value: 'false',
+                                        text: 'Tidak Aktif',
+                                    },
+                                ]"
+                            />
+                            <InputError
+                                :message="form.errors.status"
                                 class="mt-2"
                             />
                         </div>

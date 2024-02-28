@@ -8,8 +8,11 @@ import { Link } from "@inertiajs/vue3";
         class="min-h-screen flex flex-col items-center justify-center pt-6 bg-gray-100 dark:bg-gray-900"
     >
         <div>
-            <Link href="/">
+            <Link href="/" class="flex flex-col items-center gap-2">
                 <ApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
+                <span class="text-2xl font-bold leading-9 text-center">
+                    {{ $page.props.web_settings.institution_name }}
+                </span>
             </Link>
         </div>
 
