@@ -119,7 +119,7 @@ const goToForm = () => {
                                     >
                                 </p>
                             </li>
-                            <li class="ms-4">
+                            <li class="mb-10 ms-4">
                                 <div
                                     class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
                                 ></div>
@@ -135,11 +135,39 @@ const goToForm = () => {
                                 <p
                                     class="text-base font-normal text-gray-500 dark:text-gray-800"
                                 >
-                                    Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit. Fuga, ipsum!
+                                    Tes akan dilakukan secara online, pastikan
+                                    koneksi internet anda stabil dan tidak ada
+                                    gangguan.
+                                </p>
+                            </li>
+
+                            <li class="ms-4">
+                                <div
+                                    class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
+                                ></div>
+                                <time
+                                    class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
+                                    >Langkah keempat</time
+                                >
+                                <h3
+                                    class="text-lg font-semibold text-gray-900 dark:text-white"
+                                >
+                                    Tunggu pengumuman
+                                </h3>
+                                <p
+                                    class="text-base font-normal text-gray-500 dark:text-gray-800"
+                                >
+                                    Panitia akan mengumumkan hasil seleksi
+                                    penerimaan mahasiswa baru di menu
+                                    <Link
+                                        class="text-blue-600 hover:underline"
+                                        :href="route('form.submission')"
+                                        >pendaftaran</Link
+                                    >.
                                 </p>
                             </li>
                         </ol>
+
                         <footer class="flex justify-end mt-4">
                             <p class="text-gray-300 dark:text-gray-400 text-sm">
                                 cumungut :3
