@@ -175,7 +175,11 @@ const showingNavigationDropdown = ref(false);
                 <slot />
             </main>
 
-            <footer class="py-10 px-6 md:px-16 lg:px-12 xl:px-16 bg-gray-100">
+            <footer
+                data-aos="fade-up"
+                data-aos-duration="2000"
+                class="py-10 px-6 md:px-16 lg:px-12 xl:px-16 bg-gray-100"
+            >
                 <div class="mx-auto max-w-full">
                     <div class="grid grid-cols-1 md:grid-cols-8 gap-4 text-sm">
                         <div
