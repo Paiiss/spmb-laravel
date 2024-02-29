@@ -33,7 +33,7 @@ onMounted(() => {
 
         setTimeout(() => {
             remove.value = true;
-        }, 4000);
+        }, 5000);
     });
 });
 
@@ -146,8 +146,10 @@ const showingNavigationDropdown = ref(false);
                     :class="{
                         block: showingNavigationDropdown,
                         hidden: !showingNavigationDropdown,
+                        'bg-opacity-90':
+                            scrollY >= 270 && showingNavigationDropdown,
                     }"
-                    class="sm:hidden bg-white"
+                    class="sm:hidden bg-gray-100 border-b border-gray-200 shadow-md"
                 >
                     <div
                         v-if="$page.props.auth.user"
