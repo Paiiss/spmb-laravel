@@ -13,6 +13,24 @@ defineProps({
     },
 });
 
+const download = async (name) => {
+    try {
+        const response = await fetch(`/assets/img/${name}`, {
+            method: "GET",
+        });
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", name);
+        document.body.appendChild(link);
+        link.click();
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 const primacy = [
     {
         title: "Kampus Nyaman",
@@ -92,7 +110,18 @@ const setting_carousel = {
 };
 </script>
 <template>
-    <Head title="PMB" />
+    <Head>
+        <title>
+            [DEMO] Penerimaan Mahasiswa Baru
+            {{ $page.props.web_settings.institution_name }}
+        </title>
+        <meta
+            head-key="description"
+            name="description"
+            content="[DEMO] Penerimaan Mahasiswa Baru {{ $page.props.web_settings.institution_name }}"
+        />
+        <link rel="icon" type="image/x-icon" href="/images/htp.ico" />
+    </Head>
     <HomeLayout>
         <section
             class="min-h-screen p-6 md:p-16 lg:p-12 xl:p-16 flex items-center"
@@ -407,7 +436,9 @@ const setting_carousel = {
                             <div
                                 class="flex flex-row gap-3 items-center sm:flex-row sm:gap-5 sm:justify-end sm:items-center"
                             >
-                                <Link
+                                <button
+                                    type="button"
+                                    @click="download('brosur.jpg')"
                                     class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600 text-xs sm:text-base"
                                     href="https://wa.me/6281360000000"
                                 >
@@ -415,12 +446,13 @@ const setting_carousel = {
                                         class="flex items-center justify-center"
                                     >
                                         <i class="fa-solid fa-image pr-2"></i>
-                                        Browsur
+                                        Brosur
                                     </span>
-                                </Link>
+                                </button>
 
-                                <Link
-                                    href=""
+                                <button
+                                    type="button"
+                                    @click="download('rincian-biaya.jpeg')"
                                     class="p-2 bg-transparent ring-2 ring-white rounded-lg hover:bg-teal-600 text-xs sm:text-base"
                                 >
                                     <span
@@ -431,7 +463,7 @@ const setting_carousel = {
                                         />
                                         Rincian
                                     </span>
-                                </Link>
+                                </button>
                             </div>
                         </div>
                     </div>
