@@ -48,6 +48,7 @@ createInertiaApp({
                         },
                     });
                 });
+                delete el.dataset.page;
             });
     },
     progress: {
