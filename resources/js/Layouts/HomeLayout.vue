@@ -33,7 +33,7 @@ onMounted(() => {
 
         setTimeout(() => {
             remove.value = true;
-        }, 5000);
+        }, 4200);
     });
 });
 
@@ -217,32 +217,36 @@ const showingNavigationDropdown = ref(false);
                             </h3>
                             <ul class="list-disc list-inside capitalize">
                                 <li>
-                                    <Link
+                                    <a
                                         class="hover:text-blue-500"
+                                        target="_blank"
                                         href="https://siakadm.htp.ac.id/"
                                         >Sistem informasi Administrasi
-                                        Akademik</Link
+                                        Akademik</a
                                     >
                                 </li>
                                 <li>
-                                    <Link
+                                    <a
                                         class="hover:text-blue-500"
+                                        target="_blank"
                                         href="https://spmb.htp.ac.id/"
-                                        >Sistem Pendaftaran Mahasiswa Baru</Link
+                                        >Sistem Pendaftaran Mahasiswa Baru</a
                                     >
                                 </li>
                                 <li>
-                                    <Link
+                                    <a
                                         class="hover:text-blue-500"
+                                        target="_blank"
                                         href="https://tracer.htp.ac.id/"
-                                        >Tracer Study</Link
+                                        >Tracer Study</a
                                     >
                                 </li>
                                 <li>
-                                    <Link
+                                    <a
                                         class="hover:text-blue-500"
+                                        target="_blank"
                                         href="https://survei.htp.ac.id/"
-                                        >Survey</Link
+                                        >Survey</a
                                     >
                                 </li>
                             </ul>
@@ -273,40 +277,44 @@ const showingNavigationDropdown = ref(false);
                             <span v-html="$page.props.web_settings.footer" />
                         </p>
                         <div class="flex gap-3">
-                            <Link
+                            <a
                                 v-if="$page.props.web_settings.contact_facebook"
                                 :href="
                                     $page.props.web_settings.contact_facebook
                                 "
+                                target="_blank"
                                 class="text-gray-500 hover:text-blue-500"
                             >
                                 <i class="fa-brands fa-facebook-f"></i>
-                            </Link>
-                            <Link
+                            </a>
+                            <a
                                 v-if="
                                     $page.props.web_settings.contact_instagram
                                 "
                                 :href="
                                     $page.props.web_settings.contact_instagram
                                 "
+                                target="_blank"
                                 class="text-gray-500 hover:text-red-500"
                             >
                                 <i class="fa-brands fa-instagram"></i>
-                            </Link>
-                            <Link
+                            </a>
+                            <a
                                 v-if="$page.props.web_settings.contact_youtube"
                                 :href="$page.props.web_settings.contact_youtube"
+                                target="_blank"
                                 class="text-gray-500 hover:text-red-500"
                             >
                                 <i class="fa-brands fa-youtube"></i>
-                            </Link>
-                            <Link
+                            </a>
+                            <a
                                 v-if="$page.props.web_settings.contact_twitter"
                                 :href="$page.props.web_settings.contact_twitter"
+                                target="_blank"
                                 class="text-gray-500 hover:text-gray-500"
                             >
                                 <i class="fa-brands fa-twitter"></i>
-                            </Link>
+                            </a>
                         </div>
                     </div>
                 </div>

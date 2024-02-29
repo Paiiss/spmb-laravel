@@ -128,7 +128,7 @@ const setting_carousel = {
         >
             <div class="container px-6 lg:px-8 mx-auto">
                 <div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-3">
-                    <div class="w-full text-gray-900">
+                    <div class="w-full text-gray-900 text-center md:text-left">
                         <h1 class="text-2xl md:text-5xl font-bold pb-3">
                             Penerimaan Mahasiwa Baru
                         </h1>
@@ -142,10 +142,12 @@ const setting_carousel = {
                                         .institution_synopsis
                                 }}
                             </p>
-                            <div class="flex gap-3 pt-4">
+                            <div
+                                class="flex gap-3 pt-4 items-center justify-center md:justify-start"
+                            >
                                 <Link
                                     :href="route('register')"
-                                    class="relative -top-1 -left-1 bg-gray-800 py-2.5 px-5 font-medium uppercase text-white transition-all before:absolute before:top-1 before:left-1 before:-z-[1] before:h-full before:w-full before:border-2 before:border-gray-700 before:transition-all before:content-[''] hover:top-0 hover:left-0 before:hover:top-0 before:hover:left-0 rounded-md"
+                                    class="inline-flex items-center py-2.5 px-5 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:text-gray-900 focus:text-gray-900 active:text-gray-900 hover:bg-gray-100 hover:ring-2 hover:ring-gray-500 focus:bg-gray-100 active:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
                                     ><i
                                         class="fa-solid fa-user-graduate pr-2"
                                     />
@@ -187,12 +189,12 @@ const setting_carousel = {
                     <div
                         v-for="(x, index) in primacy"
                         :key="index"
-                        class="p-5 bg-white rounded-xl shadow-lg"
+                        class="p-5 bg-white rounded-xl shadow-lg h-32 flex flex-col items-center justify-center"
                     >
                         <header class="font-bold text-lg text-center">
                             {{ x.title }}
                         </header>
-                        <p class="text-center font-semibold truncate">
+                        <p class="text-center font-semibold">
                             {{ x.description }}
                         </p>
                     </div>
