@@ -48,7 +48,7 @@ const showingNavigationDropdown = ref(false);
     <div>
         <Loading :loading="loading" :remove="remove" />
 
-        <div class="flex flex-col min-h-screen">
+        <div class="flex flex-col min-h-screen bg-gray-100">
             <nav
                 class="fixed w-full z-20 top-0 start-0 bg-gray-100 transition-all duration-500"
                 :class="{
