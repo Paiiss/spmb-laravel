@@ -39,7 +39,7 @@ const checkRole = (role = []) => {
                 :class="{ 'translate-x-0': isSideBarOpen }"
             >
                 <div class="h-full px-3 py-4 overflow-y-auto">
-                    <MenuUser v-if="checkRole(['user'])" />
+                    <MenuUser :check="checkRole(['user'])" />
                     <MenuPanitia v-if="checkRole(['admin', 'panitia'])" />
                     <MenuVerifikasi v-if="checkRole(['admin', 'panitia'])" />
                     <MenuKeuangan v-if="checkRole(['admin', 'keuangan'])" />
