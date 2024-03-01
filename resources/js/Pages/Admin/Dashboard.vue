@@ -15,6 +15,7 @@ import {
     LinearScale,
 } from "chart.js";
 import { Bar } from "vue-chartjs";
+import CardStats from "@/Components/CardStats.vue";
 
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -43,75 +44,89 @@ onMounted(() => {
 
                 <Grid col="1">
                     <Grid col="1" sm="2" md="4" lg="4">
-                        <div
-                            class="flex items-center justify-between bg-white p-4 rounded-lg shadow-md"
-                        >
-                            <div class="bg-blue-100 p-4 rounded-full mr-4">
-                                <i
-                                    class="fas fa-users text-4xl text-blue-500"
-                                ></i>
-                            </div>
-                            <div
-                                class="flex flex-col justify-center items-center"
-                            >
-                                <div class="text-2xl font-bold">
-                                    {{ data_count ? data_count.users : 0 }}
-                                </div>
-                                <div>Pengguna</div>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-center justify-between bg-white p-4 rounded-lg shadow-md"
-                        >
-                            <div class="bg-yellow-100 p-4 rounded-full mr-4">
-                                <i
-                                    class="fas fa-graduation-cap text-4xl text-green-500"
-                                />
-                            </div>
-                            <div
-                                class="flex flex-col justify-center items-center"
-                            >
-                                <div class="text-2xl font-bold">
-                                    {{ data_count ? data_count.forms : 0 }}
-                                </div>
-                                <div>Formulir</div>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-center justify-between bg-white p-4 rounded-lg shadow-md"
-                        >
-                            <div class="bg-red-100 p-4 rounded-full mr-4">
-                                <i
-                                    class="fas fa-graduation-cap text-4xl text-red-500"
-                                />
-                            </div>
-                            <div
-                                class="flex flex-col justify-center items-center"
-                            >
-                                <div class="text-2xl font-bold">
-                                    {{ data_count ? data_count.prodi : 0 }}
-                                </div>
-                                <div>Prodi</div>
-                            </div>
-                        </div>
-                        <div
-                            class="flex items-center justify-between bg-white p-4 rounded-lg shadow-md"
-                        >
-                            <div class="bg-orange-100 p-4 rounded-full mr-4">
-                                <i
-                                    class="fas fa-water text-4xl text-orange-500"
-                                />
-                            </div>
-                            <div
-                                class="flex flex-col justify-center items-center"
-                            >
-                                <div class="text-2xl font-bold">
-                                    {{ data_count ? data_count?.wave : 0 }}
-                                </div>
-                                <div>Gel. Aktif</div>
-                            </div>
-                        </div>
+                        <CardStats
+                            label="Pengguna"
+                            icon="fa-solid fa-users"
+                            color="blue"
+                            :value="data_count ? data_count.users : 0"
+                        />
+                        <CardStats
+                            label="Formulir"
+                            icon="fa-solid fa-graduation-cap"
+                            color="green"
+                            :value="data_count ? data_count.forms : 0"
+                        />
+                        <CardStats
+                            label="Prodi"
+                            icon="fa-solid fa-graduation-cap"
+                            color="red"
+                            :value="data_count ? data_count?.prodi : 0"
+                        />
+                        <CardStats
+                            label="Gel. Aktif"
+                            icon="fa-solid fa-water"
+                            color="orange"
+                            :value="data_count ? data_count?.wave : 0"
+                        />
                     </Grid>
+                    <div>
+                        <h2 class="text-xl font-bold mt-8 mb-4">
+                            Antrian Verifikasi Formulir Mahasiswa
+                        </h2>
+                        <Grid col="1" sm="2" md="4" lg="4">
+                            <CardStats
+                                label="Formulir"
+                                icon="fa-solid fa-user-tie"
+                                color="blue"
+                                :value="
+                                    data_count
+                                        ? data_count?.validation?.forms
+                                        : 0
+                                "
+                            />
+
+                            <CardStats
+                                label="Penetuan"
+                                icon="fa-solid fa-person-circle-question"
+                                color="green"
+                                :value="
+                                    data_count
+                                        ? data_count?.validation?.graduation
+                                        : 0
+                                "
+                            />
+                            <CardStats
+                                label="Pembayaran"
+                                icon="fa-solid fa-cash-register"
+                                color="red"
+                                :value="
+                                    data_count
+                                        ? data_count?.validation?.payment
+                                        : 0
+                                "
+                            />
+                            <CardStats
+                                label="MCU"
+                                icon="fa-solid fa-stethoscope"
+                                color="orange"
+                                :value="
+                                    data_count
+                                        ? data_count?.validation?.medical_check
+                                        : 0
+                                "
+                            />
+                            <CardStats
+                                label="Wawancara"
+                                icon="fa-solid fa-user-check"
+                                color="yellow"
+                                :value="
+                                    data_count
+                                        ? data_count?.validation?.interview
+                                        : 0
+                                "
+                            />
+                        </Grid>
+                    </div>
                     <Card title="Statistik">
                         <Bar
                             v-if="data_chart"

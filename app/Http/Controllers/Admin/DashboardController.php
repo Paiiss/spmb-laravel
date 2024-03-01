@@ -13,6 +13,9 @@ use Carbon\Carbon;
 use App\Http\Resources\ApiResource;
 use App\Models\Prodi;
 use App\Models\Wave;
+use App\Models\Payment;
+use App\Models\Health;
+use App\Models\Interviews;
 
 class DashboardController extends Controller
 {
@@ -110,6 +113,13 @@ class DashboardController extends Controller
                 'users' => User::count(),
                 'prodi' => Prodi::where('status', 1)->count(),
                 'wave' => Wave::getActiveData()->count(),
+                'validation' => [
+                    'forms' => Form::where('status', 'submitted')->count(),
+                    'graduation' => Form::where('end_status', 'submitted')->count(),
+                    'payment' => Payment::where('status', 'pending')->count(),
+                    'medical_check' => Health::where('status', 'waiting')->count(),
+                    'interview' => Interviews::where('status', 'pending')->count(),
+                ]
             ]
         ]);
     }
