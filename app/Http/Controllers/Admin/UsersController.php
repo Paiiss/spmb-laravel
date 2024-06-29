@@ -13,9 +13,18 @@ class UsersController extends Controller
 {
     public function view(): Response
     {
-        return Inertia::render("Admin/User", [
-            "users" => User::paginate(10)
-        ]);
+        return Inertia::render("Admin/User");
+    }
+
+    public function index(Request $request)
+    {
+        if ($request->has('search')) {
+            $user = User::where("name", "LIKE", "%{$request->search}%")->orWhere('email', 'LIKE', "%{$request->search}%")->orWhere('phone', 'LIKE', "%{$request->search}%")->paginate(10);
+        } else {
+            $user = User::paginate(10);
+        }
+
+        return response()->json($user);
     }
 
     public function search(string $search)

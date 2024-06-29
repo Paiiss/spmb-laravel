@@ -24,7 +24,7 @@ class WebSettingController extends Controller
     public function update(WebSettingsRequest $request): RedirectResponse
     {
         $webSettings = WebSettings::first();
-        // dd($request->validated());
+
         $webSettings->update($request->validated());
 
         session()->flash('alert', [
