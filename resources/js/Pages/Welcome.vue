@@ -134,8 +134,15 @@ const setting_carousel = {
                         </h1>
                         <div class="pb-3">
                             <h2 class="text-xl md:text-3xl font-semibold">
-                                {{ $page.props.web_settings.institution_name }}
+                                <span
+                                    class="bg-gradient-to-r from-primary-700 to-primary bg-clip-text font-[800] text-transparent"
+                                    >{{
+                                        $page.props.web_settings
+                                            .institution_name
+                                    }}</span
+                                >
                             </h2>
+                            <!-- <span class="bg-gradient-to-r from-primary to-rose-500 bg-clip-text font-[800] text-transparent">Mitra TopupKuy</span> -->
                             <p class="leading-relaxed">
                                 {{
                                     $page.props.web_settings
@@ -174,7 +181,7 @@ const setting_carousel = {
                 data-aos-duration="2000"
             >
                 <h2
-                    class="text-2xl md:text-3xl text-gray-600 text-center font-bold pb-5 mb-10 capitalize"
+                    class="text-2xl md:text-3xl text-gray-800 text-center font-bold pb-5 mb-10 capitalize"
                 >
                     <span class="relative inline-block">
                         <span
@@ -370,7 +377,7 @@ const setting_carousel = {
                     class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4"
                 >
                     <div
-                        class="flex flex-col md:flex-row justify-between bg-background-primary container mx-auto rounded-lg p-6"
+                        class="flex flex-wrap gap-2 justify-between bg-background-primary container mx-auto rounded-lg p-6"
                     >
                         <div>
                             <h5
@@ -385,7 +392,7 @@ const setting_carousel = {
                                 panduan pendaftaran
                             </p>
                         </div>
-                        <div class="flex mt-5 md:mt-0">
+                        <div class="flex">
                             <div
                                 class="flex flex-row gap-3 items-center sm:flex-row sm:gap-5 sm:justify-end sm:items-center"
                             >
@@ -420,7 +427,7 @@ const setting_carousel = {
                         </div>
                     </div>
                     <div
-                        class="flex flex-col md:flex-row justify-between bg-background-primary container mx-auto rounded-lg p-6"
+                        class="flex flex-wrap gap-2 justify-between bg-background-primary container mx-auto rounded-lg p-6"
                     >
                         <div>
                             <h5
@@ -434,7 +441,7 @@ const setting_carousel = {
                                 biaya
                             </p>
                         </div>
-                        <div class="flex mt-5 md:mt-0">
+                        <div class="flex">
                             <div
                                 class="flex flex-row gap-3 items-center sm:flex-row sm:gap-5 sm:justify-end sm:items-center"
                             >

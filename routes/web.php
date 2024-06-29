@@ -156,6 +156,7 @@ Route::middleware(['auth', 'verified', "role:admin,panitia,keuangan"])->prefix('
 
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/user', [UsersController::class, 'view'])->name('user');
+        Route::get('/user-data', [UsersController::class, 'index'])->name('user.index');
         Route::get('/user/search/{search}', [UsersController::class, 'search'])->name('user.search');
         Route::patch('/user/{id}', [UsersController::class, 'update'])->name('user.update');
         Route::delete('/user/{id}', [UsersController::class, 'destroy'])->name('user.destroy');
